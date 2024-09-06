@@ -52,6 +52,12 @@ const updateRole = async (req, res) => {
                 schema: { $ref: '#/definitions/Role' }
         } */
 
+		const existingId = await roleModel.findOne({ _id: req.params.id });
+
+		if (!existingId) {
+			return res.status(409).json(error("This role Id doesn't exist", res.statusCode));
+		}
+
 		const existingRole = await roleModel.findOne({ name: req.body.name });
 
 		if (existingRole) {
@@ -67,15 +73,10 @@ const updateRole = async (req, res) => {
 				},
 				{ new: true }
 			);
-
-			if (!updatedRole) {
-				return res.status(409).json(error(`This role Id doesn't exist`, res.statusCode));
-			} else {
-				return res.status(200).json(success(`Role updated succesfully`, updatedRole, res.statusCode));
-			}
+			return res.status(200).json(success(`Role updated succesfully`, updatedRole, res.statusCode));
 		}
 	} catch (err) {
-		return res.status(500).json(error(`${err.message}`, res.statusCode));
+		return res.status(409).json(error(`This role Id doesn't exist`, res.statusCode));
 	}
 };
 
