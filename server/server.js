@@ -2,14 +2,12 @@ const express = require('express');
 const connectToDb = require('./config/connectTodb');
 const dotenv = require('dotenv');
 dotenv.config();
-const cors = require('cors');
 const swaggerUi = require('swagger-ui-express')
 const swaggerFile = require('./swagger_output.json')
 const personRouter = require('./routes/products')
 const roleRouter = require('./routes/roles')
 const app = express();
 
-app.use(cors());
 
 // parse json request body
 app.use(express.json());

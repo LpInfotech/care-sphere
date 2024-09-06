@@ -9,7 +9,7 @@ const config = {
 		title: 'Care Sphere API Documentation',
 		description: 'Description'
 	},
-	host: 'localhost:3001',
+	host: 'localhost:3000',
 	schemes: ['http', 'https'],
 	consumes: ['application/json'],
 	produces: ['application/json'],
