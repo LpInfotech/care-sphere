@@ -20,9 +20,13 @@ import * as yup from "yup";
 import { useFormik } from "formik";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
 import theme from "../../../shared/theme/theme";
+import SnackBar from "../../../shared/components/snackbar/snackbar";
 
 const login = () => {
   const [showPassword, setShowPassword] = useState(false);
+  const [openSnackbar, setOpenSnackbar] = useState(false);
+  const [snackbarMessage, setSnackbarMessage] = useState("");
+  const [snackbarType, setSnackbarType] = useState("");
   const basicSchema = yup.object().shape({
     emailAddress: yup
       .string()
@@ -32,10 +36,28 @@ const login = () => {
   });
   //======== password visibility ========
   const handleClickShowPassword = () => setShowPassword((show) => !show);
-
+  //======== snackbar close ========
+  const handleCloseSnackbar = () => {
+    setOpenSnackbar(false);
+  };
   // ======== Login user integrating with api ========
   const LoginUser = () => {
     console.log(formik.values);
+    if (
+      formik.values.emailAddress === "admin@care.com" &&
+      formik.values.password === "Admin@123"
+    ) {
+      console.log("You have successfully logged in");
+      formik.resetForm();
+      setSnackbarType("success");
+      setOpenSnackbar(true);
+      setSnackbarMessage("You have successfully logged in");
+    } else {
+      console.warn("Incorrect email and password combination");
+      setSnackbarMessage("Email and Password combination doesn't match");
+      setSnackbarType("error");
+      setOpenSnackbar(true);
+    }
   };
 
   //======== formik validating onsubmit ========
@@ -274,6 +296,15 @@ const login = () => {
           </Box>
         </Grid>
       </Grid>
+      {/* snackbar component */}
+      <SnackBar
+        open={openSnackbar}
+        onClose={handleCloseSnackbar}
+        message={snackbarMessage}
+        snackbarType={snackbarType === "success" ? "success" : "error"}
+        severity={snackbarType === "success" ? "success" : "error"}
+      />
+      {/* /snackbar component */}
     </Container>
   );
 };
