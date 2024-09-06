@@ -9,6 +9,11 @@ const roleSchema = new mongoose.Schema(
 		order: {
 			type: Number,
 			required: true
+		},
+		isActive: {
+			type: Boolean,
+			enum: [true, false],
+			default: true
 		}
 	},
 	{ timestamps: true }

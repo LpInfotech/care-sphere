@@ -37,6 +37,20 @@
           "Roles"
         ],
         "description": "",
+        "parameters": [
+          {
+            "name": "isActive",
+            "in": "query",
+            "description": "isActive values that need to be considered for filter",
+            "default": true,
+            "required": true,
+            "type": "boolean",
+            "enum": [
+              true,
+              false
+            ]
+          }
+        ],
         "responses": {
           "200": {
             "description": "OK"

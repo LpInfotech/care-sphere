@@ -26,6 +26,17 @@ const getRoles = async (req, res) => {
 	/*  #swagger.tags = ['Roles']
        #swagger.description = '' */
 	try {
+		/*  #swagger.parameters['isActive'] = {
+            "name": "isActive",
+            "in": "query",
+            "description": "isActive values that need to be considered for filter",
+			"default": true,
+			"required": true,
+            "type": "boolean",
+            "enum": [true,false],
+			
+    } */
+         
 		const responseList = await roleModel.find().exec();
 
 		return res
