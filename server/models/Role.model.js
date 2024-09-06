@@ -12,8 +12,7 @@ const roleSchema = new mongoose.Schema(
 		},
 		isActive: {
 			type: Boolean,
-			enum: [true, false],
-			default: true
+			default: undefined
 		}
 	},
 	{ timestamps: true }

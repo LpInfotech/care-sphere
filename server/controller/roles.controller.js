@@ -1,94 +1,127 @@
-const { success, error } = require('../utils/responseApi');
-const roleModel = require('../models/Role.model');
+const { success, error } = require("../utils/responseApi");
+const roleModel = require("../models/Role.model");
 
 const createRole = async (req, res) => {
-	/*  #swagger.tags = ['Roles']
+  /*  #swagger.tags = ['Roles']
        #swagger.description = '' */
-	try {
-		/*  #swagger.parameters['body'] = {
+  try {
+    /*  #swagger.parameters['body'] = {
                 in: 'body',
                 description: '',
                 schema: { $ref: '#/definitions/Role' }
         } */
 
-		let existingRole = await roleModel.findOne({ name: req.body.name });
-		if (!existingRole) {
-			const newRole = await roleModel.create(req.body);
-			return res.status(201).json(success(`Role Created Succesfully`, newRole, res.statusCode));
-		}
-		return res.status(409).json(error('This role already exists', res.statusCode));
-	} catch (err) {
-		return res.status(500).json(error(`${err.message}`, res.statusCode));
-	}
+    let existingRole = await roleModel.findOne({ name: req.body.name });
+    if (!existingRole) {
+      const newRole = await roleModel.create({
+        name: req.body.name,
+        order: req.body.order,
+        isActive: true,
+      });
+      return res
+        .status(201)
+        .json(success(`Role Created Succesfully`, newRole, res.statusCode));
+    }
+    return res
+      .status(409)
+      .json(error("This role already exists", res.statusCode));
+  } catch (err) {
+    return res.status(500).json(error(`${err.message}`, res.statusCode));
+  }
 };
 
 const getRoles = async (req, res) => {
-	/*  #swagger.tags = ['Roles']
+  /*  #swagger.tags = ['Roles']
        #swagger.description = '' */
-	try {
-		/*  #swagger.parameters['isActive'] = {
+  try {
+    /*  #swagger.parameters['isActive'] = {
             "name": "isActive",
             "in": "query",
             "description": "isActive values that need to be considered for filter",
-			"default": true,
-			"required": true,
+			"default": undefined,
+			"required": false,
             "type": "boolean",
-            "enum": [true,false],
-			
+            "enum": [true, false],
     } */
-         
-		const responseList = await roleModel.find().exec();
 
-		return res
-			.status(200)
-			.json(
-				success(
-					`Roles fetched succesfully`,
-					{ recordCount: responseList.length, records: responseList },
-					res.statusCode
-				)
-			);
-	} catch (err) {
-		return res.status(500).json(error(`${err.message}`, res.statusCode));
-	}
+    let responseList;
+
+    if (req.query.isActive === undefined) {
+      responseList = await roleModel.find().exec();
+    } else {
+      responseList = await roleModel
+        .find({ isActive: req.query.isActive })
+        .exec();
+    }
+
+    return res
+      .status(200)
+      .json(
+        success(
+          `Roles fetched succesfully`,
+          { recordCount: responseList.length, records: responseList },
+          res.statusCode
+        )
+      );
+  } catch (err) {
+    return res.status(500).json(error(`${err.message}`, res.statusCode));
+  }
 };
 
 const updateRole = async (req, res) => {
-	/*  #swagger.tags = ['Roles']
+  /*  #swagger.tags = ['Roles']
        #swagger.description = '' */
-	try {
-		/*  #swagger.parameters['body'] = {
+  try {
+    /*  #swagger.parameters['body'] = {
                 in: 'body',
                 description: '',
                 schema: { $ref: '#/definitions/Role' }
         } */
 
-		const existingId = await roleModel.findOne({ _id: req.params.id });
+    const existingId = await roleModel.findOne({ _id: req.params.id });
 
-		if (!existingId) {
-			return res.status(409).json(error("This role Id doesn't exist", res.statusCode));
-		}
+    if (!existingId) {
+      return res
+        .status(409)
+        .json(error("This role Id doesn't exist", res.statusCode));
+    }
 
-		const existingRole = await roleModel.findOne({ name: req.body.name });
+    const existingRole = await roleModel.findOne({ name: req.body.name });
 
-		if (existingRole) {
-			return res
-				.status(409)
-				.json(error('You have already created this role name. Please try a different one', res.statusCode));
-		} else {
-			const updatedRole = await roleModel.findByIdAndUpdate(
-				req.params.id,
-				{
-					name: req.body.name,
-					order: req.body.order
-				},
-				{ new: true }
-			);
-			return res.status(200).json(success(`Role updated succesfully`, updatedRole, res.statusCode));
-		}
-	} catch (err) {
-		return res.status(409).json(error(`This role Id doesn't exist`, res.statusCode));
-	}
+    if (existingRole) {
+      return res
+        .status(409)
+        .json(
+          error(
+            "You have already created this role name. Please try a different one",
+            res.statusCode
+          )
+        );
+    } else {
+      const updatedRole = await roleModel.findByIdAndUpdate(
+        req.params.id,
+        {
+          name: req.body.name,
+          order: req.body.order,
+        },
+        { new: true }
+      );
+      return res
+        .status(200)
+        .json(success(`Role updated succesfully`, updatedRole, res.statusCode));
+    }
+  } catch (err) {
+    return res
+      .status(409)
+      .json(error(`This role Id doesn't exist`, res.statusCode));
+  }
 };
+
+//#region
+
+// archieve - put - isActive = false
+// unarchive - put - isActive == true
+
+//#endregion
 
 module.exports = { getRoles, createRole, updateRole };

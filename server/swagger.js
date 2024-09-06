@@ -22,7 +22,7 @@ const config = {
 	definitions: {
 		Role: {
 			name: 'role-name',
-			order: 0
+			order: 0,
 		}
 	},
 	securityDefinitions: {
