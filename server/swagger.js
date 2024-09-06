@@ -15,19 +15,11 @@ const config = {
 	produces: ['application/json'],
 	tags: [
 		{
-			name: 'Products',
-			description: 'products apis'
-		},
-		{
 			name: 'Roles',
-			description: 'Roles desc'
+			description: 'Roles List'
 		}
 	],
 	definitions: {
-		Product: {
-			name: 'product-name',
-			price: 10
-		},
 		Role: {
 			name: 'role-name',
 			order: 0

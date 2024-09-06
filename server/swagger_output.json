@@ -9,12 +9,8 @@
   "basePath": "/",
   "tags": [
     {
-      "name": "Products",
-      "description": "products apis"
-    },
-    {
       "name": "Roles",
-      "description": "Roles desc"
+      "description": "Roles List"
     }
   ],
   "schemes": [
@@ -35,32 +31,6 @@
     "application/json"
   ],
   "paths": {
-    "/api/products": {
-      "post": {
-        "tags": [
-          "Products"
-        ],
-        "description": "",
-        "parameters": [
-          {
-            "name": "body",
-            "in": "body",
-            "description": "",
-            "schema": {
-              "$ref": "#/definitions/Product"
-            }
-          }
-        ],
-        "responses": {
-          "201": {
-            "description": "Created"
-          },
-          "500": {
-            "description": "Internal Server Error"
-          }
-        }
-      }
-    },
     "/admin/roles": {
       "get": {
         "tags": [
@@ -143,19 +113,6 @@
     }
   },
   "definitions": {
-    "Product": {
-      "type": "object",
-      "properties": {
-        "name": {
-          "type": "string",
-          "example": "product-name"
-        },
-        "price": {
-          "type": "number",
-          "example": 10
-        }
-      }
-    },
     "Role": {
       "type": "object",
       "properties": {
