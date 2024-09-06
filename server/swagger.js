@@ -1,7 +1,7 @@
 const swaggerAutogen = require('swagger-autogen')();
 
 const outputFile = './swagger_output.json';
-const endpointsFiles = ['./routes/*.js'];
+const endpointsFiles = ['./server.js'];
 
 const config = {
 	info: {
@@ -9,7 +9,7 @@ const config = {
 		title: 'Care Sphere API Documentation',
 		description: 'Description'
 	},
-	host: 'localhost:3000/api',
+	host: 'localhost:3000',
 	schemes: ['http', 'https'],
 	consumes: ['application/json'],
 	produces: ['application/json'],
