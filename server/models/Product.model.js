@@ -9,12 +9,6 @@ const productSchema = new mongoose.Schema(
 		price: {
 			type: Number,
 			required: true,
-			// validate: {
-			// 	validator: function (v) {
-			// 		return typeof v !== 'number';
-			// 	},
-			// 	message: (props) => `${props.value} Enter number!`
-			// }
 		}
 	},
 	{ timestamps: true }
