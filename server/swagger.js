@@ -9,7 +9,7 @@ const config = {
 		title: 'Care Sphere API Documentation',
 		description: 'Description'
 	},
-	host: 'localhost:3000',
+	host: 'localhost:3001',
 	schemes: ['http', 'https'],
 	consumes: ['application/json'],
 	produces: ['application/json'],
@@ -19,14 +19,18 @@ const config = {
 			description: 'products apis'
 		},
 		{
-			name: 'Todo',
-			description: 'Todo App'
+			name: 'Roles',
+			description: 'Roles desc'
 		}
 	],
 	definitions: {
 		Product: {
-			name: 'name',
+			name: 'product-name',
 			price: 10
+		},
+		Role: {
+			name: 'role-name',
+			order: 0
 		}
 	},
 	securityDefinitions: {

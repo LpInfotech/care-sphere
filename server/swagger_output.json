@@ -5,7 +5,7 @@
     "title": "Care Sphere API Documentation",
     "description": "Description"
   },
-  "host": "localhost:3000",
+  "host": "localhost:3001",
   "basePath": "/",
   "tags": [
     {
@@ -13,8 +13,8 @@
       "description": "products apis"
     },
     {
-      "name": "Todo",
-      "description": "Todo App"
+      "name": "Roles",
+      "description": "Roles desc"
     }
   ],
   "schemes": [
@@ -60,6 +60,86 @@
           }
         }
       }
+    },
+    "/admin/roles": {
+      "get": {
+        "tags": [
+          "Roles"
+        ],
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/admin/role": {
+      "post": {
+        "tags": [
+          "Roles"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/Role"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Created"
+          },
+          "409": {
+            "description": "Conflict"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/admin/role/{id}": {
+      "put": {
+        "tags": [
+          "Roles"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/Role"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "409": {
+            "description": "Conflict"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
     }
   },
   "definitions": {
@@ -68,11 +148,24 @@
       "properties": {
         "name": {
           "type": "string",
-          "example": "name"
+          "example": "product-name"
         },
         "price": {
           "type": "number",
           "example": 10
+        }
+      }
+    },
+    "Role": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "example": "role-name"
+        },
+        "order": {
+          "type": "number",
+          "example": 0
         }
       }
     }
