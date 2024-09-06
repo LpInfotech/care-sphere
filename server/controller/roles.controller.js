@@ -1,88 +1,82 @@
-const { success, error } = require("../utils/responseApi");
-const roleModel = require("../models/Role.model");
+const { success, error } = require('../utils/responseApi');
+const roleModel = require('../models/Role.model');
 
 const createRole = async (req, res) => {
-  /*  #swagger.tags = ['Roles']
+	/*  #swagger.tags = ['Roles']
        #swagger.description = '' */
-  try {
-    /*  #swagger.parameters['body'] = {
+	try {
+		/*  #swagger.parameters['body'] = {
                 in: 'body',
                 description: '',
                 schema: { $ref: '#/definitions/Role' }
         } */
 
-    let existingRole = await roleModel.findOne({ name: req.body.name });
-    if (!existingRole) {
-      const newRole = await roleModel.create(req.body);
-      return res
-        .status(201)
-        .json(success(`Role Created Succesfully`, newRole, res.statusCode));
-    }
-    return res.status(409).json(error("This role already exists", res.statusCode));
-  } catch (err) {
-    return res.status(500).json(error(`${err.message}`, res.statusCode));
-  }
+		let existingRole = await roleModel.findOne({ name: req.body.name });
+		if (!existingRole) {
+			const newRole = await roleModel.create(req.body);
+			return res.status(201).json(success(`Role Created Succesfully`, newRole, res.statusCode));
+		}
+		return res.status(409).json(error('This role already exists', res.statusCode));
+	} catch (err) {
+		return res.status(500).json(error(`${err.message}`, res.statusCode));
+	}
 };
 
 const getRoles = async (req, res) => {
-  /*  #swagger.tags = ['Roles']
+	/*  #swagger.tags = ['Roles']
        #swagger.description = '' */
-  try {
-    const responseList = await roleModel.find().exec();
+	try {
+		const responseList = await roleModel.find().exec();
 
-    return res
-      .status(200)
-      .json(
-        success(
-          `Roles fetched succesfully`,
-          { recordCount: responseList.length, records: responseList },
-          res.statusCode
-        )
-      );
-  } catch (err) {
-  return res.status(500).json(error(`${err.message}`, res.statusCode));
-  }
+		return res
+			.status(200)
+			.json(
+				success(
+					`Roles fetched succesfully`,
+					{ recordCount: responseList.length, records: responseList },
+					res.statusCode
+				)
+			);
+	} catch (err) {
+		return res.status(500).json(error(`${err.message}`, res.statusCode));
+	}
 };
 
 const updateRole = async (req, res) => {
-  /*  #swagger.tags = ['Roles']
+	/*  #swagger.tags = ['Roles']
        #swagger.description = '' */
-  try {
-    /*  #swagger.parameters['body'] = {
+	try {
+		/*  #swagger.parameters['body'] = {
                 in: 'body',
                 description: '',
                 schema: { $ref: '#/definitions/Role' }
         } */
 
-    const existingRole = await roleModel.findOne({ name: req.body.name });
+		const existingRole = await roleModel.findOne({ name: req.body.name });
 
-    if (existingRole) {
-      return res
-        .status(409)
-        .json("You have already created this role name. Please try a different one");
-    } else {
-      const updatedRole = await roleModel.findByIdAndUpdate(
-        req.params.id,
-        {
-          name: req.body.name,
-          order: req.body.order,
-        },
-        { new: true }
-      );
+		if (existingRole) {
+			return res
+				.status(409)
+				.json(error('You have already created this role name. Please try a different one', res.statusCode));
+		} else {
+			const updatedRole = await roleModel.findByIdAndUpdate(
+				req.params.id,
+				{
+					name: req.body.name,
+					order: req.body.order
+				},
+				{ new: true }
+			);
 
-      if (!updatedRole) {
-        return res.status(409).json(error(`This role name doesn't exist`, res.statusCode));
-      } else {
-        return res
-          .status(200)
-          .json(
-            success(`Role updated succesfully`, updatedRole, res.statusCode)
-          );
-      }
-    }
-  } catch (err) {
-    return res.status(500).json(error(`${err.message}`, res.statusCode));
-  }
+			if (!updatedRole) {
+				return res.status(409).json(error(`This role Id doesn't exist`, res.statusCode));
+			} else {
+				return res.status(200).json(success(`Role updated succesfully`, updatedRole, res.statusCode));
+			}
+		}
+	} catch (err) {
+		return res.status(500).json(error(`${err.message}`, res.statusCode));
+	}
 };
 
 module.exports = { getRoles, createRole, updateRole };
