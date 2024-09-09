@@ -14,8 +14,7 @@ app.use(express.json());
 // parse urlencoded request body
 app.use(express.urlencoded({ extended: true }));
 
-app.use("/api", roleRouter);
-app.use("/api", positionRouter);
+app.use("/api", roleRouter, positionRouter);
 app.use("/doc", swaggerUi.serve, swaggerUi.setup(swaggerFile));
 
 connectToDb();

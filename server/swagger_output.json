@@ -244,8 +244,11 @@
         }
       }
     },
-    "/api/getPositionsByRoleId/{id}": {
+    "/api/positionsByRoleId/{id}": {
       "get": {
+        "tags": [
+          "Positions"
+        ],
         "description": "",
         "parameters": [
           {
@@ -256,8 +259,14 @@
           }
         ],
         "responses": {
-          "default": {
-            "description": ""
+          "200": {
+            "description": "OK"
+          },
+          "409": {
+            "description": "Conflict"
+          },
+          "500": {
+            "description": "Internal Server Error"
           }
         }
       }
