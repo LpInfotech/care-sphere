@@ -11,6 +11,10 @@
     {
       "name": "Roles",
       "description": "Roles List"
+    },
+    {
+      "name": "Positions",
+      "description": "Positions List"
     }
   ],
   "schemes": [
@@ -31,7 +35,7 @@
     "application/json"
   ],
   "paths": {
-    "/admin/roles": {
+    "/api/roles": {
       "get": {
         "tags": [
           "Roles"
@@ -60,7 +64,7 @@
         }
       }
     },
-    "/admin/role": {
+    "/api/role": {
       "post": {
         "tags": [
           "Roles"
@@ -89,7 +93,20 @@
         }
       }
     },
-    "/admin/role/{id}": {
+    "/api/deleteAllRoles": {
+      "delete": {
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/api/role/{id}": {
       "put": {
         "tags": [
           "Roles"
@@ -120,6 +137,223 @@
           }
         }
       }
+    },
+    "/api/role/{id}/archive": {
+      "put": {
+        "tags": [
+          "Roles"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "409": {
+            "description": "Conflict"
+          }
+        }
+      }
+    },
+    "/api/role/{id}/unarchive": {
+      "put": {
+        "tags": [
+          "Roles"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "409": {
+            "description": "Conflict"
+          }
+        }
+      }
+    },
+    "/api/positions": {
+      "get": {
+        "tags": [
+          "Positions"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "isActive",
+            "in": "query",
+            "description": "isActive values that need to be considered for filter",
+            "required": false,
+            "type": "boolean",
+            "enum": [
+              true,
+              false
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/api/position": {
+      "post": {
+        "tags": [
+          "Positions"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/Position"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Created"
+          },
+          "409": {
+            "description": "Conflict"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/api/getPositionsByRoleId/{id}": {
+      "get": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/api/deleteAllPositions": {
+      "delete": {
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/api/position/{id}": {
+      "put": {
+        "tags": [
+          "Positions"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/Position"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "409": {
+            "description": "Conflict"
+          }
+        }
+      }
+    },
+    "/api/position/{id}/archive": {
+      "put": {
+        "tags": [
+          "Positions"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "409": {
+            "description": "Conflict"
+          }
+        }
+      }
+    },
+    "/api/position/{id}/unarchive": {
+      "put": {
+        "tags": [
+          "Positions"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "409": {
+            "description": "Conflict"
+          }
+        }
+      }
     }
   },
   "definitions": {
@@ -133,6 +367,27 @@
         "order": {
           "type": "number",
           "example": 0
+        }
+      }
+    },
+    "Position": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "example": "position-name"
+        },
+        "code": {
+          "type": "number",
+          "example": 123
+        },
+        "isActive": {
+          "type": "boolean",
+          "example": true
+        },
+        "roleId": {
+          "type": "string",
+          "example": "66dafcc7985b4581b2716913"
         }
       }
     }

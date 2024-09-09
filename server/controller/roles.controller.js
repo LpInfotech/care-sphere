@@ -117,11 +117,83 @@ const updateRole = async (req, res) => {
   }
 };
 
-//#region
+const archiveRole = async (req, res) => {
+  /*  #swagger.tags = ['Roles']
+       #swagger.description = '' */
+  try {
+    const existingId = await roleModel.findOne({ _id: req.params.id });
 
-// archieve - put - isActive = false
-// unarchive - put - isActive == true
+    if (!existingId) {
+      return res
+        .status(409)
+        .json(error("This role Id doesn't exist", res.statusCode));
+    }
+    const updatedRole = await roleModel.findByIdAndUpdate(
+      req.params.id,
+      {
+        isActive: false,
+      },
+      { new: true }
+    );
+    return res
+      .status(200)
+      .json(success(`Role archieved succesfully`, updatedRole, res.statusCode));
+  } catch (err) {
+    return res
+      .status(409)
+      .json(error(`This role Id doesn't exist`, res.statusCode));
+  }
+};
 
-//#endregion
+const unarchiveRole = async (req, res) => {
+  /*  #swagger.tags = ['Roles']
+       #swagger.description = '' */
+  try {
+    const existingId = await roleModel.findOne({ _id: req.params.id });
 
-module.exports = { getRoles, createRole, updateRole };
+    if (!existingId) {
+      return res
+        .status(409)
+        .json(error("This role Id doesn't exist", res.statusCode));
+    }
+
+    const updatedRole = await roleModel.findByIdAndUpdate(
+      req.params.id,
+      {
+        isActive: true,
+      },
+      { new: true }
+    );
+    return res
+      .status(200)
+      .json(
+        success(`Role unarchieved succesfully`, updatedRole, res.statusCode)
+      );
+  } catch (err) {
+    return res
+      .status(409)
+      .json(error(`This role Id doesn't exist`, res.statusCode));
+  }
+};
+
+const deleteAllRoles = async (req, res) => {
+  try {
+    const deleteResult = await roleModel.deleteMany({});
+    return res
+      .status(200)
+      .json(
+        success(`All Roles deleted succesfully`, deleteResult, res.statusCode)
+      );
+  } catch (error) {
+    return res.status(500).json(error(`${err.message}`, res.statusCode));
+  }
+};
+
+module.exports = {
+  getRoles,
+  createRole,
+  updateRole,
+  archiveRole,
+  unarchiveRole,
+  deleteAllRoles,
+};
