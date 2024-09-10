@@ -14,7 +14,7 @@ import {
   Typography,
   Divider,
 } from "@mui/material";
-import Grid from "@mui/material/Grid";
+import Grid from "@mui/material/Grid2";
 import { useState } from "react";
 import * as yup from "yup";
 import { useFormik } from "formik";
@@ -72,23 +72,23 @@ const login = () => {
 
   //======== JSX ========
   return (
-    <Container maxWidth={false}>
-      <Box>
-        <div className="animate one"></div>
-        <div className="animate two"></div>
-        <div className="animate three"></div>
-        <div className="animate four"></div>
-        <div className="animate five"></div>
-        <div className="animate six"></div>
-        <div className="animate seven"></div>
-        <div className="animate eight"></div>
-        <div className="animate nine"></div>
-        <div className="animate ten"></div>
-        <div className="animate eleven"></div>
-        <div className="animate twelve"></div>
+    <Container maxWidth={false} className="main-container">
+      <Box className="animate">
+        <div className="one"></div>
+        <div className="two"></div>
+        <div className="three"></div>
+        <div className="four"></div>
+        <div className="five"></div>
+        <div className="six"></div>
+        <div className="seven"></div>
+        <div className="eight"></div>
+        <div className="nine"></div>
+        <div className="ten"></div>
+        <div className="eleven"></div>
+        <div className="twelve"></div>
       </Box>
       <Grid container spacing={2}>
-        <Grid item xs={12} display="flex" justifyContent="center">
+        <Grid size={{ xs: 12 }} display="flex" justifyContent="center">
           <Box
             sx={{
               display: "flex",
@@ -108,15 +108,15 @@ const login = () => {
                 borderRadius: "12px",
                 zIndex: "modal",
                 padding: {
-                  xs: "16px", // Smaller padding for extra small screens
-                  md: "48px", // Default padding for medium screens
+                  xs: "16px",
+                  md: "48px",
                 },
                 marginY: [3],
                 textAlign: "center",
                 width: {
-                  xs: "100%", // Full width for extra small screens
-                  sm: "80%", // Slightly smaller on small screens
-                  md: "auto", // Default for medium and above
+                  xs: "100%",
+                  sm: "80%",
+                  md: "auto",
                 },
               }}
             >
@@ -131,13 +131,11 @@ const login = () => {
               >
                 <Grid container spacing={2}>
                   <Grid
-                    item
                     display={{
-                      xs: "none", // Hide the image on extra small screens
-                      md: "block", // Show it on medium screens and above
+                      xs: "none",
+                      md: "block",
                     }}
-                    xs={12}
-                    md={5}
+                    size={{ xs: 12, md: 5 }}
                     paddingLeft="0px !important"
                     paddingTop="0px !important"
                   >
@@ -152,12 +150,12 @@ const login = () => {
                       marginInline: "auto",
                       border: "0.1px solid #80808033",
                       display: {
-                        xs: "none", // Hide the divider on extra small screens
-                        md: "block", // Show it on medium screens and above
+                        xs: "none",
+                        md: "block",
                       },
                     }}
                   />
-                  <Grid item xs={12} md={5}>
+                  <Grid size={{ xs: 12, md: 5 }}>
                     <Divider
                       sx={{
                         borderBottomWidth: "thick",

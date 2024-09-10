@@ -4,15 +4,8 @@
   overflow: hidden;
   box-sizing: border-box;
 }
-body {
-  margin: 0;
-  place-items: center;
-  min-width: 320px;
-  min-height: 100vh;
-  overflow-x: hidden;
-  width: 100vw;
-  height: 100vh;
-  /* width: 100%; */
+
+.main-container {
   background-image: linear-gradient(
     45deg,
     rgba(26, 33, 64, 1),
@@ -23,442 +16,239 @@ body {
   animation: color 12s ease-in-out infinite;
 }
 
-@media (max-width: 600px) {
-  .MuiPaper-root {
-    padding: 16px !important;
-  }
+a:hover {
+  color: #00889d;
+}
 
-  .MuiFormControl-root {
-    margin-bottom: 16px !important;
-  }
-}
-@keyframes color {
-  0% {
-    background-position: 0 50%;
-  }
-  50% {
-    background-position: 100% 50%;
-  }
-  100% {
-    background-position: 0 50%;
-  }
-}
-button:focus,
-button:focus-visible {
-  outline: none !important;
-}
-.animate {
+.animate div {
   position: absolute;
   border-radius: 5px;
   background-color: #268a99;
   box-shadow: 100%;
 }
+
+/* Shared animation for all elements */
+.shared-animation {
+  position: absolute;
+  opacity: 10%;
+}
+
+/* Keyframe for shared opacity transition */
+@keyframes sharedOpacity {
+  20%,
+  60% {
+    opacity: 90%;
+  }
+  40%,
+  80% {
+    opacity: 10%;
+  }
+}
+
+/* Animation for each element with individual movement and rotation */
+
+/* .one */
 .one {
   left: 2%;
   width: 35px;
   height: 35px;
-  animation: one 10s linear infinite;
+  animation: oneMovement 10s linear infinite, sharedOpacity 10s linear infinite;
 }
-@keyframes one {
+@keyframes oneMovement {
   0% {
-    opacity: 10%;
     top: -130px;
   }
-  20% {
-    opacity: 90%;
-  }
-  40% {
-    opacity: 10%;
-  }
-  60% {
-    opacity: 90%;
-  }
-  80% {
-    opacity: 10%;
-  }
   100% {
-    opacity: 90%;
     top: 100%;
-    rotate: 1000deg;
+    transform: rotate(1000deg);
   }
 }
+
+/* .two */
 .two {
   left: 5%;
   width: 60px;
   height: 60px;
-  animation: two 12s linear infinite;
+  animation: twoMovement 12s linear infinite, sharedOpacity 12s linear infinite;
 }
-@keyframes two {
+@keyframes twoMovement {
   0% {
-    opacity: 10%;
     top: -500px;
   }
-  20% {
-    opacity: 90%;
-  }
-  40% {
-    opacity: 10%;
-  }
-  60% {
-    opacity: 90%;
-  }
-  80% {
-    opacity: 10%;
-  }
   100% {
-    opacity: 90%;
     top: 100%;
-    rotate: 360deg;
+    transform: rotate(360deg);
   }
 }
+
+/* .three */
 .three {
   left: 30%;
   width: 28px;
   height: 28px;
-  animation: three 9s linear infinite;
+  animation: threeMovement 9s linear infinite, sharedOpacity 9s linear infinite;
 }
-@keyframes three {
+@keyframes threeMovement {
   0% {
-    opacity: 10%;
     top: -300px;
   }
-  20% {
-    opacity: 90%;
-  }
-  40% {
-    opacity: 10%;
-  }
-  60% {
-    opacity: 90%;
-  }
-  80% {
-    opacity: 10%;
-  }
   100% {
-    opacity: 90%;
     top: 100%;
-    rotate: 1000deg;
+    transform: rotate(1000deg);
   }
 }
+
+/* .four */
 .four {
   left: 20%;
   width: 70px;
   height: 70px;
-  animation: four 20s linear infinite;
+  animation: fourMovement 20s linear infinite, sharedOpacity 20s linear infinite;
 }
-@keyframes four {
+@keyframes fourMovement {
   0% {
-    opacity: 10%;
     top: -130px;
   }
-  20% {
-    opacity: 90%;
-  }
-  40% {
-    opacity: 10%;
-  }
-  60% {
-    opacity: 90%;
-  }
-  80% {
-    opacity: 10%;
-  }
   100% {
-    opacity: 90%;
     top: 120%;
-    rotate: 300deg;
+    transform: rotate(300deg);
   }
 }
+
+/* .five */
 .five {
   left: 45%;
   width: 45px;
   height: 45px;
-  animation: five 11s linear infinite;
+  animation: fiveMovement 11s linear infinite, sharedOpacity 11s linear infinite;
 }
-@keyframes five {
+@keyframes fiveMovement {
   0% {
-    opacity: 10%;
     top: -40px;
   }
-  20% {
-    opacity: 90%;
-  }
-  40% {
-    opacity: 10%;
-  }
-  60% {
-    opacity: 90%;
-  }
-  80% {
-    opacity: 10%;
-  }
   100% {
-    opacity: 90%;
     top: 100%;
-    rotate: 1000deg;
+    transform: rotate(1000deg);
   }
 }
+
+/* .six */
 .six {
   left: 65%;
   width: 75px;
   height: 75px;
-  animation: six 15s linear infinite;
+  animation: sixMovement 15s linear infinite, sharedOpacity 15s linear infinite;
 }
-@keyframes six {
+@keyframes sixMovement {
   0% {
-    opacity: 10%;
     top: -300px;
   }
-  20% {
-    opacity: 90%;
-  }
-  40% {
-    opacity: 10%;
-  }
-  60% {
-    opacity: 90%;
-  }
-  80% {
-    opacity: 10%;
-  }
   100% {
-    opacity: 90%;
     top: 100%;
-    rotate: 400deg;
+    transform: rotate(400deg);
   }
 }
+
+/* .seven */
 .seven {
   left: 89%;
   width: 50px;
   height: 50px;
-  animation: seven 10s linear infinite;
+  animation: sevenMovement 10s linear infinite,
+    sharedOpacity 10s linear infinite;
 }
-@keyframes seven {
+@keyframes sevenMovement {
   0% {
-    opacity: 10%;
     top: -800px;
   }
-  20% {
-    opacity: 90%;
-  }
-  40% {
-    opacity: 10%;
-  }
-  60% {
-    opacity: 90%;
-  }
-  80% {
-    opacity: 10%;
-  }
   100% {
-    opacity: 90%;
     top: 100%;
-    rotate: 800deg;
+    transform: rotate(800deg);
   }
 }
+
+/* .eight */
 .eight {
   left: 74%;
   width: 90px;
   height: 90px;
-  animation: eight 20s linear infinite;
+  animation: eightMovement 20s linear infinite,
+    sharedOpacity 20s linear infinite;
 }
-@keyframes eight {
+@keyframes eightMovement {
   0% {
-    opacity: 10%;
     top: -130px;
   }
-  20% {
-    opacity: 90%;
-  }
-  40% {
-    opacity: 10%;
-  }
-  60% {
-    opacity: 90%;
-  }
-  80% {
-    opacity: 10%;
-  }
   100% {
-    opacity: 90%;
     top: 120%;
-    rotate: 240deg;
+    transform: rotate(240deg);
   }
 }
+
+/* .nine */
 .nine {
   left: 97%;
   width: 65px;
   height: 65px;
-  animation: nine 14s linear infinite;
+  animation: nineMovement 14s linear infinite, sharedOpacity 14s linear infinite;
 }
-@keyframes nine {
+@keyframes nineMovement {
   0% {
-    opacity: 10%;
     top: -130px;
   }
-  20% {
-    opacity: 90%;
-  }
-  40% {
-    opacity: 10%;
-  }
-  60% {
-    opacity: 90%;
-  }
-  80% {
-    opacity: 10%;
-  }
   100% {
-    opacity: 90%;
     top: 100%;
-    rotate: 600deg;
+    transform: rotate(600deg);
   }
 }
+
+/* .ten */
 .ten {
   left: 55%;
   width: 60px;
   height: 60px;
-  animation: ten 12s linear infinite;
+  animation: tenMovement 12s linear infinite, sharedOpacity 12s linear infinite;
 }
-@keyframes ten {
+@keyframes tenMovement {
   0% {
-    opacity: 10%;
     top: -130px;
   }
-  20% {
-    opacity: 90%;
-  }
-  40% {
-    opacity: 10%;
-  }
-  60% {
-    opacity: 90%;
-  }
-  80% {
-    opacity: 10%;
-  }
   100% {
-    opacity: 90%;
     top: 100%;
-    rotate: 360deg;
+    transform: rotate(360deg);
   }
 }
+
+/* .eleven */
 .eleven {
   left: 81%;
   width: 30px;
   height: 30px;
-  animation: eleven 8s linear infinite;
+  animation: elevenMovement 8s linear infinite, sharedOpacity 8s linear infinite;
 }
-@keyframes eleven {
+@keyframes elevenMovement {
   0% {
-    opacity: 10%;
     top: -300px;
   }
-  20% {
-    opacity: 90%;
-  }
-  40% {
-    opacity: 10%;
-  }
-  60% {
-    opacity: 90%;
-  }
-  80% {
-    opacity: 10%;
-  }
   100% {
-    opacity: 90%;
     top: 100%;
-    rotate: 1200deg;
+    transform: rotate(1200deg);
   }
 }
+
+/* .twelve */
 .twelve {
   left: 26%;
   width: 22px;
   height: 22px;
-  animation: twelve 8s linear infinite;
+  animation: twelveMovement 8s linear infinite, sharedOpacity 8s linear infinite;
 }
-@keyframes twelve {
+@keyframes twelveMovement {
   0% {
-    opacity: 10%;
     top: -130px;
   }
-  20% {
-    opacity: 90%;
-  }
-  40% {
-    opacity: 10%;
-  }
-  60% {
-    opacity: 90%;
-  }
-  80% {
-    opacity: 10%;
-  }
   100% {
-    opacity: 90%;
     top: 120%;
-    rotate: 2000deg;
-  }
-}
-
-:root {
-  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
-  line-height: 1.5;
-  font-weight: 400;
-
-  color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
-
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-
-a {
-  font-weight: 500;
-  color: #646cff;
-  text-decoration: inherit;
-}
-a:hover {
-  color: #535bf2;
-}
-
-h1 {
-  font-size: 3.2em;
-  line-height: 1.1;
-}
-
-button {
-  border-radius: 8px;
-  border: 1px solid transparent;
-  padding: 0.6em 1.2em;
-  font-size: 1em;
-  font-weight: 500;
-  font-family: inherit;
-  background-color: #1a1a1a;
-  cursor: pointer;
-  transition: border-color 0.25s;
-}
-button:hover {
-  border-color: #646cff;
-}
-button:focus,
-button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
-}
-
-@media (prefers-color-scheme: light) {
-  :root {
-    color: #213547;
-    background-color: #ffffff;
-  }
-  a:hover {
-    color: #747bff;
-  }
-  button {
-    background-color: #f9f9f9;
+    transform: rotate(2000deg);
   }
 }
