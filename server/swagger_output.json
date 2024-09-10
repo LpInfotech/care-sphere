@@ -15,6 +15,10 @@
     {
       "name": "Positions",
       "description": "Positions List"
+    },
+    {
+      "name": "Users",
+      "description": "Users List"
     }
   ],
   "schemes": [
@@ -363,6 +367,48 @@
           }
         }
       }
+    },
+    "/api/user": {
+      "post": {
+        "tags": [
+          "Users"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/User"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Created"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/api/deleteAllUsers": {
+      "delete": {
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
     }
   },
   "definitions": {
@@ -397,6 +443,170 @@
         "roleId": {
           "type": "string",
           "example": "66dafcc7985b4581b2716913"
+        }
+      }
+    },
+    "User": {
+      "type": "object",
+      "properties": {
+        "isStaff": {
+          "type": "boolean",
+          "example": false
+        },
+        "firstName": {
+          "type": "string",
+          "example": "John"
+        },
+        "lastName": {
+          "type": "string",
+          "example": "Smith"
+        },
+        "secondaryEmailAddress": {
+          "type": "string",
+          "example": "test@example.com"
+        },
+        "email": {
+          "type": "string",
+          "example": "test@gmail.com"
+        },
+        "address": {
+          "type": "object",
+          "properties": {
+            "streetAddress": {
+              "type": "string",
+              "example": "3189 Broadway W"
+            },
+            "province": {
+              "type": "string",
+              "example": "British Columbia"
+            },
+            "city": {
+              "type": "string",
+              "example": "Vancouver"
+            },
+            "postCode": {
+              "type": "string",
+              "example": "6K 2H2"
+            },
+            "country": {
+              "type": "string",
+              "example": "Canada"
+            }
+          }
+        },
+        "mobileNumber": {
+          "type": "array",
+          "example": [
+            "(604) 738-5551"
+          ],
+          "items": {
+            "type": "string"
+          }
+        },
+        "isActive": {
+          "type": "boolean",
+          "example": true
+        },
+        "roleId": {
+          "type": "string",
+          "example": "66dafcc7985b4581b2716913"
+        },
+        "positionId": {
+          "type": "array",
+          "example": [
+            "66dafcc7985b4581b2716913"
+          ],
+          "items": {
+            "type": "string"
+          }
+        },
+        "division": {
+          "type": "string",
+          "example": "test"
+        },
+        "divisionSupervisor": {
+          "type": "string",
+          "example": "supervisor"
+        },
+        "allergies": {
+          "type": "string",
+          "example": "Drug Allergy"
+        },
+        "doYouDrive": {
+          "type": "boolean",
+          "example": false
+        },
+        "driveParticipants": {
+          "type": "boolean",
+          "example": false
+        },
+        "dateOfBirth": {
+          "type": "string",
+          "example": ""
+        },
+        "employeeNumber": {
+          "type": "string",
+          "example": "123"
+        },
+        "payType": {
+          "type": "string",
+          "example": "Hourly"
+        },
+        "statusType": {
+          "type": "string",
+          "example": "Casual"
+        },
+        "wellnessDays": {
+          "type": "string",
+          "example": "3"
+        },
+        "vacationDays": {
+          "type": "string",
+          "example": "12"
+        },
+        "emergencyContacts": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": "string",
+                "example": "David"
+              },
+              "phone": {
+                "type": "string",
+                "example": "988898989"
+              },
+              "relationship": {
+                "type": "string",
+                "example": "boyfriend"
+              }
+            }
+          }
+        },
+        "startDate": {
+          "type": "string",
+          "example": ""
+        },
+        "isTerminate": {
+          "type": "boolean",
+          "example": false
+        },
+        "terminateDate": {
+          "type": "string",
+          "example": ""
+        },
+        "terminateNote": {
+          "type": "string",
+          "example": ""
+        },
+        "reasonForeLeave": {
+          "type": "string",
+          "example": ""
+        },
+        "returnDate": {
+          "type": "string",
+          "example": ""
         }
       }
     }
