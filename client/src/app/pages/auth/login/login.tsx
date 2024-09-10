@@ -95,6 +95,11 @@ const login = () => {
               flexWrap: "wrap",
               alignItems: "center",
               minHeight: "100vh",
+              justifyContent: "center",
+              padding: {
+                xs: "12px",
+                md: "48px",
+              },
             }}
           >
             <Paper
@@ -102,9 +107,17 @@ const login = () => {
               sx={{
                 borderRadius: "12px",
                 zIndex: "modal",
-                padding: "48px",
+                padding: {
+                  xs: "16px", // Smaller padding for extra small screens
+                  md: "48px", // Default padding for medium screens
+                },
                 marginY: [3],
                 textAlign: "center",
+                width: {
+                  xs: "100%", // Full width for extra small screens
+                  sm: "80%", // Slightly smaller on small screens
+                  md: "auto", // Default for medium and above
+                },
               }}
             >
               <Box component="div" marginBottom={3}>
@@ -119,19 +132,32 @@ const login = () => {
                 <Grid container spacing={2}>
                   <Grid
                     item
-                    xs={5}
+                    display={{
+                      xs: "none", // Hide the image on extra small screens
+                      md: "block", // Show it on medium screens and above
+                    }}
+                    xs={12}
+                    md={5}
                     paddingLeft="0px !important"
                     paddingTop="0px !important"
                   >
-                    <img src={loginImg} alt="login image" width={500} />
+                    <img
+                      src={loginImg}
+                      alt="login image"
+                      style={{ width: "500px", height: "auto" }}
+                    />
                   </Grid>
                   <Divider
                     sx={{
                       marginInline: "auto",
                       border: "0.1px solid #80808033",
+                      display: {
+                        xs: "none", // Hide the divider on extra small screens
+                        md: "block", // Show it on medium screens and above
+                      },
                     }}
                   />
-                  <Grid item xs={5}>
+                  <Grid item xs={12} md={5}>
                     <Divider
                       sx={{
                         borderBottomWidth: "thick",
