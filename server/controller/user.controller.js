@@ -1,5 +1,5 @@
 const { success, error } = require('../utils/responseApi');
-const User = require('../models/User.model');
+const User = require('../models/user.model');
 
 const createUser = async (req, res) => {
 	/*  #swagger.tags = ['Users']

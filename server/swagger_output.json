@@ -39,7 +39,7 @@
     "application/json"
   ],
   "paths": {
-    "/api/roles": {
+    "/api/v1/roles": {
       "get": {
         "tags": [
           "Roles"
@@ -66,9 +66,7 @@
             "description": "Internal Server Error"
           }
         }
-      }
-    },
-    "/api/role": {
+      },
       "post": {
         "tags": [
           "Roles"
@@ -97,7 +95,7 @@
         }
       }
     },
-    "/api/deleteAllRoles": {
+    "/api/v1/deleteAllRoles": {
       "delete": {
         "description": "",
         "responses": {
@@ -110,7 +108,7 @@
         }
       }
     },
-    "/api/role/{id}": {
+    "/api/v1/roles/{id}": {
       "put": {
         "tags": [
           "Roles"
@@ -142,7 +140,7 @@
         }
       }
     },
-    "/api/role/{id}/archive": {
+    "/api/v1/roles/{id}/archive": {
       "put": {
         "tags": [
           "Roles"
@@ -166,7 +164,7 @@
         }
       }
     },
-    "/api/role/{id}/unarchive": {
+    "/api/v1/roles/{id}/unarchive": {
       "put": {
         "tags": [
           "Roles"
@@ -190,7 +188,7 @@
         }
       }
     },
-    "/api/positions": {
+    "/api/v1/positions": {
       "get": {
         "tags": [
           "Positions"
@@ -217,9 +215,7 @@
             "description": "Internal Server Error"
           }
         }
-      }
-    },
-    "/api/position": {
+      },
       "post": {
         "tags": [
           "Positions"
@@ -248,7 +244,7 @@
         }
       }
     },
-    "/api/positionsByRoleId/{id}": {
+    "/api/v1/positions/roles/{id}": {
       "get": {
         "tags": [
           "Positions"
@@ -275,7 +271,7 @@
         }
       }
     },
-    "/api/deleteAllPositions": {
+    "/api/v1/deleteAllPositions": {
       "delete": {
         "description": "",
         "responses": {
@@ -288,7 +284,7 @@
         }
       }
     },
-    "/api/position/{id}": {
+    "/api/v1/positions/{id}": {
       "put": {
         "tags": [
           "Positions"
@@ -320,7 +316,7 @@
         }
       }
     },
-    "/api/position/{id}/archive": {
+    "/api/v1/positions/{id}/archive": {
       "put": {
         "tags": [
           "Positions"
@@ -344,7 +340,7 @@
         }
       }
     },
-    "/api/position/{id}/unarchive": {
+    "/api/v1/positions/{id}/unarchive": {
       "put": {
         "tags": [
           "Positions"
@@ -368,7 +364,7 @@
         }
       }
     },
-    "/api/user": {
+    "/api/v1/user": {
       "post": {
         "tags": [
           "Users"
@@ -397,9 +393,110 @@
         }
       }
     },
-    "/api/deleteAllUsers": {
+    "/api/v1/deleteAllUsers": {
       "delete": {
         "description": "",
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/api/v1/auth/login": {
+      "post": {
+        "tags": [
+          "Users"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "email": {
+                  "example": "any"
+                },
+                "password": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/api/v1/auth/createPassword/{email}": {
+      "put": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "email",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "password": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Created"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/api/v1/auth/users": {
+      "get": {
+        "tags": [
+          "Users"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "isActive",
+            "in": "query",
+            "description": "isActive values that need to be considered for filter",
+            "required": false,
+            "type": "boolean",
+            "enum": [
+              true,
+              false
+            ]
+          }
+        ],
         "responses": {
           "200": {
             "description": "OK"
@@ -607,6 +704,22 @@
         "returnDate": {
           "type": "string",
           "example": ""
+        },
+        "password": {
+          "type": "string",
+          "example": ""
+        },
+        "verified": {
+          "type": "boolean",
+          "example": false
+        },
+        "verifiedAt": {
+          "type": "string",
+          "example": ""
+        },
+        "isPasswordCreated": {
+          "type": "boolean",
+          "example": false
         }
       }
     }

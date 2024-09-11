@@ -7,13 +7,13 @@ const {
   archiveRole,
   unarchiveRole,
   deleteAllRoles,
-} = require("../controller/roles.controller");
+} = require("../controller/role.controller");
 
 router.get("/roles", getRoles);
-router.post("/role", createRole);
+router.post("/roles", createRole);
 router.delete("/deleteAllRoles", deleteAllRoles);
-router.put("/role/:id", updateRole);
-router.put("/role/:id/archive", archiveRole);
-router.put("/role/:id/unarchive", unarchiveRole);
+router.put("/roles/:id", updateRole);
+router.put("/roles/:id/archive", archiveRole);
+router.put("/roles/:id/unarchive", unarchiveRole);
 
 module.exports = router;

@@ -8,14 +8,14 @@ const {
   updatePosition,
   archivePosition,
   unarchivePosition,
-} = require("../controller/positions.controller");
+} = require("../controller/position.controller");
 
 router.get("/positions", getPositions);
-router.post("/position", createPosition);
-router.get("/positionsByRoleId/:id", getPositionsByRoleId);
+router.post("/positions", createPosition);
+router.get("/positions/roles/:id", getPositionsByRoleId);
 router.delete("/deleteAllPositions", deleteAllPositions);
-router.put("/position/:id", updatePosition);
-router.put("/position/:id/archive", archivePosition);
-router.put("/position/:id/unarchive", unarchivePosition);
+router.put("/positions/:id", updatePosition);
+router.put("/positions/:id/archive", archivePosition);
+router.put("/positions/:id/unarchive", unarchivePosition);
 
 module.exports = router;

@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-
+const { schemaTitle } = require('../utils/constants');
 const userSchema = new mongoose.Schema({
 	isStaff: {
 		type: Boolean,
@@ -55,12 +55,12 @@ const userSchema = new mongoose.Schema({
 	},
 	roleId: {
 		type: mongoose.Schema.Types.ObjectId,
-		ref: 'Role'
+		ref: schemaTitle.ROLE
 	},
 	positionId: [
 		{
 			type: mongoose.Schema.Types.ObjectId,
-			ref: 'Position'
+			ref: schemaTitle.POSITION
 		}
 	],
 	division: {
@@ -126,7 +126,7 @@ const userSchema = new mongoose.Schema({
 		type: Boolean
 	},
 	terminateDate: {
-		type: Date,
+		type: Date
 	},
 	terminateNote: {
 		type: String
@@ -136,9 +136,20 @@ const userSchema = new mongoose.Schema({
 	},
 	returnDate: {
 		type: Date
-	}
+	},
+	password: {
+		type: String
+	},
+	verified: {
+		type: Boolean,
+		default: false
+	},
+	verifiedAt: {
+		type: Date
+	},
+	isPasswordCreated: { type: Boolean, default: false }
 });
 
-const User = mongoose.models.User || mongoose.model('User', userSchema);
+const User = mongoose.models.User || mongoose.model(schemaTitle.USER, userSchema);
 
 module.exports = User;

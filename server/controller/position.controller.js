@@ -1,5 +1,5 @@
 const { success, error } = require("../utils/responseApi");
-const positionModel = require("../models/Position.model");
+const positionModel = require("../models/position.model");
 
 const createPosition = async (req, res) => {
   /*  #swagger.tags = ['Positions']

@@ -1,5 +1,5 @@
 const { success, error } = require("../utils/responseApi");
-const roleModel = require("../models/Role.model");
+const roleModel = require("../models/role.model");
 
 const createRole = async (req, res) => {
   /*  #swagger.tags = ['Roles']
