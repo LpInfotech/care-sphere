@@ -10,33 +10,44 @@ const Verification = require('../models/verification.model');
 // email template
 function emailTemplate({ token }) {
 	return `
-	  <div style="
-		line-height: 1.6;
-		padding: 48px;
-		margin: 20px 25%;
-		border-radius: 20px;
-		border: 1px groove lightgray;
-		color: black;
-		font-family: system-ui;
-	  ">
-		<img src="https://i.postimg.cc/D011Q53g/care-sphere-transparent-logo.png" alt="Care Sphere Logo" style="display: block;" />
-
-		<h2 style="
-		  margin-top: 0px;
-		  text-align: center;
-		  font-size: 16px;
-		">
-		  Create <span style="color:#283E51; font-weight: 400;">your password</span>
-		</h2>
-		<div>
-		  <p>Hi</p>
-		  <p>You have been invited to Care Sphere. Please click on the below button to create your password.</p>
-		  <a type="button" href="http://localhost:5173/create-password/${token}" target="_blank" style=" background-color: #5A3F37;border: none;color: #fff;padding: 6px 16px;
-		  text-align: center;text-decoration: none;display: block;font-size: 14px;margin:auto;border-radius: 6px;">Click Here</a>
-		  <p>Thank you,<br />The Support Team</p>
-		</div>
-	  </div>
-	`;
+	  <table border="0" cellpadding="0" cellspacing="0" width="100%" style="background-color: #f4f4f4; padding: 48px;">
+  <tr>
+    <td align="center">
+      <table border="0" cellpadding="0" cellspacing="0" width="600" style="border-radius: 20px; border: 1px groove lightgray; background-color: #ffffff;">
+        <tr>
+          <td align="center" style="padding: 20px 0;">
+            <img src="https://i.postimg.cc/D011Q53g/care-sphere-transparent-logo.png" alt="Care Sphere Logo" style="display: block; max-width: 100%; height: auto;" />
+          </td>
+        </tr>
+        <tr>
+          <td align="center" style="padding: 0 24px;">
+            <h2 style="font-size: 16px; font-family: system-ui; color: black; margin-top: 0; text-align: center;">
+              Create <span style="color:#283E51; font-weight: 400;">your password</span>
+            </h2>
+          </td>
+        </tr>
+        <tr>
+          <td style="padding: 0 24px; font-family: system-ui; color: black; line-height: 1.6;">
+            <p>Hi,</p>
+            <p>You have been invited to Care Sphere. Please click on the button below to create your password.</p>
+          </td>
+        </tr>
+        <tr>
+          <td align="center" style="padding: 20px;">
+            <a href="http://localhost:5173/create-password${token}" target="_blank" style="background-color: #5A3F37; color: #ffffff; padding: 12px 24px; text-align: center; text-decoration: none; display: inline-block; font-size: 14px; border-radius: 6px;">
+              Click Here
+            </a>
+          </td>
+        </tr>
+        <tr>
+          <td style="padding: 0 24px 24px; font-family: system-ui; color: black; line-height: 1.6;">
+            <p>Thank you,<br />The Support Team</p>
+          </td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+</table>`;
 }
 
 const createUser = async (req, res) => {
