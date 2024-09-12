@@ -9,13 +9,14 @@ const positionRouter = require('./routes/position.route');
 const userRouter = require('./routes/user.route');
 const authRouter = require('./routes/auth.route');
 const app = express();
+const cors = require("cors");
 
 // parse json request body
 app.use(express.json());
 
 // parse urlencoded request body
 app.use(express.urlencoded({ extended: true }));
-
+app.use(cors());
 app.use('/api/v1', roleRouter, positionRouter, userRouter);
 app.use('/api/v1/auth', authRouter);
 app.use('/doc', swaggerUi.serve, swaggerUi.setup(swaggerFile));

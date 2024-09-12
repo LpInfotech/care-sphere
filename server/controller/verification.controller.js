@@ -1,6 +1,11 @@
 const { success, error } = require('../utils/responseApi');
 const Verification = require('../models/verification.model');
 
+/**
+ * @desc    Check token
+ * @method  GET api/auth/verification/:token
+ * @access  public
+ */
 const getVerification = async (req, res) => {
 	/*  #swagger.tags = ['Users']
        #swagger.description = '' */
