@@ -364,7 +364,7 @@
         }
       }
     },
-    "/api/v1/user": {
+    "/api/v1/users": {
       "post": {
         "tags": [
           "Users"
@@ -512,6 +512,49 @@
             ]
           }
         ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/api/v1/auth/verification/{token}": {
+      "get": {
+        "tags": [
+          "Users"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "token",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/api/v1/auth/deleteAllVerifications": {
+      "delete": {
+        "description": "",
         "responses": {
           "200": {
             "description": "OK"

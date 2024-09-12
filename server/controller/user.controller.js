@@ -19,12 +19,8 @@ function emailTemplate({ token }) {
 		color: black;
 		font-family: system-ui;
 	  ">
-		<h1 style="
-		  font-weight: bold;
-		  font-size: 40px;
-		  margin: 0px;
-		  text-align: center;
-		">Care Sphere</h1>
+		<img src="https://i.postimg.cc/D011Q53g/care-sphere-transparent-logo.png" alt="Care Sphere Logo" style="display: block;" />
+
 		<h2 style="
 		  margin-top: 0px;
 		  text-align: center;
