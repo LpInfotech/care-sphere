@@ -394,6 +394,33 @@
             "description": "Internal Server Error"
           }
         }
+      },
+      "get": {
+        "tags": [
+          "Users"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "isActive",
+            "in": "query",
+            "description": "isActive values that need to be considered for filter",
+            "required": false,
+            "type": "boolean",
+            "enum": [
+              true,
+              false
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
       }
     },
     "/api/v1/deleteAllUsers": {
@@ -409,7 +436,7 @@
         }
       }
     },
-    "/api/v1/auth/login": {
+    "/api/v1/login": {
       "post": {
         "tags": [
           "Users"
@@ -445,7 +472,7 @@
         }
       }
     },
-    "/api/v1/auth/createPassword/{token}": {
+    "/api/v1/createPassword/{token}": {
       "put": {
         "tags": [
           "Users"
@@ -493,36 +520,7 @@
         }
       }
     },
-    "/api/v1/auth/users": {
-      "get": {
-        "tags": [
-          "Users"
-        ],
-        "description": "",
-        "parameters": [
-          {
-            "name": "isActive",
-            "in": "query",
-            "description": "isActive values that need to be considered for filter",
-            "required": false,
-            "type": "boolean",
-            "enum": [
-              true,
-              false
-            ]
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "500": {
-            "description": "Internal Server Error"
-          }
-        }
-      }
-    },
-    "/api/v1/auth/verification/{token}": {
+    "/api/v1/verification/{token}": {
       "get": {
         "tags": [
           "Users"
@@ -552,7 +550,7 @@
         }
       }
     },
-    "/api/v1/auth/deleteAllVerifications": {
+    "/api/v1/deleteAllVerifications": {
       "delete": {
         "description": "",
         "responses": {

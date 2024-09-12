@@ -34,7 +34,7 @@ function emailTemplate({ token }) {
         </tr>
         <tr>
           <td align="center" style="padding: 20px;">
-            <a href="http://localhost:5173/create-password${token}" target="_blank" style="background-color: #5A3F37; color: #ffffff; padding: 12px 24px; text-align: center; text-decoration: none; display: inline-block; font-size: 14px; border-radius: 6px;">
+            <a href="http://localhost:5173/create-password/${token}" target="_blank" style="background-color: #5A3F37; color: #ffffff; padding: 12px 24px; text-align: center; text-decoration: none; display: inline-block; font-size: 14px; border-radius: 6px;">
               Click Here
             </a>
           </td>

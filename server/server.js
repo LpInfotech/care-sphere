@@ -17,9 +17,8 @@ app.use(express.json());
 // parse urlencoded request body
 app.use(express.urlencoded({ extended: true }));
 app.use(cors());
-app.use('/api/v1', roleRouter, positionRouter, userRouter);
-app.use('/api/v1/auth', authRouter);
-app.use('/doc', swaggerUi.serve, swaggerUi.setup(swaggerFile));
+app.use('/api/v1', roleRouter, positionRouter, userRouter,authRouter);
+app.use('/api/v1/doc', swaggerUi.serve, swaggerUi.setup(swaggerFile));
 
 connectToDb();
 
