@@ -17,7 +17,7 @@ const getVerification = async (req, res) => {
 		let verification = await Verification.findOne({
 			token,
 			type: 'EMPTY PASSWORD'
-		});
+		}).select('token');
 
 		// Check the verification data
 		if (!verification) return res.status(400).json(error('Token / Data that you input is not valid', res.statusCode));
