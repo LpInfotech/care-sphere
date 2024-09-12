@@ -42,7 +42,7 @@ const config = {
 			firstName: 'John',
 			lastName: 'Smith',
 			secondaryEmailAddress: 'test@example.com',
-			email: 'test@gmail.com',
+			email: 'aman.katal@lpinfotech.com',
 			address: {
 				streetAddress: '3189 Broadway W',
 				province: 'British Columbia',
@@ -81,7 +81,6 @@ const config = {
 			password: '',
 			verified: false,
 			verifiedAt: '',
-			isPasswordCreated: false,
 		}
 	},
 	securityDefinitions: {

@@ -2,7 +2,6 @@ const { success, error } = require('../utils/responseApi');
 const { statusTypes } = require('../utils/constants');
 const User = require('../models/user.model');
 const bcrypt = require('bcryptjs');
-const { v4: uuidv4 } = require('uuid');
 const Verification = require('../models/verification.model');
 const { generateToken } = require('../utils/jwt');
 
@@ -57,56 +56,55 @@ const login = async (req, res) => {
 
 /**
  * @desc    Create a new user password
- * @method  POST api/auth/createPassword/:email
+ * @method  POST api/auth/createPassword/:token
  * @access  public
  */
 const createPassword = async (req, res) => {
-	const userEmail = req.params.email;
+	/*  #swagger.tags = ['Users']
+       #swagger.description = '' */
+	const token = req.params.token;
+
+	// Check the token first
+	if (!token) return res.status(401).json(error(statusTypes.TOKEN_REQUIRED, res.statusCode));
+
 	const { password } = req.body;
+
+	// Check the password
+	if (!password) return res.status(422).json(error(statusTypes.PASSWORD_REQUIRED, res.statusCode));
+
 	try {
-		const user = await User.findOne({ email: userEmail });
-		// Check the user email
-		if (!user) return res.status(401).json(error(statusTypes.INVALID_CREDENTIAL, res.statusCode));
+		let verification = await Verification.findOne({
+			token,
+			type: 'EMPTY PASSWORD'
+		});
+
+		// Check the verification data
+		if (!verification) return res.status(400).json(error('Token / Data that you input is not valid', res.statusCode));
+
+		// If there's verification data
+		// Let's find the user first
+		const user = await User.findById(verification.userId);
+
+		// Check the user, just in case
+		if (!user) return res.status(404).json(error('User not found', res.statusCode));
 
 		// Check the user email
-		if (user.isPasswordCreated) return res.status(401).json(error('Password is already Created', res.statusCode));
 
 		const hashedPassword = bcrypt.hashSync(password, 10);
 
 		const newUser = await User.findByIdAndUpdate(user._id, {
 			$set: {
 				password: hashedPassword,
-				isPasswordCreated: true
+				verified: true,
+				verifiedAt: new Date()
 			}
 		});
 
-		// Save token for user to start verificating the account
-		let verification = new Verification({
-			token: uuidv4(),
-			userId: newUser._id,
-			type: 'Password Created'
-		});
+		// Lets delete the verification data
+		verification = await Verification.findByIdAndDelete(verification._id);
 
-		// Save the verification data
-		await verification.save();
-
-		// Send the response to server
-		res.status(201).json(
-			success(
-				'Register success, please activate your account.',
-				{
-					user: {
-						id: newUser._id,
-						name: newUser.name,
-						email: newUser.email,
-						verified: newUser.verified,
-						verifiedAt: newUser.verifiedAt
-					},
-					verification
-				},
-				res.statusCode
-			)
-		);
+		// Send the response
+		return res.status(200).json(success('Your account verified Successfully', null, res.statusCode));
 	} catch (err) {
 		res.status(500).json(error(`${err.message}`, res.statusCode));
 	}

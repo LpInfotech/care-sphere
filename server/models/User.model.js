@@ -147,7 +147,6 @@ const userSchema = new mongoose.Schema({
 	verifiedAt: {
 		type: Date
 	},
-	isPasswordCreated: { type: Boolean, default: false }
 });
 
 const User = mongoose.models.User || mongoose.model(schemaTitle.USER, userSchema);

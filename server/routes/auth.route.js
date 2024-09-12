@@ -4,7 +4,7 @@ const { login, createPassword, getUsers } = require('../controller/auth.controll
 const router = express.Router();
 
 router.post('/login', login);
-router.put('/createPassword/:email', createPassword);
+router.put('/createPassword/:token', createPassword);
 router.get('/users', getUsers);
 
 module.exports = router;

@@ -6,7 +6,9 @@ const statusTypes = {
 	SOMETHING_WENT_WRONG: 'Something Went Wrong',
 	INCORRECT_CREDENTIAL: 'Incorrect Email or Password',
 	INVALID_CREDENTIAL: 'Invalid Credentials',
-	LOGIN_SUCCESS: 'Login Successfully'
+	LOGIN_SUCCESS: 'Login Successfully',
+	TOKEN_REQUIRED: 'Token Required',
+	PASSWORD_REQUIRED:"Password Required"
 };
 
 // schema title //
