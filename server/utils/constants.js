@@ -8,7 +8,8 @@ const statusTypes = {
 	INVALID_CREDENTIAL: 'Invalid Credentials',
 	LOGIN_SUCCESS: 'Login Successfully',
 	TOKEN_REQUIRED: 'Token Required',
-	PASSWORD_REQUIRED: 'Password Required'
+	PASSWORD_REQUIRED: 'Password Required',
+	CREATE_PASSWORD: 'Create your password first'
 };
 
 // schema title //

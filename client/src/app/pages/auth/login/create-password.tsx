@@ -9,7 +9,6 @@ import {
   FormHelperText,
   IconButton,
   InputAdornment,
-  Link,
   OutlinedInput,
   Typography,
   Divider,
@@ -18,39 +17,61 @@ import Grid from "@mui/material/Grid2";
 import { useState } from "react";
 import * as yup from "yup";
 import { useFormik } from "formik";
-import { Visibility, VisibilityOff } from "@mui/icons-material";
+import { ContrastSharp, Visibility, VisibilityOff } from "@mui/icons-material";
 import theme from "../../../shared/theme/theme";
 import SnackBar from "../../../shared/components/snackbar/snackbar";
-import { useNavigate } from "react-router-dom";
+import {
+  redirect,
+  redirectDocument,
+  useNavigate,
+  useParams,
+} from "react-router-dom";
+import axios from "axios";
 
-const login = () => {
+const createPassword = () => {
   const navigate = useNavigate();
+  const { token } = useParams();
+  const apiRoute = `http://localhost:3000/api/v1/`;
+
+  fetch(apiRoute + "verification" + "/" + token).then((res) =>
+    res.json().then((result) => {
+      // if (result.error) {
+      //   window.location.href = "http://localhost:5173";
+      // }
+    })
+  );
+
   const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [openSnackbar, setOpenSnackbar] = useState(false);
   const [snackbarMessage, setSnackbarMessage] = useState("");
   const [snackbarType, setSnackbarType] = useState("");
+  const passwordRegex =
+    /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()\-_=+{}\[\]|\\:;"'<>,.?/~`])[A-Za-z\d!@#$%^&*()\-_=+{}\[\]|\\:;"'<>,.?/~`]{6,}$/;
   const basicSchema = yup.object().shape({
-    emailAddress: yup
+    password: yup
       .string()
-      .email("You must enter a valid email address")
+      .matches(passwordRegex, " ")
       .required("This is required"),
-    password: yup.string().required("This is required"),
+    confirmPassword: yup
+      .string()
+      .oneOf([yup.ref("password")], "Password & confirm password must match")
+      .required("This is required"),
   });
-
   //======== password visibility ========
   const handleClickShowPassword = () => setShowPassword((show) => !show);
-
+  const handleClickShowConfirmPassword = () =>
+    setShowConfirmPassword((show) => !show);
   //======== snackbar close ========
   const handleCloseSnackbar = () => {
     setOpenSnackbar(false);
   };
-
   // ======== Login user integrating with api ========
-  const LoginUser = () => {
-    fetch("http://localhost:3000/api/v1/login", {
-      method: "POST",
+  const createPassword = () => {
+    console.log(formik.values);
+    fetch(apiRoute + "createPassword" + "/" + token, {
+      method: "PUT",
       body: JSON.stringify({
-        email: formik.values.emailAddress,
         password: formik.values.password,
       }),
       headers: {
@@ -60,57 +81,33 @@ const login = () => {
       .then((res) => res.json())
       .then((result) => {
         if (result.error) {
-          setSnackbarMessage("Email and Password combination doesn't match");
+          setSnackbarMessage(result.message);
           setSnackbarType("error");
           setOpenSnackbar(true);
         } else {
           setSnackbarType("success");
           setOpenSnackbar(true);
-          setSnackbarMessage("You have successfully logged in");
+          setSnackbarMessage("Password created successfully");
           formik.resetForm();
           setTimeout(() => {
-            navigate("/dashboard");
+            navigate("/login");
           }, 1000);
         }
       })
       .catch((err) => {
         console.log(err.message);
-        setSnackbarMessage("Request failed");
-        setSnackbarType("error");
-        setOpenSnackbar(true);
       });
   };
-
-  // console.log(formik.values);
-  // if (
-  //   formik.values.emailAddress === "admin@caresphere.com" &&
-  //   formik.values.password === "Admin@123"
-  // ) {
-  //   console.log("You have successfully logged in");
-  //   setSnackbarType("success");
-  //   setOpenSnackbar(true);
-  //   setSnackbarMessage("You have successfully logged in");
-  //   formik.resetForm();
-  // } else {
-  //   console.warn("Incorrect email and password combination");
-  //   setSnackbarMessage("Email and Password combination doesn't match");
-  //   setSnackbarType("error");
-  //   setOpenSnackbar(true);
-  // }
-  // };
 
   //======== formik validating onsubmit ========
   const formik = useFormik({
     initialValues: {
-      emailAddress: "",
       password: "",
+      confirmPassword: "",
     },
     validationSchema: basicSchema,
-    onSubmit: () => LoginUser(),
+    onSubmit: () => createPassword(),
   });
-
-  const isDisabled =
-    formik.values.emailAddress && !formik.errors.emailAddress ? false : true;
 
   //======== JSX ========
   return (
@@ -213,7 +210,7 @@ const login = () => {
                       marginBottom={1}
                       textAlign="start"
                     >
-                      Login
+                      Create new password
                     </Typography>
                     <Divider
                       sx={{
@@ -225,51 +222,6 @@ const login = () => {
                         borderRadius: "50px",
                       }}
                     />
-                    <FormControl
-                      fullWidth
-                      sx={{
-                        overflow: "visible",
-                        marginBottom: 3,
-                        paddingTop: "0px !important",
-                      }}
-                    >
-                      <OutlinedInput
-                        type="email"
-                        name="emailAddress"
-                        value={formik.values.emailAddress}
-                        onChange={formik.handleChange}
-                        onBlur={formik.handleBlur}
-                        placeholder="Email Address"
-                        aria-describedby="emailAddress-error"
-                        fullWidth
-                        error={
-                          formik.touched.emailAddress &&
-                          Boolean(formik.errors.emailAddress)
-                        }
-                        sx={{
-                          borderRadius: "50px",
-                          fontSize: "12px",
-                          padding: 1 / 2,
-                        }}
-                      />
-                      {/* ======== error message ======== */}
-                      <FormHelperText
-                        id="emailAddress-error"
-                        sx={{
-                          fontSize: "11px",
-                          color: theme.palette.error.main,
-                          paddingX: "12px",
-                        }}
-                      >
-                        {formik.errors.emailAddress &&
-                          formik.touched.emailAddress && (
-                            <Box component="span" sx={{ position: "absolute" }}>
-                              {formik.errors.emailAddress}
-                            </Box>
-                          )}
-                      </FormHelperText>
-                      {/* ======== /error message ======== */}
-                    </FormControl>
                     <FormControl
                       fullWidth
                       variant="outlined"
@@ -340,6 +292,77 @@ const login = () => {
                       </FormHelperText>
                       {/* ======== /error message ======== */}
                     </FormControl>
+                    <FormControl
+                      fullWidth
+                      variant="outlined"
+                      sx={{
+                        overflow: "visible",
+                        marginBottom: 3,
+                        paddingTop: "0px !important",
+                      }}
+                    >
+                      <OutlinedInput
+                        fullWidth
+                        type={showConfirmPassword ? "text" : "password"}
+                        endAdornment={
+                          <InputAdornment
+                            position="end"
+                            sx={{ overflow: "visible" }}
+                          >
+                            <IconButton
+                              disableRipple
+                              aria-label="toggle password visibility"
+                              onClick={handleClickShowConfirmPassword}
+                              disableFocusRipple
+                              sx={{
+                                padding: "12px",
+                                color: "black",
+                                marginRight: 1 / 2,
+                              }}
+                              edge="end"
+                            >
+                              {showConfirmPassword ? (
+                                <Visibility />
+                              ) : (
+                                <VisibilityOff />
+                              )}
+                            </IconButton>
+                          </InputAdornment>
+                        }
+                        name="confirmPassword"
+                        placeholder="Confirm Password"
+                        onChange={formik.handleChange}
+                        value={formik.values.confirmPassword}
+                        onBlur={formik.handleBlur}
+                        sx={{
+                          borderRadius: "50px",
+                          fontSize: "12px",
+                          padding: 1 / 2,
+                        }}
+                        aria-describedby="confirm-password-error"
+                        error={
+                          formik.touched.confirmPassword &&
+                          Boolean(formik.errors.confirmPassword)
+                        }
+                      />
+                      {/* ======== error message ======== */}
+                      <FormHelperText
+                        id="confirmPassword-error"
+                        sx={{
+                          fontSize: "11px",
+                          color: theme.palette.error.main,
+                          paddingX: "12px",
+                        }}
+                      >
+                        {formik.errors.confirmPassword &&
+                          formik.touched.confirmPassword && (
+                            <Box component="span" sx={{ position: "absolute" }}>
+                              {formik.errors.confirmPassword}
+                            </Box>
+                          )}
+                      </FormHelperText>
+                      {/* ======== /error message ======== */}
+                    </FormControl>
 
                     <Button
                       fullWidth
@@ -354,21 +377,8 @@ const login = () => {
                         borderRadius: "50px",
                       }}
                     >
-                      Sign In
+                      Submit{" "}
                     </Button>
-                    <Link
-                      href="/forgot-password"
-                      color="primary"
-                      fontSize="12px"
-                      sx={{ textDecoration: "none" }}
-                      onClick={(e) => {
-                        if (isDisabled) {
-                          e.preventDefault(); // Prevent the link from working if disabled
-                        }
-                      }}
-                    >
-                      Forgot Password?
-                    </Link>
                   </Grid>
                 </Grid>
               </Box>
@@ -390,4 +400,4 @@ const login = () => {
   );
 };
 
-export default login;
+export default createPassword;
