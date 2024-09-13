@@ -17,16 +17,10 @@ import Grid from "@mui/material/Grid2";
 import { useState } from "react";
 import * as yup from "yup";
 import { useFormik } from "formik";
-import { ContrastSharp, Visibility, VisibilityOff } from "@mui/icons-material";
+import { Visibility, VisibilityOff } from "@mui/icons-material";
 import theme from "../../../shared/theme/theme";
 import SnackBar from "../../../shared/components/snackbar/snackbar";
-import {
-  redirect,
-  redirectDocument,
-  useNavigate,
-  useParams,
-} from "react-router-dom";
-import axios from "axios";
+import { useNavigate, useParams } from "react-router-dom";
 
 const createPassword = () => {
   const navigate = useNavigate();
@@ -35,9 +29,9 @@ const createPassword = () => {
 
   fetch(apiRoute + "verification" + "/" + token).then((res) =>
     res.json().then((result) => {
-      // if (result.error) {
-      //   window.location.href = "http://localhost:5173";
-      // }
+      if (result.error) {
+        window.location.href = "http://localhost:5173";
+      }
     })
   );
 
@@ -363,7 +357,6 @@ const createPassword = () => {
                       </FormHelperText>
                       {/* ======== /error message ======== */}
                     </FormControl>
-
                     <Button
                       fullWidth
                       disableFocusRipple
