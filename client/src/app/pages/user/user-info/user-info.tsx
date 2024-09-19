@@ -3,8 +3,10 @@ import * as yup from "yup";
 import {
   Box,
   Button,
+  Checkbox,
   Container,
   FormControl,
+  FormControlLabel,
   FormHelperText,
   IconButton,
   InputAdornment,
@@ -13,6 +15,7 @@ import {
   OutlinedInput,
   Paper,
   Select,
+  TextField,
   Typography,
 } from "@mui/material";
 import { useFormik } from "formik";
@@ -42,15 +45,28 @@ function UserInfo() {
       .required("This is required"),
     firstName: yup.string().required("This is required"),
     lastName: yup.string().required("This is required"),
-    mobileNumber: yup
+    phone1: yup
+      .string()
+      .required("This is required")
+      .min(11, "Mobile number must contain 10 digits"),
+    phone2: yup
       .string()
       .required("This is required")
       .min(11, "Mobile number must contain 10 digits"),
     postCode: yup.string().required("This is required"),
     address: yup.string().required("This is required"),
-    city: yup.string().required("This is required"),
+    city: yup.string(),
     state: yup.string().required("This is required"),
     country: yup.string().required("This is required"),
+    role: yup.string().required("This is required"),
+    position: yup.string().required("This is required"),
+    position2: yup.string(),
+    division: yup.string().required("This is required"),
+    secondaryEmail: yup.string(),
+    superviser: yup.string(),
+    allergies: yup.string(),
+    empno: yup.string(),
+    dob: yup.string(),
   });
 
   // ======== put data to API to update user data ========
@@ -62,12 +78,22 @@ function UserInfo() {
       email: "",
       firstName: "",
       lastName: "",
-      mobileNumber: "",
+      phone1: "",
+      phone2: "",
       postCode: "",
       address: "",
       city: "",
       state: "",
       country: "",
+      role: "",
+      position: "",
+      position2: "",
+      division: "",
+      secondaryEmail: "",
+      superviser: "",
+      allergies: "",
+      empno: "",
+      dob: "",
     },
     validationSchema: basicSchema,
     onSubmit: UpdateUser,
@@ -442,10 +468,10 @@ function UserInfo() {
                           >
                             <FormControl fullWidth>
                               <InputLabel
-                                htmlFor="outlined-adornment-mobileNumber"
+                                htmlFor="outlined-adornment-phone1"
                                 error={
-                                  formik.touched.mobileNumber &&
-                                  Boolean(formik.errors.mobileNumber)
+                                  formik.touched.phone1 &&
+                                  Boolean(formik.errors.phone1)
                                 }
                               >
                                 Phone 1
@@ -453,16 +479,11 @@ function UserInfo() {
                               <OutlinedInput
                                 type="text"
                                 endAdornment={
-                                  formik.values.mobileNumber.replace(
-                                    /\D/g,
-                                    ""
-                                  ) && (
+                                  formik.values.phone1.replace(/\D/g, "") && (
                                     <InputAdornment position="end">
                                       <IconButton
                                         disableRipple
-                                        onClick={() =>
-                                          resetField("mobileNumber")
-                                        }
+                                        onClick={() => resetField("phone1")}
                                         sx={{
                                           marginRight: "-12px",
                                           padding: "12px",
@@ -474,20 +495,92 @@ function UserInfo() {
                                     </InputAdornment>
                                   )
                                 }
-                                name="mobileNumber"
-                                label="Mobile Number"
-                                value={formik.values.mobileNumber
+                                name="phone1"
+                                label="Phone 1"
+                                value={formik.values.phone1
                                   .replace(/\D/g, "")
                                   .replace(/^(\d{6})(\d)/, "$1-$2")}
                                 onChange={formik.handleChange}
                                 onBlur={formik.handleBlur}
                                 placeholder="00000-00000"
-                                aria-describedby="mobileNumber-error"
+                                aria-describedby="phone1-error"
                                 fullWidth
                                 inputProps={{ maxLength: 11 }}
                                 error={
-                                  formik.touched.mobileNumber &&
-                                  Boolean(formik.errors.mobileNumber)
+                                  formik.touched.phone1 &&
+                                  Boolean(formik.errors.phone1)
+                                }
+                              />
+                              {/* ======== error message ======== */}
+                              <FormHelperText
+                                id="phone1-error"
+                                sx={{
+                                  fontSize: "11px",
+                                  color: theme.palette.error.main,
+                                }}
+                              >
+                                {formik.errors.phone1 &&
+                                  formik.touched.phone1 && (
+                                    <Box
+                                      component="span"
+                                      sx={{ position: "absolute" }}
+                                    >
+                                      {formik.errors.phone1}
+                                    </Box>
+                                  )}
+                              </FormHelperText>
+                              {/* ======== /error message ======== */}
+                            </FormControl>
+                          </Grid>
+                          <Grid
+                            size={{ xs: 12, lg: 3 }}
+                            marginBottom="28px"
+                            paddingLeft={3 / 2}
+                            paddingTop="0px !important"
+                          >
+                            <FormControl fullWidth>
+                              <InputLabel
+                                htmlFor="outlined-adornment-phone2"
+                                error={
+                                  formik.touched.phone2 &&
+                                  Boolean(formik.errors.phone2)
+                                }
+                              >
+                                Phone 2
+                              </InputLabel>
+                              <OutlinedInput
+                                type="text"
+                                endAdornment={
+                                  formik.values.phone2.replace(/\D/g, "") && (
+                                    <InputAdornment position="end">
+                                      <IconButton
+                                        disableRipple
+                                        onClick={() => resetField("phone2")}
+                                        sx={{
+                                          marginRight: "-12px",
+                                          padding: "12px",
+                                          color: "black",
+                                        }}
+                                      >
+                                        <Close />
+                                      </IconButton>
+                                    </InputAdornment>
+                                  )
+                                }
+                                name="phone2"
+                                label="Phone 2"
+                                value={formik.values.phone2
+                                  .replace(/\D/g, "")
+                                  .replace(/^(\d{6})(\d)/, "$1-$2")}
+                                onChange={formik.handleChange}
+                                onBlur={formik.handleBlur}
+                                placeholder="00000-00000"
+                                aria-describedby="phone2-error"
+                                fullWidth
+                                inputProps={{ maxLength: 11 }}
+                                error={
+                                  formik.touched.phone2 &&
+                                  Boolean(formik.errors.phone2)
                                 }
                               />
                               {/* ======== error message ======== */}
@@ -498,13 +591,195 @@ function UserInfo() {
                                   color: theme.palette.error.main,
                                 }}
                               >
-                                {formik.errors.mobileNumber &&
-                                  formik.touched.mobileNumber && (
+                                {formik.errors.phone2 &&
+                                  formik.touched.phone2 && (
                                     <Box
                                       component="span"
                                       sx={{ position: "absolute" }}
                                     >
-                                      {formik.errors.mobileNumber}
+                                      {formik.errors.phone2}
+                                    </Box>
+                                  )}
+                              </FormHelperText>
+                              {/* ======== /error message ======== */}
+                            </FormControl>
+                          </Grid>
+                          <Grid
+                            size={{ xs: 12, lg: 3 }}
+                            marginBottom="28px"
+                            paddingLeft={3 / 2}
+                            paddingTop="0px !important"
+                          >
+                            <FormControl fullWidth>
+                              <InputLabel
+                                htmlFor="outlined-adornment-role"
+                                error={
+                                  formik.touched.role &&
+                                  Boolean(formik.errors.role)
+                                }
+                              >
+                                Role*
+                              </InputLabel>
+                              <Select
+                                type="text"
+                                name="role"
+                                value={formik.values.role}
+                                label="Role"
+                                onBlur={formik.handleBlur}
+                                fullWidth
+                                sx={{ textAlign: "left" }}
+                                error={
+                                  formik.touched.role &&
+                                  Boolean(formik.errors.role)
+                                }
+                              >
+                                <MenuItem value="India">role</MenuItem>
+                              </Select>
+                              {/* ======== error message ======== */}
+                              <FormHelperText
+                                id="role-error"
+                                sx={{
+                                  fontSize: "11px",
+                                  color: theme.palette.error.main,
+                                }}
+                              >
+                                {formik.errors.role && formik.touched.role && (
+                                  <Box
+                                    component="span"
+                                    sx={{ position: "absolute" }}
+                                  >
+                                    {formik.errors.role}
+                                  </Box>
+                                )}
+                              </FormHelperText>
+                              {/* ======== /error message ======== */}
+                            </FormControl>
+                          </Grid>
+                          <Grid
+                            size={{ xs: 12, lg: 3 }}
+                            marginBottom="28px"
+                            paddingLeft={3 / 2}
+                            paddingTop="0px !important"
+                          >
+                            <FormControl fullWidth>
+                              <InputLabel
+                                htmlFor="outlined-adornment-position"
+                                error={
+                                  formik.touched.position &&
+                                  Boolean(formik.errors.position)
+                                }
+                              >
+                                Position*
+                              </InputLabel>
+                              <Select
+                                type="text"
+                                name="position"
+                                value={formik.values.position}
+                                label="Position"
+                                onBlur={formik.handleBlur}
+                                fullWidth
+                                sx={{ textAlign: "left" }}
+                                error={
+                                  formik.touched.position &&
+                                  Boolean(formik.errors.position)
+                                }
+                              >
+                                <MenuItem value="India">position</MenuItem>
+                              </Select>
+                              {/* ======== error message ======== */}
+                              <FormHelperText
+                                id="position-error"
+                                sx={{
+                                  fontSize: "11px",
+                                  color: theme.palette.error.main,
+                                }}
+                              >
+                                {formik.errors.position &&
+                                  formik.touched.position && (
+                                    <Box
+                                      component="span"
+                                      sx={{ position: "absolute" }}
+                                    >
+                                      {formik.errors.position}
+                                    </Box>
+                                  )}
+                              </FormHelperText>
+                              {/* ======== /error message ======== */}
+                            </FormControl>
+                          </Grid>
+                          <Grid
+                            size={{ xs: 12, lg: 3 }}
+                            marginBottom="28px"
+                            paddingLeft={3 / 2}
+                            paddingTop="0px !important"
+                          >
+                            <FormControl fullWidth>
+                              <InputLabel htmlFor="outlined-adornment-position2">
+                                Position 2
+                              </InputLabel>
+                              <Select
+                                type="text"
+                                name="position2"
+                                value={formik.values.position2}
+                                label="Position 2"
+                                onBlur={formik.handleBlur}
+                                fullWidth
+                                sx={{ textAlign: "left" }}
+                                error={
+                                  formik.touched.position2 &&
+                                  Boolean(formik.errors.position2)
+                                }
+                              >
+                                <MenuItem value="India">Position 2</MenuItem>
+                              </Select>
+                            </FormControl>
+                          </Grid>
+                          <Grid
+                            size={{ xs: 12, lg: 4 }}
+                            marginBottom="28px"
+                            paddingLeft={3 / 2}
+                            paddingTop="0px !important"
+                          >
+                            <FormControl fullWidth>
+                              <InputLabel
+                                htmlFor="outlined-adornment-division"
+                                error={
+                                  formik.touched.division &&
+                                  Boolean(formik.errors.division)
+                                }
+                              >
+                                Division*
+                              </InputLabel>
+                              <Select
+                                type="text"
+                                name="division"
+                                value={formik.values.division}
+                                label="Division"
+                                onBlur={formik.handleBlur}
+                                fullWidth
+                                sx={{ textAlign: "left" }}
+                                error={
+                                  formik.touched.division &&
+                                  Boolean(formik.errors.division)
+                                }
+                              >
+                                <MenuItem value="division">division</MenuItem>
+                              </Select>
+                              {/* ======== error message ======== */}
+                              <FormHelperText
+                                id="division-error"
+                                sx={{
+                                  fontSize: "11px",
+                                  color: theme.palette.error.main,
+                                }}
+                              >
+                                {formik.errors.division &&
+                                  formik.touched.division && (
+                                    <Box
+                                      component="span"
+                                      sx={{ position: "absolute" }}
+                                    >
+                                      {formik.errors.division}
                                     </Box>
                                   )}
                               </FormHelperText>
@@ -518,89 +793,22 @@ function UserInfo() {
                             paddingTop="0px !important"
                           >
                             <FormControl fullWidth>
-                              <InputLabel
-                                htmlFor="outlined-adornment-mobileNumber"
-                                error={
-                                  formik.touched.mobileNumber &&
-                                  Boolean(formik.errors.mobileNumber)
-                                }
-                              >
-                                Phone 2
+                              <InputLabel htmlFor="outlined-adornment-superviser">
+                                Supervised by
                               </InputLabel>
                               <OutlinedInput
                                 type="text"
-                                endAdornment={
-                                  formik.values.mobileNumber.replace(
-                                    /\D/g,
-                                    ""
-                                  ) && (
-                                    <InputAdornment position="end">
-                                      <IconButton
-                                        disableRipple
-                                        onClick={() =>
-                                          resetField("mobileNumber")
-                                        }
-                                        sx={{
-                                          marginRight: "-12px",
-                                          padding: "12px",
-                                          color: "black",
-                                        }}
-                                      >
-                                        <Close />
-                                      </IconButton>
-                                    </InputAdornment>
-                                  )
-                                }
-                                name="mobileNumber"
-                                label="Mobile Number"
-                                value={formik.values.mobileNumber
-                                  .replace(/\D/g, "")
-                                  .replace(/^(\d{6})(\d)/, "$1-$2")}
+                                readOnly
+                                name="superviser"
+                                label="Supervised by"
+                                value="Tao, David"
                                 onChange={formik.handleChange}
                                 onBlur={formik.handleBlur}
-                                placeholder="00000-00000"
-                                aria-describedby="mobileNumber-error"
+                                aria-describedby="superviser-error"
                                 fullWidth
-                                inputProps={{ maxLength: 11 }}
-                                error={
-                                  formik.touched.mobileNumber &&
-                                  Boolean(formik.errors.mobileNumber)
-                                }
                               />
-                              {/* ======== error message ======== */}
-                              <FormHelperText
-                                id="mobileNumber-error"
-                                sx={{
-                                  fontSize: "11px",
-                                  color: theme.palette.error.main,
-                                }}
-                              >
-                                {formik.errors.mobileNumber &&
-                                  formik.touched.mobileNumber && (
-                                    <Box
-                                      component="span"
-                                      sx={{ position: "absolute" }}
-                                    >
-                                      {formik.errors.mobileNumber}
-                                    </Box>
-                                  )}
-                              </FormHelperText>
-                              {/* ======== /error message ======== */}
                             </FormControl>
                           </Grid>
-                        </Grid>
-                      </Paper>
-                      <Paper sx={{ padding: "16px" }}>
-                        <Typography
-                          variant="h5"
-                          sx={{
-                            fontWeight: "700",
-                            marginBottom: "16px",
-                          }}
-                        >
-                          Address
-                        </Typography>
-                        <Grid container spacing={2} sx={{ mt: 2 }}>
                           <Grid
                             size={{ xs: 12, lg: 6 }}
                             marginBottom="28px"
@@ -609,7 +817,7 @@ function UserInfo() {
                           >
                             <FormControl fullWidth>
                               <InputLabel htmlFor="outlined-adornment-address">
-                                Street Address
+                                Address
                               </InputLabel>
                               <OutlinedInput
                                 type="text"
@@ -668,66 +876,34 @@ function UserInfo() {
                             paddingTop="0px !important"
                           >
                             <FormControl fullWidth>
-                              <InputLabel
-                                htmlFor="outlined-adornment-postCode"
-                                error={
-                                  formik.touched.postCode &&
-                                  Boolean(formik.errors.postCode)
-                                }
-                              >
-                                Postal Code
+                              <InputLabel htmlFor="outlined-adornment-secondaryEmail">
+                                Secondary Email
                               </InputLabel>
                               <OutlinedInput
                                 type="text"
-                                endAdornment={
-                                  formik.values.postCode.replace(/\D/g, "") && (
-                                    <InputAdornment position="end">
-                                      <IconButton
-                                        disableRipple
-                                        onClick={() => resetField("postCode")}
-                                        sx={{
-                                          marginRight: "-12px",
-                                          padding: "12px",
-                                          color: "black",
-                                        }}
-                                      >
-                                        <Close />
-                                      </IconButton>
-                                    </InputAdornment>
-                                  )
-                                }
-                                name="postCode"
-                                label="Postal Code"
-                                value={formik.values.postCode.replace(
-                                  /\D/g,
-                                  ""
-                                )}
+                                name="secondaryEmail"
+                                label="Secondary Email"
+                                value={formik.values.secondaryEmail}
                                 onChange={formik.handleChange}
                                 onBlur={formik.handleBlur}
-                                placeholder="12345"
-                                aria-describedby="postCode-error"
+                                aria-describedby="secondaryEmail-error"
                                 fullWidth
-                                inputProps={{ maxLength: 5 }}
-                                error={
-                                  formik.touched.postCode &&
-                                  Boolean(formik.errors.postCode)
-                                }
                               />
                               {/* ======== error message ======== */}
                               <FormHelperText
-                                id="postCode-error"
+                                id="secondaryEmail-error"
                                 sx={{
                                   fontSize: "11px",
                                   color: theme.palette.error.main,
                                 }}
                               >
-                                {formik.errors.postCode &&
-                                  formik.touched.postCode && (
+                                {formik.errors.secondaryEmail &&
+                                  formik.touched.secondaryEmail && (
                                     <Box
                                       component="span"
                                       sx={{ position: "absolute" }}
                                     >
-                                      {formik.errors.postCode}
+                                      {formik.errors.secondaryEmail}
                                     </Box>
                                   )}
                               </FormHelperText>
@@ -741,53 +917,118 @@ function UserInfo() {
                             paddingTop="0px !important"
                           >
                             <FormControl fullWidth>
-                              <InputLabel
-                                htmlFor="outlined-adornment-city"
-                                error={
-                                  formik.touched.city &&
-                                  Boolean(formik.errors.city)
-                                }
-                              >
+                              <InputLabel htmlFor="outlined-adornment-city">
                                 City
                               </InputLabel>
-                              <Select
+                              <OutlinedInput
                                 type="text"
                                 name="city"
                                 value={formik.values.city}
                                 label="City"
                                 onChange={formik.handleChange}
                                 onBlur={formik.handleBlur}
+                                aria-describedby="city-error"
                                 fullWidth
-                                sx={{ textAlign: "left" }}
-                                error={
-                                  formik.touched.city &&
-                                  Boolean(formik.errors.city)
-                                }
-                              >
-                                <MenuItem value="Mohali">Mohali</MenuItem>
-                              </Select>
-                              {/* ======== error message ======== */}
-                              <FormHelperText
-                                id="city-error"
-                                sx={{
-                                  fontSize: "11px",
-                                  color: theme.palette.error.main,
-                                }}
-                              >
-                                {formik.errors.city && formik.touched.city && (
-                                  <Box
-                                    component="span"
-                                    sx={{ position: "absolute" }}
-                                  >
-                                    {formik.errors.city}
-                                  </Box>
-                                )}
-                              </FormHelperText>
-                              {/* ======== /error message ======== */}
+                              />
+                            </FormControl>
+                          </Grid>
+                          <Grid
+                            size={{ xs: 12, lg: 6 }}
+                            marginBottom="28px"
+                            paddingLeft={3 / 2}
+                            paddingTop="0px !important"
+                          >
+                            <FormControl fullWidth>
+                              <TextField
+                                type="text"
+                                rows={4}
+                                multiline
+                                value={formik.values.allergies}
+                                label="Allergies"
+                                onChange={formik.handleChange}
+                                onBlur={formik.handleBlur}
+                                aria-describedby="allergies-error"
+                                fullWidth
+                              />
+                            </FormControl>
+                          </Grid>
+                          <Grid
+                            size={{ xs: 12, lg: 6 }}
+                            marginBottom="28px"
+                            paddingLeft={3 / 2}
+                            paddingTop="0px !important"
+                          >
+                            <FormControl fullWidth>
+                              <InputLabel htmlFor="outlined-adornment-postCode">
+                                Postal Code
+                              </InputLabel>
+                              <OutlinedInput
+                                type="text"
+                                name="postCode"
+                                value={formik.values.postCode}
+                                label="postCode"
+                                onChange={formik.handleChange}
+                                onBlur={formik.handleBlur}
+                                aria-describedby="postCode-error"
+                                fullWidth
+                              />
+                            </FormControl>
+                          </Grid>
+                          <Grid
+                            size={{ xs: 12, lg: 6 }}
+                            marginBottom="28px"
+                            paddingLeft={3 / 2}
+                            paddingTop="0px !important"
+                          >
+                            <FormControlLabel
+                              control={<Checkbox />}
+                              label="Do you drive?"
+                            />
+                          </Grid>
+                          <Grid
+                            size={{ xs: 12, lg: 6 }}
+                            marginBottom="28px"
+                            paddingLeft={3 / 2}
+                            paddingTop="0px !important"
+                          >
+                            <FormControl fullWidth>
+                              <InputLabel htmlFor="outlined-adornment-empno">
+                                Employee Number
+                              </InputLabel>
+                              <OutlinedInput
+                                type="text"
+                                name="empno"
+                                value={formik.values.empno}
+                                label="empno"
+                                onChange={formik.handleChange}
+                                onBlur={formik.handleBlur}
+                                aria-describedby="empno-error"
+                                fullWidth
+                              />
+                            </FormControl>
+                          </Grid>
+                          <Grid
+                            size={{ xs: 12, lg: 6 }}
+                            marginBottom="28px"
+                            paddingLeft={3 / 2}
+                            paddingTop="0px !important"
+                          >
+                            <FormControl fullWidth>
+                              <OutlinedInput
+                                type="date"
+                                name="dob"
+                                value={formik.values.dob}
+                                label="Date of Birth"
+                                onChange={formik.handleChange}
+                                onBlur={formik.handleBlur}
+                                aria-describedby="dob-error"
+                                fullWidth
+                              />
                             </FormControl>
                           </Grid>
                         </Grid>
                       </Paper>
+
                       <Box
                         component="div"
                         alignSelf="end"
@@ -803,7 +1044,7 @@ function UserInfo() {
                             paddingY: "14px",
                           }}
                         >
-                          Logout
+                          Cancel
                         </Button>
                         <Button
                           type="submit"
@@ -814,7 +1055,7 @@ function UserInfo() {
                             paddingY: "14px",
                           }}
                         >
-                          Save Changes
+                          Save
                         </Button>
                       </Box>
                     </Box>
