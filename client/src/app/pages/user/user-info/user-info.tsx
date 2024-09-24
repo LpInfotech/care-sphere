@@ -61,24 +61,11 @@ function UserInfo() {
       .min(11, "Mobile number must contain 10 digits"),
     postCode: yup.string().required("This is required"),
     address: yup.string().required("This is required"),
-    city: yup.string(),
     state: yup.string().required("This is required"),
     country: yup.string().required("This is required"),
     role: yup.string().required("This is required"),
     position: yup.string().required("This is required"),
-    position2: yup.string(),
     division: yup.string().required("This is required"),
-    secondaryEmail: yup.string(),
-    superviser: yup.string(),
-    allergies: yup.string(),
-    empno: yup.string(),
-    dob: yup.string(),
-    emergencyName1: yup.string(),
-    emergencyPhone1: yup.string(),
-    emergencyRelationship1: yup.string(),
-    emergencyName2: yup.string(),
-    emergencyPhone2: yup.string(),
-    emergencyRelationship2: yup.string(),
   });
 
   // ======== put data to API to update user data ========
@@ -113,19 +100,22 @@ function UserInfo() {
       emergencyName2: "",
       emergencyPhone2: "",
       emergencyRelationship2: "",
+      reasonForLeave: "",
+      startDate: "",
+      returnDate: "",
     },
     validationSchema: basicSchema,
+    validateOnChange: false,
+    validateOnBlur: false,
     onSubmit: UpdateUser,
   });
 
-  //======== logout function ========
-  const handleLogout = () => {};
   interface TabPanelProps {
     children?: React.ReactNode;
     index: number;
     value: number;
   }
-  function CustomTabPanel(props: TabPanelProps) {
+  const CustomTabPanel = React.memo((props: TabPanelProps) => {
     const { children, value, index, ...other } = props;
 
     return (
@@ -139,7 +129,7 @@ function UserInfo() {
         {value === index && <Box sx={{ p: 3 }}>{children}</Box>}
       </div>
     );
-  }
+  });
 
   function a11yProps(index: number) {
     return {
@@ -150,7 +140,7 @@ function UserInfo() {
 
   const [value, setValue] = React.useState(0);
 
-  const handleChange = (event: React.SyntheticEvent, newValue: number) => {
+  const handleChange = (_event: React.SyntheticEvent, newValue: number) => {
     setValue(newValue);
   };
 
@@ -198,6 +188,7 @@ function UserInfo() {
                 </Tabs>
               </Box>
               {/* ======== form ======== */}
+
               <Box component="form" onSubmit={formik.handleSubmit} method="PUT">
                 <Grid spacing={2} container>
                   <Grid
@@ -1076,7 +1067,6 @@ function UserInfo() {
                           >
                             <Button
                               variant="outlined"
-                              onClick={handleLogout}
                               sx={{
                                 textTransform: "none",
                                 fontSize: "16px",
@@ -1133,18 +1123,17 @@ function UserInfo() {
                                 />
                               </RadioGroup>
                               <FormControl fullWidth>
-                                <InputLabel htmlFor="outlined-adornment-startDate">
+                                <InputLabel htmlFor="outlined-adornment-benefitsStartDate">
                                   Benefits Start Date
                                 </InputLabel>
                                 <OutlinedInput
                                   type="text"
                                   readOnly
-                                  name="startDate"
+                                  name="benefitsStartDate"
                                   label="Benefits Start Date"
                                   value="09/07/2024"
                                   onChange={formik.handleChange}
                                   onBlur={formik.handleBlur}
-                                  aria-describedby="startDate-error"
                                   fullWidth
                                 />
                               </FormControl>
@@ -1252,7 +1241,6 @@ function UserInfo() {
                           >
                             <Button
                               variant="outlined"
-                              onClick={handleLogout}
                               sx={{
                                 textTransform: "none",
                                 fontSize: "16px",
@@ -1283,12 +1271,12 @@ function UserInfo() {
 
                               <Grid size={{ xs: 12 }} marginBottom="28px">
                                 <FormControl fullWidth>
-                                  <InputLabel htmlFor="outlined-adornment-emergencyName">
+                                  <InputLabel htmlFor="outlined-adornment-emergencyName1">
                                     Name
                                   </InputLabel>
                                   <OutlinedInput
                                     type="text"
-                                    name="emergencyName"
+                                    name="emergencyName1"
                                     label="Name"
                                     value={formik.values.emergencyName1}
                                     onChange={formik.handleChange}
@@ -1301,12 +1289,12 @@ function UserInfo() {
                                 marginBottom="28px"
                               >
                                 <FormControl fullWidth>
-                                  <InputLabel htmlFor="outlined-adornment-emergencyPhone">
+                                  <InputLabel htmlFor="outlined-adornment-emergencyPhone1">
                                     Phone
                                   </InputLabel>
                                   <OutlinedInput
                                     type="text"
-                                    name="emergencyPhone"
+                                    name="emergencyPhone1"
                                     label="Phone"
                                     value={formik.values.emergencyPhone1
                                       .replace(/\D/g, "")
@@ -1324,12 +1312,12 @@ function UserInfo() {
                                 marginBottom="28px"
                               >
                                 <FormControl fullWidth>
-                                  <InputLabel htmlFor="outlined-adornment-emergencyRelationship">
+                                  <InputLabel htmlFor="outlined-adornment-emergencyRelationship1">
                                     Relationship
                                   </InputLabel>
                                   <OutlinedInput
                                     type="text"
-                                    name="emergencyRelationship"
+                                    name="emergencyRelationship1"
                                     label="Relationship"
                                     value={formik.values.emergencyRelationship1}
                                     onChange={formik.handleChange}
@@ -1346,12 +1334,12 @@ function UserInfo() {
 
                               <Grid size={{ xs: 12 }} marginBottom="28px">
                                 <FormControl fullWidth>
-                                  <InputLabel htmlFor="outlined-adornment-name">
+                                  <InputLabel htmlFor="outlined-adornment-emergencyName2">
                                     Name
                                   </InputLabel>
                                   <OutlinedInput
                                     type="text"
-                                    name="name"
+                                    name="emergencyName2"
                                     label="Name"
                                     value={formik.values.emergencyName2}
                                     onChange={formik.handleChange}
@@ -1364,12 +1352,12 @@ function UserInfo() {
                                 marginBottom="28px"
                               >
                                 <FormControl fullWidth>
-                                  <InputLabel htmlFor="outlined-adornment-phone2">
+                                  <InputLabel htmlFor="outlined-adornment-emergencyPhone2">
                                     Phone
                                   </InputLabel>
                                   <OutlinedInput
                                     type="text"
-                                    name="phone2"
+                                    name="emergencyPhone2"
                                     label="Phone"
                                     value={formik.values.emergencyPhone2
                                       .replace(/\D/g, "")
@@ -1411,7 +1399,117 @@ function UserInfo() {
                           >
                             <Button
                               variant="outlined"
-                              onClick={handleLogout}
+                              sx={{
+                                textTransform: "none",
+                                fontSize: "16px",
+                                paddingY: "14px",
+                              }}
+                            >
+                              Cancel
+                            </Button>
+                            <Button
+                              type="submit"
+                              variant="contained"
+                              sx={{
+                                textTransform: "none",
+                                fontSize: "16px",
+                                paddingY: "14px",
+                              }}
+                            >
+                              Save
+                            </Button>
+                          </Box>
+                        </CustomTabPanel>
+                        <CustomTabPanel value={value} index={3}>
+                          <Grid spacing={2} container sx={{ mt: 2 }}>
+                            <Grid
+                              size={{ xs: 12, lg: 4 }}
+                              marginBottom="28px"
+                              paddingLeft={3 / 2}
+                              paddingTop="0px !important"
+                            >
+                              <FormControl fullWidth>
+                                <InputLabel htmlFor="outlined-adornment-startDate">
+                                  Start Date
+                                </InputLabel>
+                                <OutlinedInput
+                                  type="date"
+                                  name="startDate"
+                                  label="Start Date"
+                                  value={formik.values.startDate}
+                                  onChange={formik.handleChange}
+                                  onBlur={formik.handleBlur}
+                                  fullWidth
+                                />
+                              </FormControl>
+                              <Button
+                                variant="contained"
+                                color="error"
+                                sx={{ mt: 2 }}
+                              >
+                                Terminate
+                              </Button>
+                              <FormControl fullWidth sx={{ mt: 5 }}>
+                                <InputLabel>Expected Date of Return</InputLabel>
+                                <OutlinedInput
+                                  type="date"
+                                  name="returnDate"
+                                  label="Expected Date of Return"
+                                  value={formik.values.returnDate}
+                                  onChange={formik.handleChange}
+                                  onBlur={formik.handleBlur}
+                                  fullWidth
+                                />
+                              </FormControl>
+                              <Button
+                                variant="contained"
+                                color="warning"
+                                sx={{ mt: 2 }}
+                              >
+                                Place on Leave
+                              </Button>
+                              <FormControl fullWidth sx={{ mt: 5 }}>
+                                <InputLabel htmlFor="outlined-adornment-reasonForLeave">
+                                  Reason for Leave
+                                </InputLabel>
+                                <Select
+                                  type="text"
+                                  name="reasonForLeave"
+                                  value={formik.values.reasonForLeave}
+                                  label="Reason for Leave"
+                                  onChange={formik.handleChange}
+                                  onBlur={formik.handleBlur}
+                                  fullWidth
+                                  sx={{ textAlign: "left" }}
+                                >
+                                  <MenuItem value="Select a reason">
+                                    --Select a reason
+                                  </MenuItem>
+                                </Select>
+                              </FormControl>
+                            </Grid>
+                            <Grid
+                              size={{ xs: 12, lg: 8 }}
+                              marginBottom="28px"
+                              paddingLeft={3 / 2}
+                              paddingTop="0px !important"
+                            >
+                              <Typography variant="h5" marginBottom={2}>
+                                Start/Terminate History
+                              </Typography>
+                              <Typography variant="subtitle2" marginBottom={2}>
+                                No Start/Terminate History
+                              </Typography>
+                            </Grid>
+                          </Grid>
+                          <Box
+                            component="div"
+                            display="flex"
+                            sx={{ float: "inline-end" }}
+                            gap={2}
+                          >
+                            <Button
+                              variant="outlined"
                               sx={{
                                 textTransform: "none",
                                 fontSize: "16px",
