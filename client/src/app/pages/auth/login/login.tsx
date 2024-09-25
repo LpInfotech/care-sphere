@@ -15,7 +15,7 @@ import {
   Divider,
 } from "@mui/material";
 import Grid from "@mui/material/Grid2";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import * as yup from "yup";
 import { useFormik } from "formik";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
@@ -36,6 +36,13 @@ const login = () => {
       .required("This is required"),
     password: yup.string().required("This is required"),
   });
+
+  useEffect(() => {
+    document.body.style.overflow = "hidden";
+    return () => {
+      document.body.style.overflow = "unset";
+    };
+  }, []);
 
   //======== password visibility ========
   const handleClickShowPassword = () => setShowPassword((show) => !show);
