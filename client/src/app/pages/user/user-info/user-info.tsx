@@ -29,6 +29,35 @@ import theme from "../../../shared/theme/theme";
 import SnackBar from "../../../shared/components/snackbar/snackbar";
 import Grid from "@mui/material/Grid2";
 import React from "react";
+
+interface TabPanelProps {
+  children?: React.ReactNode;
+  index: number;
+  value: number;
+}
+const CustomTabPanel = React.memo((props: TabPanelProps) => {
+  const { children, value, index, ...other } = props;
+
+  return (
+    <div
+      role="tabpanel"
+      hidden={value !== index}
+      id={`simple-tabpanel-${index}`}
+      aria-labelledby={`simple-tab-${index}`}
+      {...other}
+    >
+      {value === index && <Box sx={{ p: 3 }}>{children}</Box>}
+    </div>
+  );
+});
+
+function a11yProps(index: number) {
+  return {
+    id: `simple-tab-${index}`,
+    "aria-controls": `simple-tabpanel-${index}`,
+  };
+}
+
 function UserInfo() {
   const [openSnackbar, setOpenSnackbar] = useState(false);
   const [snackbarMessage] = useState("");
@@ -109,34 +138,6 @@ function UserInfo() {
     validateOnBlur: false,
     onSubmit: UpdateUser,
   });
-
-  interface TabPanelProps {
-    children?: React.ReactNode;
-    index: number;
-    value: number;
-  }
-  const CustomTabPanel = React.memo((props: TabPanelProps) => {
-    const { children, value, index, ...other } = props;
-
-    return (
-      <div
-        role="tabpanel"
-        hidden={value !== index}
-        id={`simple-tabpanel-${index}`}
-        aria-labelledby={`simple-tab-${index}`}
-        {...other}
-      >
-        {value === index && <Box sx={{ p: 3 }}>{children}</Box>}
-      </div>
-    );
-  });
-
-  function a11yProps(index: number) {
-    return {
-      id: `simple-tab-${index}`,
-      "aria-controls": `simple-tabpanel-${index}`,
-    };
-  }
 
   const [value, setValue] = React.useState(0);
 
@@ -456,6 +457,7 @@ function UserInfo() {
                                   value={formik.values.country}
                                   label="Country"
                                   onBlur={formik.handleBlur}
+                                  onChange={formik.handleChange}
                                   fullWidth
                                   sx={{ textAlign: "left" }}
                                   error={
@@ -464,6 +466,8 @@ function UserInfo() {
                                   }
                                 >
                                   <MenuItem value="India">India</MenuItem>
+                                  <MenuItem value="USA">USA</MenuItem>
+                                  <MenuItem value="Canada">Canada</MenuItem>
                                 </Select>
                                 {/* ======== error message ======== */}
                                 <FormHelperText
@@ -508,6 +512,7 @@ function UserInfo() {
                                   value={formik.values.state}
                                   label="State/Province/Region"
                                   onBlur={formik.handleBlur}
+                                  onChange={formik.handleChange}
                                   fullWidth
                                   sx={{ textAlign: "left" }}
                                   error={
@@ -656,6 +661,7 @@ function UserInfo() {
                                   name="role"
                                   value={formik.values.role}
                                   label="Role"
+                                  onChange={formik.handleChange}
                                   onBlur={formik.handleBlur}
                                   fullWidth
                                   sx={{ textAlign: "left" }}
@@ -664,7 +670,7 @@ function UserInfo() {
                                     Boolean(formik.errors.role)
                                   }
                                 >
-                                  <MenuItem value="India">role</MenuItem>
+                                  <MenuItem value="role">role</MenuItem>
                                 </Select>
                                 {/* ======== error message ======== */}
                                 <FormHelperText
@@ -709,6 +715,7 @@ function UserInfo() {
                                   value={formik.values.position}
                                   label="Position"
                                   onBlur={formik.handleBlur}
+                                  onChange={formik.handleChange}
                                   fullWidth
                                   sx={{ textAlign: "left" }}
                                   error={
@@ -716,7 +723,7 @@ function UserInfo() {
                                     Boolean(formik.errors.position)
                                   }
                                 >
-                                  <MenuItem value="India">position</MenuItem>
+                                  <MenuItem value="position">position</MenuItem>
                                 </Select>
                                 {/* ======== error message ======== */}
                                 <FormHelperText
@@ -755,6 +762,7 @@ function UserInfo() {
                                   value={formik.values.position2}
                                   label="Position 2"
                                   onBlur={formik.handleBlur}
+                                  onChange={formik.handleChange}
                                   fullWidth
                                   sx={{ textAlign: "left" }}
                                   error={
@@ -762,7 +770,9 @@ function UserInfo() {
                                     Boolean(formik.errors.position2)
                                   }
                                 >
-                                  <MenuItem value="India">Position 2</MenuItem>
+                                  <MenuItem value="Position">
+                                    Position 2
+                                  </MenuItem>
                                 </Select>
                               </FormControl>
                             </Grid>
@@ -788,6 +798,7 @@ function UserInfo() {
                                   value={formik.values.division}
                                   label="Division"
                                   onBlur={formik.handleBlur}
+                                  onChange={formik.handleChange}
                                   fullWidth
                                   sx={{ textAlign: "left" }}
                                   error={
@@ -1429,13 +1440,12 @@ function UserInfo() {
                               paddingTop="0px !important"
                             >
                               <FormControl fullWidth>
-                                <InputLabel htmlFor="outlined-adornment-startDate">
+                                <Typography variant="subtitle2">
                                   Start Date
-                                </InputLabel>
-                                <OutlinedInput
+                                </Typography>
+                                <TextField
                                   type="date"
                                   name="startDate"
-                                  label="Start Date"
                                   value={formik.values.startDate}
                                   onChange={formik.handleChange}
                                   onBlur={formik.handleBlur}
@@ -1450,11 +1460,12 @@ function UserInfo() {
                                 Terminate
                               </Button>
                               <FormControl fullWidth sx={{ mt: 5 }}>
-                                <InputLabel>Expected Date of Return</InputLabel>
+                                <Typography variant="subtitle2">
+                                  Expected Date of Return
+                                </Typography>
                                 <OutlinedInput
                                   type="date"
                                   name="returnDate"
-                                  label="Expected Date of Return"
                                   value={formik.values.returnDate}
                                   onChange={formik.handleChange}
                                   onBlur={formik.handleBlur}
