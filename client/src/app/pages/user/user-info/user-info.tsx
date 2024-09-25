@@ -986,6 +986,7 @@ function UserInfo() {
                                   type="text"
                                   rows={4}
                                   multiline
+                                  name="allergies"
                                   value={formik.values.allergies}
                                   label="Allergies"
                                   onChange={formik.handleChange}
@@ -1009,7 +1010,7 @@ function UserInfo() {
                                   type="text"
                                   name="postCode"
                                   value={formik.values.postCode}
-                                  label="postCode"
+                                  label="Postal Code"
                                   onChange={formik.handleChange}
                                   onBlur={formik.handleBlur}
                                   aria-describedby="postCode-error"
@@ -1042,7 +1043,7 @@ function UserInfo() {
                                   type="text"
                                   name="empno"
                                   value={formik.values.empno}
-                                  label="empno"
+                                  label="Employee Number"
                                   onChange={formik.handleChange}
                                   onBlur={formik.handleBlur}
                                   aria-describedby="empno-error"
@@ -1061,7 +1062,6 @@ function UserInfo() {
                                   type="date"
                                   name="dob"
                                   value={formik.values.dob}
-                                  label="Date of Birth"
                                   onChange={formik.handleChange}
                                   onBlur={formik.handleBlur}
                                   aria-describedby="dob-error"
