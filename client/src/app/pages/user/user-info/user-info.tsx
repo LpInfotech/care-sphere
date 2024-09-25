@@ -132,6 +132,8 @@ function UserInfo() {
       reasonForLeave: "",
       startDate: "",
       returnDate: "",
+      wellnessDays: "",
+      vacationDays: "",
     },
     validationSchema: basicSchema,
     validateOnChange: false,
@@ -582,7 +584,7 @@ function UserInfo() {
                                   label="Phone 1"
                                   value={formik.values.phone1
                                     .replace(/\D/g, "")
-                                    .replace(/^(\d{6})(\d)/, "$1-$2")}
+                                    .replace(/^(\d{5})(\d)/, "$1-$2")}
                                   onChange={formik.handleChange}
                                   onBlur={formik.handleBlur}
                                   placeholder="00000-00000"
@@ -882,7 +884,7 @@ function UserInfo() {
                                     )
                                   }
                                   name="address"
-                                  label="Street Address"
+                                  label="Address"
                                   value={formik.values.address}
                                   onChange={formik.handleChange}
                                   onBlur={formik.handleBlur}
@@ -923,7 +925,7 @@ function UserInfo() {
                                   Secondary Email
                                 </InputLabel>
                                 <OutlinedInput
-                                  type="text"
+                                  type="email"
                                   name="secondaryEmail"
                                   label="Secondary Email"
                                   value={formik.values.secondaryEmail}
@@ -1009,7 +1011,11 @@ function UserInfo() {
                                 <OutlinedInput
                                   type="text"
                                   name="postCode"
-                                  value={formik.values.postCode}
+                                  value={formik.values.postCode.replace(
+                                    /\D/g,
+                                    ""
+                                  )}
+                                  inputProps={{ maxLength: 6 }}
                                   label="Postal Code"
                                   onChange={formik.handleChange}
                                   onBlur={formik.handleBlur}
@@ -1042,7 +1048,7 @@ function UserInfo() {
                                 <OutlinedInput
                                   type="text"
                                   name="empno"
-                                  value={formik.values.empno}
+                                  value={formik.values.empno.replace(/\D/g, "")}
                                   label="Employee Number"
                                   onChange={formik.handleChange}
                                   onBlur={formik.handleBlur}
@@ -1215,7 +1221,7 @@ function UserInfo() {
                                   type="number"
                                   name="wellnessDays"
                                   label="Wellness Days"
-                                  value="0"
+                                  value={formik.values.wellnessDays}
                                   onChange={formik.handleChange}
                                   onBlur={formik.handleBlur}
                                   fullWidth
@@ -1236,7 +1242,7 @@ function UserInfo() {
                                   type="number"
                                   name="vacationDays"
                                   label="Vacation Days"
-                                  value="0"
+                                  value={formik.values.vacationDays}
                                   onChange={formik.handleChange}
                                   onBlur={formik.handleBlur}
                                   fullWidth
