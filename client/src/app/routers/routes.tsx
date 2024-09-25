@@ -9,7 +9,8 @@ const RoutesComponent: React.FC = () => {
     <Routes>
       <Route index element={<Login />} />
       <Route path="/login" element={<Login />} />
-      <Route path="/forgot-password" element={<CreatePassword />} />
+      {/* <Route path="/forgot-password" element={<CreatePassword />} /> */}
+      <Route path="/forgot-password:token" element={<CreatePassword />} />
       <Route path="/user-info" element={<UserInfo />} />
       <Route path="/create-password/:token" element={<CreatePassword />} />
     </Routes>

@@ -365,9 +365,12 @@ const login = () => {
                     </Button>
                     <Link
                       href="/forgot-password"
-                      color="primary"
+                      color={isDisabled ? "inherit" : "primary"}
                       fontSize="12px"
-                      sx={{ textDecoration: "none" }}
+                      sx={{
+                        textDecoration: "none",
+                        cursor: isDisabled ? "default" : "pointer",
+                      }}
                       onClick={(e) => {
                         if (isDisabled) {
                           e.preventDefault(); // Prevent the link from working if disabled
