@@ -22,7 +22,7 @@ import theme from "../../../shared/theme/theme";
 import SnackBar from "../../../shared/components/snackbar/snackbar";
 import { useNavigate, useParams } from "react-router-dom";
 
-const createPassword = () => {
+const ForgotPassword = () => {
   const navigate = useNavigate();
   const { token } = useParams();
   const apiRoute = `http://localhost:3000/api/v1/`;
@@ -63,9 +63,8 @@ const createPassword = () => {
     setOpenSnackbar(false);
   };
   // ======== Login user integrating with api ========
-  const createPassword = () => {
-    console.log(formik.values);
-    fetch(apiRoute + "createPassword" + "/" + token, {
+  const forgotPassword = () => {
+    fetch(apiRoute + "resetPassword" + "/" + token, {
       method: "PUT",
       body: JSON.stringify({
         password: formik.values.password,
@@ -83,7 +82,7 @@ const createPassword = () => {
         } else {
           setSnackbarType("success");
           setOpenSnackbar(true);
-          setSnackbarMessage("Password created successfully");
+          setSnackbarMessage("Password reset successfully");
           formik.resetForm();
           setTimeout(() => {
             navigate("/login");
@@ -102,7 +101,7 @@ const createPassword = () => {
       confirmPassword: "",
     },
     validationSchema: basicSchema,
-    onSubmit: () => createPassword(),
+    onSubmit: () => forgotPassword(),
   });
 
   //======== JSX ========
@@ -206,7 +205,7 @@ const createPassword = () => {
                       marginBottom={1}
                       textAlign="start"
                     >
-                      Create new password
+                      Reset password
                     </Typography>
                     <Divider
                       sx={{
@@ -395,4 +394,4 @@ const createPassword = () => {
   );
 };
 
-export default createPassword;
+export default ForgotPassword;

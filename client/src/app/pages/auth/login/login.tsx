@@ -37,6 +37,37 @@ const login = () => {
     password: yup.string().required("This is required"),
   });
 
+  function test() {
+    fetch("http://localhost:3000/api/v1/forgotPassword", {
+      method: "POST",
+      body: JSON.stringify({
+        email: formik.values.emailAddress,
+      }),
+      headers: {
+        "Content-type": "application/json; charset=UTF-8",
+      },
+    })
+      .then((res) => res.json())
+      .then((result) => {
+        if (result.error) {
+          setSnackbarMessage("Email doesn't exist");
+          setSnackbarType("error");
+          setOpenSnackbar(true);
+        } else {
+          setSnackbarType("success");
+          setOpenSnackbar(true);
+          setSnackbarMessage(result.message);
+          formik.resetForm();
+        }
+      })
+      .catch((err) => {
+        console.log(err.message);
+        setSnackbarMessage("Request failed");
+        setSnackbarType("error");
+        setOpenSnackbar(true);
+      });
+  }
+
   useEffect(() => {
     document.body.style.overflow = "hidden";
     return () => {
@@ -364,7 +395,6 @@ const login = () => {
                       Sign In
                     </Button>
                     <Link
-                      href="/forgot-password"
                       color={isDisabled ? "inherit" : "primary"}
                       fontSize="12px"
                       sx={{
@@ -374,6 +404,8 @@ const login = () => {
                       onClick={(e) => {
                         if (isDisabled) {
                           e.preventDefault(); // Prevent the link from working if disabled
+                        } else {
+                          test();
                         }
                       }}
                     >
