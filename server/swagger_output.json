@@ -530,11 +530,13 @@
           {
             "name": "body",
             "in": "body",
+            "description": "",
             "schema": {
               "type": "object",
               "properties": {
                 "email": {
-                  "example": "any"
+                  "type": "string",
+                  "example": "test@gmail.com"
                 }
               }
             }
@@ -557,7 +559,7 @@
       }
     },
     "/api/v1/resetPassword/{token}": {
-      "post": {
+      "put": {
         "tags": [
           "Users"
         ],

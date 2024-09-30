@@ -200,7 +200,7 @@ function emailTemplate({ token }) {
         <tr>
           <td style="padding: 0 24px; font-family: system-ui; color: black; line-height: 1.6;">
             <p>Hi,</p>
-            <p>You have been invited to Care Sphere. Please click on the button below to reset your password.</p>
+            <p>Thanks for being a member of the Care Sphere community. Please click on the button below to reset your password.</p>
           </td>
         </tr>
         <tr>
@@ -234,7 +234,7 @@ const forgotPassword = async (req, res) => {
     /*  #swagger.parameters['body'] = {
                 in: 'body',
                 description: '',
-                schema: { {email : "test@gmail.com"} }
+                schema: { email : "test@gmail.com"}
         } */
     const user = await User.findOne({ email: req.body.email });
 
@@ -242,6 +242,12 @@ const forgotPassword = async (req, res) => {
       return res
         .status(401)
         .json(error("This email doesn't exist", res.statusCode));
+
+    if (!user.password) {
+      return res
+        .status(401)
+        .json(error("You have not created any password yet.", res.statusCode));
+    }
 
     // Save token for user to start verifying the account
     let verification = new Verification({
