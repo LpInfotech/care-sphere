@@ -213,12 +213,7 @@ function UserInfo() {
                       >
                         <CustomTabPanel value={value} index={0}>
                           <Grid spacing={2} container sx={{ mt: 2 }}>
-                            <Grid
-                              size={{ xs: 12 }}
-                              marginBottom="28px"
-                              paddingLeft={3 / 2}
-                              paddingTop="0px !important"
-                            >
+                            <Grid size={{ xs: 12 }} marginBottom="28px">
                               <FormLabel id="demo-controlled-radio-buttons-group">
                                 Type
                               </FormLabel>
@@ -246,22 +241,8 @@ function UserInfo() {
                                 />
                               </RadioGroup>
                             </Grid>
-                            <Grid
-                              size={{ xs: 12, lg: 6 }}
-                              marginBottom="28px"
-                              paddingLeft={3 / 2}
-                              paddingTop="0px !important"
-                            >
+                            <Grid size={{ xs: 12, lg: 6 }} marginBottom="28px">
                               <FormControl fullWidth>
-                                <InputLabel
-                                  htmlFor="outlined-adornment-firstName"
-                                  error={
-                                    formik.touched.firstName &&
-                                    Boolean(formik.errors.firstName)
-                                  }
-                                >
-                                  First Name*
-                                </InputLabel>
                                 <OutlinedInput
                                   type="text"
                                   required
@@ -285,7 +266,7 @@ function UserInfo() {
                                     )
                                   }
                                   name="firstName"
-                                  label="First Name"
+                                  placeholder="First Name*"
                                   value={formik.values.firstName}
                                   onChange={formik.handleChange}
                                   onBlur={formik.handleBlur}
@@ -295,6 +276,11 @@ function UserInfo() {
                                     formik.touched.firstName &&
                                     Boolean(formik.errors.firstName)
                                   }
+                                  sx={{
+                                    borderRadius: "50px",
+                                    fontSize: "12px",
+                                    padding: 1 / 2,
+                                  }}
                                 />
                                 {/* ======== error message ======== */}
                                 <FormHelperText
@@ -317,22 +303,8 @@ function UserInfo() {
                                 {/* ======== /error message ======== */}
                               </FormControl>
                             </Grid>
-                            <Grid
-                              size={{ xs: 12, lg: 6 }}
-                              marginBottom="28px"
-                              paddingLeft={3 / 2}
-                              paddingTop="0px !important"
-                            >
+                            <Grid size={{ xs: 12, lg: 6 }} marginBottom="28px">
                               <FormControl fullWidth>
-                                <InputLabel
-                                  htmlFor="outlined-adornment-lastName"
-                                  error={
-                                    formik.touched.lastName &&
-                                    Boolean(formik.errors.lastName)
-                                  }
-                                >
-                                  Last Name*
-                                </InputLabel>
                                 <OutlinedInput
                                   required
                                   type="text"
@@ -354,7 +326,7 @@ function UserInfo() {
                                     )
                                   }
                                   name="lastName"
-                                  label="Last Name"
+                                  placeholder="Last Name*"
                                   value={formik.values.lastName}
                                   onChange={formik.handleChange}
                                   onBlur={formik.handleBlur}
@@ -363,6 +335,11 @@ function UserInfo() {
                                     formik.touched.lastName &&
                                     Boolean(formik.errors.lastName)
                                   }
+                                  sx={{
+                                    borderRadius: "50px",
+                                    fontSize: "12px",
+                                    padding: 1 / 2,
+                                  }}
                                 />
                                 {/* ======== error message ======== */}
                                 <FormHelperText
@@ -385,26 +362,12 @@ function UserInfo() {
                                 {/* ======== /error message ======== */}
                               </FormControl>
                             </Grid>
-                            <Grid
-                              size={{ xs: 12, lg: 6 }}
-                              marginBottom="28px"
-                              paddingLeft={3 / 2}
-                              paddingTop="0px !important"
-                            >
+                            <Grid size={{ xs: 12, lg: 6 }} marginBottom="28px">
                               <FormControl fullWidth>
-                                <InputLabel
-                                  htmlFor="outlined-adornment-email"
-                                  error={
-                                    formik.touched.email &&
-                                    Boolean(formik.errors.email)
-                                  }
-                                >
-                                  Email*
-                                </InputLabel>
                                 <OutlinedInput
                                   type="email"
                                   name="email"
-                                  label="Email"
+                                  placeholder="Email Address*"
                                   onChange={formik.handleChange}
                                   onBlur={formik.handleBlur}
                                   required
@@ -415,6 +378,11 @@ function UserInfo() {
                                     formik.touched.email &&
                                     Boolean(formik.errors.email)
                                   }
+                                  sx={{
+                                    borderRadius: "50px",
+                                    fontSize: "12px",
+                                    padding: 1 / 2,
+                                  }}
                                 />
                                 {/* ======== error message ======== */}
                                 <FormHelperText
@@ -437,36 +405,30 @@ function UserInfo() {
                                 {/* ======== /error message ======== */}
                               </FormControl>
                             </Grid>
-                            <Grid
-                              size={{ xs: 12, lg: 6 }}
-                              marginBottom="28px"
-                              paddingLeft={3 / 2}
-                              paddingTop="0px !important"
-                            >
+                            <Grid size={{ xs: 12, lg: 6 }} marginBottom="28px">
                               <FormControl fullWidth>
-                                <InputLabel
-                                  htmlFor="outlined-adornment-country"
-                                  error={
-                                    formik.touched.country &&
-                                    Boolean(formik.errors.country)
-                                  }
-                                >
-                                  Country
-                                </InputLabel>
                                 <Select
                                   type="text"
                                   name="country"
                                   value={formik.values.country}
-                                  label="Country"
+                                  displayEmpty
                                   onBlur={formik.handleBlur}
                                   onChange={formik.handleChange}
                                   fullWidth
-                                  sx={{ textAlign: "left" }}
+                                  sx={{
+                                    textAlign: "left",
+                                    borderRadius: "50px",
+                                    fontSize: "12px",
+                                    padding: 1 / 2,
+                                  }}
                                   error={
                                     formik.touched.country &&
                                     Boolean(formik.errors.country)
                                   }
                                 >
+                                  <MenuItem value="" disabled>
+                                    Country
+                                  </MenuItem>
                                   <MenuItem value="India">India</MenuItem>
                                   <MenuItem value="USA">USA</MenuItem>
                                   <MenuItem value="Canada">Canada</MenuItem>
@@ -492,36 +454,30 @@ function UserInfo() {
                                 {/* ======== /error message ======== */}
                               </FormControl>
                             </Grid>
-                            <Grid
-                              size={{ xs: 12, lg: 6 }}
-                              marginBottom="28px"
-                              paddingLeft={3 / 2}
-                              paddingTop="0px !important"
-                            >
+                            <Grid size={{ xs: 12, lg: 6 }} marginBottom="28px">
                               <FormControl fullWidth>
-                                <InputLabel
-                                  htmlFor="outlined-adornment-state"
-                                  error={
-                                    formik.touched.state &&
-                                    Boolean(formik.errors.state)
-                                  }
-                                >
-                                  State/Province/Region
-                                </InputLabel>
                                 <Select
                                   type="text"
                                   name="state"
                                   value={formik.values.state}
-                                  label="State/Province/Region"
+                                  displayEmpty
                                   onBlur={formik.handleBlur}
                                   onChange={formik.handleChange}
                                   fullWidth
-                                  sx={{ textAlign: "left" }}
+                                  sx={{
+                                    textAlign: "left",
+                                    borderRadius: "50px",
+                                    fontSize: "12px",
+                                    padding: 1 / 2,
+                                  }}
                                   error={
                                     formik.touched.state &&
                                     Boolean(formik.errors.state)
                                   }
                                 >
+                                  <MenuItem value="" disabled>
+                                    State/Province/Region
+                                  </MenuItem>
                                   <MenuItem value="Punjab">Punjab</MenuItem>
                                 </Select>
                                 {/* ======== error message ======== */}
@@ -545,22 +501,8 @@ function UserInfo() {
                                 {/* ======== /error message ======== */}
                               </FormControl>
                             </Grid>
-                            <Grid
-                              size={{ xs: 12, lg: 6 }}
-                              marginBottom="28px"
-                              paddingLeft={3 / 2}
-                              paddingTop="0px !important"
-                            >
+                            <Grid size={{ xs: 12, lg: 6 }} marginBottom="28px">
                               <FormControl fullWidth>
-                                <InputLabel
-                                  htmlFor="outlined-adornment-phone1"
-                                  error={
-                                    formik.touched.phone1 &&
-                                    Boolean(formik.errors.phone1)
-                                  }
-                                >
-                                  Phone 1
-                                </InputLabel>
                                 <OutlinedInput
                                   type="text"
                                   endAdornment={
@@ -581,13 +523,13 @@ function UserInfo() {
                                     )
                                   }
                                   name="phone1"
-                                  label="Phone 1"
+                                  placeholder="Phone 1"
                                   value={formik.values.phone1
                                     .replace(/\D/g, "")
                                     .replace(/^(\d{5})(\d)/, "$1-$2")}
                                   onChange={formik.handleChange}
                                   onBlur={formik.handleBlur}
-                                  placeholder="00000-00000"
+                                  // placeholder="00000-00000"
                                   aria-describedby="phone1-error"
                                   fullWidth
                                   inputProps={{ maxLength: 11 }}
@@ -595,6 +537,11 @@ function UserInfo() {
                                     formik.touched.phone1 &&
                                     Boolean(formik.errors.phone1)
                                   }
+                                  sx={{
+                                    borderRadius: "50px",
+                                    fontSize: "12px",
+                                    padding: 1 / 2,
+                                  }}
                                 />
                                 {/* ======== error message ======== */}
                                 <FormHelperText
@@ -617,61 +564,53 @@ function UserInfo() {
                                 {/* ======== /error message ======== */}
                               </FormControl>
                             </Grid>
-                            <Grid
-                              size={{ xs: 12, lg: 3 }}
-                              marginBottom="28px"
-                              paddingLeft={3 / 2}
-                              paddingTop="0px !important"
-                            >
+                            <Grid size={{ xs: 12, lg: 3 }} marginBottom="28px">
                               <FormControl fullWidth>
-                                <InputLabel htmlFor="outlined-adornment-phone2">
-                                  Phone 2
-                                </InputLabel>
                                 <OutlinedInput
                                   type="text"
                                   name="phone2"
-                                  label="Phone 2"
+                                  placeholder="Phone 2"
                                   value={formik.values.phone2
                                     .replace(/\D/g, "")
                                     .replace(/^(\d{5})(\d)/, "$1-$2")}
                                   onChange={formik.handleChange}
                                   onBlur={formik.handleBlur}
-                                  placeholder="00000-00000"
+                                  // placeholder="00000-00000"
                                   fullWidth
                                   inputProps={{ maxLength: 11 }}
+                                  sx={{
+                                    borderRadius: "50px",
+                                    fontSize: "12px",
+                                    padding: 1 / 2,
+                                  }}
                                 />
                               </FormControl>
                             </Grid>
-                            <Grid
-                              size={{ xs: 12, lg: 3 }}
-                              marginBottom="28px"
-                              paddingLeft={3 / 2}
-                              paddingTop="0px !important"
-                            >
+                            <Grid size={{ xs: 12, lg: 3 }} marginBottom="28px">
                               <FormControl fullWidth>
-                                <InputLabel
-                                  htmlFor="outlined-adornment-role"
-                                  error={
-                                    formik.touched.role &&
-                                    Boolean(formik.errors.role)
-                                  }
-                                >
-                                  Role*
-                                </InputLabel>
                                 <Select
                                   type="text"
                                   name="role"
                                   value={formik.values.role}
-                                  label="Role"
+                                  placeholder="Role*"
+                                  displayEmpty
                                   onChange={formik.handleChange}
                                   onBlur={formik.handleBlur}
                                   fullWidth
-                                  sx={{ textAlign: "left" }}
+                                  sx={{
+                                    textAlign: "left",
+                                    borderRadius: "50px",
+                                    fontSize: "12px",
+                                    padding: 1 / 2,
+                                  }}
                                   error={
                                     formik.touched.role &&
                                     Boolean(formik.errors.role)
                                   }
                                 >
+                                  <MenuItem value="" disabled>
+                                    Role*
+                                  </MenuItem>
                                   <MenuItem value="role">role</MenuItem>
                                 </Select>
                                 {/* ======== error message ======== */}
@@ -695,36 +634,31 @@ function UserInfo() {
                                 {/* ======== /error message ======== */}
                               </FormControl>
                             </Grid>
-                            <Grid
-                              size={{ xs: 12, lg: 3 }}
-                              marginBottom="28px"
-                              paddingLeft={3 / 2}
-                              paddingTop="0px !important"
-                            >
+                            <Grid size={{ xs: 12, lg: 3 }} marginBottom="28px">
                               <FormControl fullWidth>
-                                <InputLabel
-                                  htmlFor="outlined-adornment-position"
-                                  error={
-                                    formik.touched.position &&
-                                    Boolean(formik.errors.position)
-                                  }
-                                >
-                                  Position*
-                                </InputLabel>
                                 <Select
                                   type="text"
                                   name="position"
                                   value={formik.values.position}
-                                  label="Position"
+                                  placeholder="Position*"
+                                  displayEmpty
                                   onBlur={formik.handleBlur}
                                   onChange={formik.handleChange}
                                   fullWidth
-                                  sx={{ textAlign: "left" }}
+                                  sx={{
+                                    textAlign: "left",
+                                    borderRadius: "50px",
+                                    fontSize: "12px",
+                                    padding: 1 / 2,
+                                  }}
                                   error={
                                     formik.touched.position &&
                                     Boolean(formik.errors.position)
                                   }
                                 >
+                                  <MenuItem value="" disabled>
+                                    Position*
+                                  </MenuItem>
                                   <MenuItem value="position">position</MenuItem>
                                 </Select>
                                 {/* ======== error message ======== */}
@@ -748,66 +682,62 @@ function UserInfo() {
                                 {/* ======== /error message ======== */}
                               </FormControl>
                             </Grid>
-                            <Grid
-                              size={{ xs: 12, lg: 3 }}
-                              marginBottom="28px"
-                              paddingLeft={3 / 2}
-                              paddingTop="0px !important"
-                            >
+                            <Grid size={{ xs: 12, lg: 3 }} marginBottom="28px">
                               <FormControl fullWidth>
-                                <InputLabel htmlFor="outlined-adornment-position2">
-                                  Position 2
-                                </InputLabel>
                                 <Select
                                   type="text"
                                   name="position2"
                                   value={formik.values.position2}
-                                  label="Position 2"
+                                  placeholder="Position 2"
+                                  displayEmpty
                                   onBlur={formik.handleBlur}
                                   onChange={formik.handleChange}
                                   fullWidth
-                                  sx={{ textAlign: "left" }}
+                                  sx={{
+                                    textAlign: "left",
+                                    borderRadius: "50px",
+                                    fontSize: "12px",
+                                    padding: 1 / 2,
+                                  }}
                                   error={
                                     formik.touched.position2 &&
                                     Boolean(formik.errors.position2)
                                   }
                                 >
+                                  <MenuItem value="" disabled>
+                                    Position 2
+                                  </MenuItem>
                                   <MenuItem value="Position">
                                     Position 2
                                   </MenuItem>
                                 </Select>
                               </FormControl>
                             </Grid>
-                            <Grid
-                              size={{ xs: 12, lg: 4 }}
-                              marginBottom="28px"
-                              paddingLeft={3 / 2}
-                              paddingTop="0px !important"
-                            >
+                            <Grid size={{ xs: 12, lg: 4 }} marginBottom="28px">
                               <FormControl fullWidth>
-                                <InputLabel
-                                  htmlFor="outlined-adornment-division"
-                                  error={
-                                    formik.touched.division &&
-                                    Boolean(formik.errors.division)
-                                  }
-                                >
-                                  Division*
-                                </InputLabel>
                                 <Select
                                   type="text"
                                   name="division"
                                   value={formik.values.division}
-                                  label="Division"
+                                  placeholder="Division*"
+                                  displayEmpty
                                   onBlur={formik.handleBlur}
                                   onChange={formik.handleChange}
                                   fullWidth
-                                  sx={{ textAlign: "left" }}
+                                  sx={{
+                                    textAlign: "left",
+                                    borderRadius: "50px",
+                                    fontSize: "12px",
+                                    padding: 1 / 2,
+                                  }}
                                   error={
                                     formik.touched.division &&
                                     Boolean(formik.errors.division)
                                   }
                                 >
+                                  <MenuItem value="" disabled>
+                                    Division*
+                                  </MenuItem>
                                   <MenuItem value="division">division</MenuItem>
                                 </Select>
                                 {/* ======== error message ======== */}
@@ -831,39 +761,28 @@ function UserInfo() {
                                 {/* ======== /error message ======== */}
                               </FormControl>
                             </Grid>
-                            <Grid
-                              size={{ xs: 12, lg: 6 }}
-                              marginBottom="28px"
-                              paddingLeft={3 / 2}
-                              paddingTop="0px !important"
-                            >
+                            <Grid size={{ xs: 12, lg: 6 }} marginBottom="28px">
                               <FormControl fullWidth>
-                                <InputLabel htmlFor="outlined-adornment-superviser">
-                                  Supervised by
-                                </InputLabel>
                                 <OutlinedInput
                                   type="text"
                                   readOnly
                                   name="superviser"
-                                  label="Supervised by"
+                                  placeholder="Supervised by"
                                   value="Tao, David"
                                   onChange={formik.handleChange}
                                   onBlur={formik.handleBlur}
                                   aria-describedby="superviser-error"
                                   fullWidth
+                                  sx={{
+                                    borderRadius: "50px",
+                                    fontSize: "12px",
+                                    padding: 1 / 2,
+                                  }}
                                 />
                               </FormControl>
                             </Grid>
-                            <Grid
-                              size={{ xs: 12, lg: 6 }}
-                              marginBottom="28px"
-                              paddingLeft={3 / 2}
-                              paddingTop="0px !important"
-                            >
+                            <Grid size={{ xs: 12, lg: 6 }} marginBottom="28px">
                               <FormControl fullWidth>
-                                <InputLabel htmlFor="outlined-adornment-address">
-                                  Address
-                                </InputLabel>
                                 <OutlinedInput
                                   type="text"
                                   endAdornment={
@@ -884,7 +803,7 @@ function UserInfo() {
                                     )
                                   }
                                   name="address"
-                                  label="Address"
+                                  placeholder="Address"
                                   value={formik.values.address}
                                   onChange={formik.handleChange}
                                   onBlur={formik.handleBlur}
@@ -894,6 +813,11 @@ function UserInfo() {
                                     formik.touched.address &&
                                     Boolean(formik.errors.address)
                                   }
+                                  sx={{
+                                    borderRadius: "50px",
+                                    fontSize: "12px",
+                                    padding: 1 / 2,
+                                  }}
                                 />
                                 <FormHelperText
                                   id="address-error"
@@ -914,25 +838,22 @@ function UserInfo() {
                                 </FormHelperText>
                               </FormControl>
                             </Grid>
-                            <Grid
-                              size={{ xs: 12, lg: 6 }}
-                              marginBottom="28px"
-                              paddingLeft={3 / 2}
-                              paddingTop="0px !important"
-                            >
+                            <Grid size={{ xs: 12, lg: 6 }} marginBottom="28px">
                               <FormControl fullWidth>
-                                <InputLabel htmlFor="outlined-adornment-secondaryEmail">
-                                  Secondary Email
-                                </InputLabel>
                                 <OutlinedInput
                                   type="email"
                                   name="secondaryEmail"
-                                  label="Secondary Email"
+                                  placeholder="Secondary Email"
                                   value={formik.values.secondaryEmail}
                                   onChange={formik.handleChange}
                                   onBlur={formik.handleBlur}
                                   aria-describedby="secondaryEmail-error"
                                   fullWidth
+                                  sx={{
+                                    borderRadius: "50px",
+                                    fontSize: "12px",
+                                    padding: 1 / 2,
+                                  }}
                                 />
                                 {/* ======== error message ======== */}
                                 <FormHelperText
@@ -955,34 +876,26 @@ function UserInfo() {
                                 {/* ======== /error message ======== */}
                               </FormControl>
                             </Grid>
-                            <Grid
-                              size={{ xs: 12, lg: 6 }}
-                              marginBottom="28px"
-                              paddingLeft={3 / 2}
-                              paddingTop="0px !important"
-                            >
+                            <Grid size={{ xs: 12, lg: 6 }} marginBottom="28px">
                               <FormControl fullWidth>
-                                <InputLabel htmlFor="outlined-adornment-city">
-                                  City
-                                </InputLabel>
                                 <OutlinedInput
                                   type="text"
                                   name="city"
                                   value={formik.values.city}
-                                  label="City"
+                                  placeholder="City"
                                   onChange={formik.handleChange}
                                   onBlur={formik.handleBlur}
                                   aria-describedby="city-error"
                                   fullWidth
+                                  sx={{
+                                    borderRadius: "50px",
+                                    fontSize: "12px",
+                                    padding: 1 / 2,
+                                  }}
                                 />
                               </FormControl>
                             </Grid>
-                            <Grid
-                              size={{ xs: 12, lg: 6 }}
-                              marginBottom="28px"
-                              paddingLeft={3 / 2}
-                              paddingTop="0px !important"
-                            >
+                            <Grid size={{ xs: 12, lg: 6 }} marginBottom="28px">
                               <FormControl fullWidth>
                                 <TextField
                                   type="text"
@@ -990,24 +903,30 @@ function UserInfo() {
                                   multiline
                                   name="allergies"
                                   value={formik.values.allergies}
-                                  label="Allergies"
+                                  placeholder="Allergies"
                                   onChange={formik.handleChange}
                                   onBlur={formik.handleBlur}
-                                  aria-describedby="allergies-error"
                                   fullWidth
+                                  slotProps={{
+                                    htmlInput: {
+                                      sx: {
+                                        fontSize: "12px",
+                                      },
+                                    },
+                                    input: {
+                                      sx: {
+                                        borderRadius: "50px",
+                                        padding: "28px",
+                                        // paddingX: 6,
+                                        // paddingY: 2,
+                                      },
+                                    },
+                                  }}
                                 />
                               </FormControl>
                             </Grid>
-                            <Grid
-                              size={{ xs: 12, lg: 6 }}
-                              marginBottom="28px"
-                              paddingLeft={3 / 2}
-                              paddingTop="0px !important"
-                            >
+                            <Grid size={{ xs: 12, lg: 6 }} marginBottom="28px">
                               <FormControl fullWidth>
-                                <InputLabel htmlFor="outlined-adornment-postCode">
-                                  Postal Code
-                                </InputLabel>
                                 <OutlinedInput
                                   type="text"
                                   name="postCode"
@@ -1016,62 +935,59 @@ function UserInfo() {
                                     ""
                                   )}
                                   inputProps={{ maxLength: 6 }}
-                                  label="Postal Code"
+                                  placeholder="Postal Code"
                                   onChange={formik.handleChange}
                                   onBlur={formik.handleBlur}
                                   aria-describedby="postCode-error"
                                   fullWidth
+                                  sx={{
+                                    borderRadius: "50px",
+                                    fontSize: "12px",
+                                    padding: 1 / 2,
+                                  }}
                                 />
                               </FormControl>
                             </Grid>
-                            <Grid
-                              size={{ xs: 12, lg: 6 }}
-                              marginBottom="28px"
-                              paddingLeft={3 / 2}
-                              paddingTop="0px !important"
-                            >
+                            <Grid size={{ xs: 12, lg: 6 }} marginBottom="28px">
                               <FormControlLabel
                                 control={<Checkbox />}
                                 label="Do you drive?"
                               />
                             </Grid>
-                            <Grid
-                              size={{ xs: 12, lg: 6 }}
-                              marginBottom="28px"
-                              paddingLeft={3 / 2}
-                              paddingTop="0px !important"
-                            >
+                            <Grid size={{ xs: 12, lg: 6 }} marginBottom="28px">
                               <FormControl fullWidth>
-                                <InputLabel htmlFor="outlined-adornment-empno">
-                                  Employee Number
-                                </InputLabel>
                                 <OutlinedInput
                                   type="text"
                                   name="empno"
                                   value={formik.values.empno.replace(/\D/g, "")}
-                                  label="Employee Number"
+                                  placeholder="Employee Number"
                                   onChange={formik.handleChange}
                                   onBlur={formik.handleBlur}
                                   aria-describedby="empno-error"
                                   fullWidth
+                                  sx={{
+                                    borderRadius: "50px",
+                                    fontSize: "12px",
+                                    padding: 1 / 2,
+                                  }}
                                 />
                               </FormControl>
                             </Grid>
-                            <Grid
-                              size={{ xs: 12, lg: 6 }}
-                              marginBottom="28px"
-                              paddingLeft={3 / 2}
-                              paddingTop="0px !important"
-                            >
+                            <Grid size={{ xs: 12, lg: 6 }} marginBottom="28px">
                               <FormControl fullWidth>
                                 <OutlinedInput
                                   type="date"
                                   name="dob"
+                                  placeholder="Date of Birth"
                                   value={formik.values.dob}
                                   onChange={formik.handleChange}
                                   onBlur={formik.handleBlur}
-                                  aria-describedby="dob-error"
                                   fullWidth
+                                  sx={{
+                                    borderRadius: "50px",
+                                    fontSize: "12px",
+                                    padding: 1 / 2,
+                                  }}
                                 />
                               </FormControl>
                             </Grid>
@@ -1079,26 +995,35 @@ function UserInfo() {
                           <Box
                             component="div"
                             display="flex"
-                            sx={{ float: "inline-end" }}
+                            flexDirection={{ xs: "column", sm: "row" }}
+                            justifyContent={{ sm: "flex-end" }}
                             gap={2}
                           >
                             <Button
+                              disableFocusRipple
                               variant="outlined"
                               sx={{
                                 textTransform: "none",
                                 fontSize: "16px",
                                 paddingY: "14px",
+                                paddingX: "28px",
+                                sm: { marginBottom: 3 },
+                                borderRadius: "50px",
                               }}
                             >
                               Cancel
                             </Button>
                             <Button
                               type="submit"
+                              disableFocusRipple
                               variant="contained"
                               sx={{
                                 textTransform: "none",
                                 fontSize: "16px",
                                 paddingY: "14px",
+                                paddingX: "28px",
+                                sm: { marginBottom: 3 },
+                                borderRadius: "50px",
                               }}
                             >
                               Save
@@ -1107,12 +1032,7 @@ function UserInfo() {
                         </CustomTabPanel>
                         <CustomTabPanel value={value} index={1}>
                           <Grid spacing={2} container sx={{ mt: 2 }}>
-                            <Grid
-                              size={{ xs: 12, lg: 6 }}
-                              marginBottom="28px"
-                              paddingLeft={3 / 2}
-                              paddingTop="0px !important"
-                            >
+                            <Grid size={{ xs: 12, lg: 6 }} marginBottom="28px">
                               <FormLabel id="demo-controlled-radio-buttons-group">
                                 Pay Type*
                               </FormLabel>
@@ -1140,27 +1060,23 @@ function UserInfo() {
                                 />
                               </RadioGroup>
                               <FormControl fullWidth>
-                                <InputLabel htmlFor="outlined-adornment-benefitsStartDate">
-                                  Benefits Start Date
-                                </InputLabel>
                                 <OutlinedInput
                                   type="text"
                                   readOnly
                                   name="benefitsStartDate"
-                                  label="Benefits Start Date"
-                                  value="09/07/2024"
+                                  placeholder="Benefits Start Date"
                                   onChange={formik.handleChange}
                                   onBlur={formik.handleBlur}
                                   fullWidth
+                                  sx={{
+                                    borderRadius: "50px",
+                                    fontSize: "12px",
+                                    padding: 1 / 2,
+                                  }}
                                 />
                               </FormControl>
                             </Grid>
-                            <Grid
-                              size={{ xs: 12, lg: 6 }}
-                              marginBottom="28px"
-                              paddingLeft={3 / 2}
-                              paddingTop="0px !important"
-                            >
+                            <Grid size={{ xs: 12, lg: 6 }} marginBottom="28px">
                               <FormLabel id="demo-controlled-radio-buttons-group">
                                 Status*
                               </FormLabel>
@@ -1207,45 +1123,39 @@ function UserInfo() {
                                 />
                               </RadioGroup>
                             </Grid>
-                            <Grid
-                              size={{ xs: 12, lg: 6 }}
-                              marginBottom="28px"
-                              paddingLeft={3 / 2}
-                              paddingTop="0px !important"
-                            >
+                            <Grid size={{ xs: 12, lg: 6 }} marginBottom="28px">
                               <FormControl fullWidth>
-                                <InputLabel htmlFor="outlined-adornment-wellnessDays">
-                                  Wellness Days
-                                </InputLabel>
                                 <OutlinedInput
                                   type="number"
                                   name="wellnessDays"
-                                  label="Wellness Days"
+                                  placeholder="Wellness Days"
                                   value={formik.values.wellnessDays}
                                   onChange={formik.handleChange}
                                   onBlur={formik.handleBlur}
                                   fullWidth
+                                  sx={{
+                                    borderRadius: "50px",
+                                    fontSize: "12px",
+                                    padding: 1 / 2,
+                                  }}
                                 />
                               </FormControl>
                             </Grid>
-                            <Grid
-                              size={{ xs: 12, lg: 6 }}
-                              marginBottom="28px"
-                              paddingLeft={3 / 2}
-                              paddingTop="0px !important"
-                            >
+                            <Grid size={{ xs: 12, lg: 6 }} marginBottom="28px">
                               <FormControl fullWidth>
-                                <InputLabel htmlFor="outlined-adornment-vacationDays">
-                                  Vacation Days
-                                </InputLabel>
                                 <OutlinedInput
                                   type="number"
                                   name="vacationDays"
-                                  label="Vacation Days"
+                                  placeholder="Vacation Days"
                                   value={formik.values.vacationDays}
                                   onChange={formik.handleChange}
                                   onBlur={formik.handleBlur}
                                   fullWidth
+                                  sx={{
+                                    borderRadius: "50px",
+                                    fontSize: "12px",
+                                    padding: 1 / 2,
+                                  }}
                                 />
                               </FormControl>
                             </Grid>
@@ -1253,26 +1163,35 @@ function UserInfo() {
                           <Box
                             component="div"
                             display="flex"
-                            sx={{ float: "inline-end" }}
+                            flexDirection={{ xs: "column", sm: "row" }}
+                            justifyContent={{ sm: "flex-end" }}
                             gap={2}
                           >
                             <Button
+                              disableFocusRipple
                               variant="outlined"
                               sx={{
                                 textTransform: "none",
                                 fontSize: "16px",
                                 paddingY: "14px",
+                                paddingX: "28px",
+                                sm: { marginBottom: 3 },
+                                borderRadius: "50px",
                               }}
                             >
                               Cancel
                             </Button>
                             <Button
                               type="submit"
+                              disableFocusRipple
                               variant="contained"
                               sx={{
                                 textTransform: "none",
                                 fontSize: "16px",
                                 paddingY: "14px",
+                                paddingX: "28px",
+                                sm: { marginBottom: 3 },
+                                borderRadius: "50px",
                               }}
                             >
                               Save
@@ -1288,16 +1207,18 @@ function UserInfo() {
 
                               <Grid size={{ xs: 12 }} marginBottom="28px">
                                 <FormControl fullWidth>
-                                  <InputLabel htmlFor="outlined-adornment-emergencyName1">
-                                    Name
-                                  </InputLabel>
                                   <OutlinedInput
                                     type="text"
                                     name="emergencyName1"
-                                    label="Name"
+                                    placeholder="Name"
                                     value={formik.values.emergencyName1}
                                     onChange={formik.handleChange}
                                     onBlur={formik.handleBlur}
+                                    sx={{
+                                      borderRadius: "50px",
+                                      fontSize: "12px",
+                                      padding: 1 / 2,
+                                    }}
                                   />
                                 </FormControl>
                               </Grid>
@@ -1306,21 +1227,23 @@ function UserInfo() {
                                 marginBottom="28px"
                               >
                                 <FormControl fullWidth>
-                                  <InputLabel htmlFor="outlined-adornment-emergencyPhone1">
-                                    Phone
-                                  </InputLabel>
                                   <OutlinedInput
                                     type="text"
                                     name="emergencyPhone1"
-                                    label="Phone"
+                                    placeholder="Phone"
                                     value={formik.values.emergencyPhone1
                                       .replace(/\D/g, "")
                                       .replace(/^(\d{5})(\d)/, "$1-$2")}
                                     onChange={formik.handleChange}
                                     onBlur={formik.handleBlur}
-                                    placeholder="00000-00000"
+                                    // placeholder="00000-00000"
                                     fullWidth
                                     inputProps={{ maxLength: 11 }}
+                                    sx={{
+                                      borderRadius: "50px",
+                                      fontSize: "12px",
+                                      padding: 1 / 2,
+                                    }}
                                   />
                                 </FormControl>
                               </Grid>
@@ -1329,17 +1252,19 @@ function UserInfo() {
                                 marginBottom="28px"
                               >
                                 <FormControl fullWidth>
-                                  <InputLabel htmlFor="outlined-adornment-emergencyRelationship1">
-                                    Relationship
-                                  </InputLabel>
                                   <OutlinedInput
                                     type="text"
                                     name="emergencyRelationship1"
-                                    label="Relationship"
+                                    placeholder="Relationship"
                                     value={formik.values.emergencyRelationship1}
                                     onChange={formik.handleChange}
                                     onBlur={formik.handleBlur}
                                     fullWidth
+                                    sx={{
+                                      borderRadius: "50px",
+                                      fontSize: "12px",
+                                      padding: 1 / 2,
+                                    }}
                                   />
                                 </FormControl>
                               </Grid>
@@ -1351,16 +1276,18 @@ function UserInfo() {
 
                               <Grid size={{ xs: 12 }} marginBottom="28px">
                                 <FormControl fullWidth>
-                                  <InputLabel htmlFor="outlined-adornment-emergencyName2">
-                                    Name
-                                  </InputLabel>
                                   <OutlinedInput
                                     type="text"
                                     name="emergencyName2"
-                                    label="Name"
+                                    placeholder="Name"
                                     value={formik.values.emergencyName2}
                                     onChange={formik.handleChange}
                                     onBlur={formik.handleBlur}
+                                    sx={{
+                                      borderRadius: "50px",
+                                      fontSize: "12px",
+                                      padding: 1 / 2,
+                                    }}
                                   />
                                 </FormControl>
                               </Grid>
@@ -1369,21 +1296,23 @@ function UserInfo() {
                                 marginBottom="28px"
                               >
                                 <FormControl fullWidth>
-                                  <InputLabel htmlFor="outlined-adornment-emergencyPhone2">
-                                    Phone
-                                  </InputLabel>
                                   <OutlinedInput
                                     type="text"
                                     name="emergencyPhone2"
-                                    label="Phone"
+                                    placeholder="Phone"
                                     value={formik.values.emergencyPhone2
                                       .replace(/\D/g, "")
                                       .replace(/^(\d{5})(\d)/, "$1-$2")}
                                     onChange={formik.handleChange}
                                     onBlur={formik.handleBlur}
-                                    placeholder="00000-00000"
+                                    // placeholder="00000-00000"
                                     fullWidth
                                     inputProps={{ maxLength: 11 }}
+                                    sx={{
+                                      borderRadius: "50px",
+                                      fontSize: "12px",
+                                      padding: 1 / 2,
+                                    }}
                                   />
                                 </FormControl>
                               </Grid>
@@ -1392,17 +1321,19 @@ function UserInfo() {
                                 marginBottom="28px"
                               >
                                 <FormControl fullWidth>
-                                  <InputLabel htmlFor="outlined-adornment-emergencyRelationship2">
-                                    Relationship
-                                  </InputLabel>
                                   <OutlinedInput
                                     type="text"
                                     name="emergencyRelationship2"
-                                    label="Relationship"
+                                    placeholder="Relationship"
                                     value={formik.values.emergencyRelationship2}
                                     onChange={formik.handleChange}
                                     onBlur={formik.handleBlur}
                                     fullWidth
+                                    sx={{
+                                      borderRadius: "50px",
+                                      fontSize: "12px",
+                                      padding: 1 / 2,
+                                    }}
                                   />
                                 </FormControl>
                               </Grid>
@@ -1411,26 +1342,35 @@ function UserInfo() {
                           <Box
                             component="div"
                             display="flex"
-                            sx={{ float: "inline-end" }}
+                            flexDirection={{ xs: "column", sm: "row" }}
+                            justifyContent={{ sm: "flex-end" }}
                             gap={2}
                           >
                             <Button
+                              disableFocusRipple
                               variant="outlined"
                               sx={{
                                 textTransform: "none",
                                 fontSize: "16px",
                                 paddingY: "14px",
+                                paddingX: "28px",
+                                sm: { marginBottom: 3 },
+                                borderRadius: "50px",
                               }}
                             >
                               Cancel
                             </Button>
                             <Button
                               type="submit"
+                              disableFocusRipple
                               variant="contained"
                               sx={{
                                 textTransform: "none",
                                 fontSize: "16px",
                                 paddingY: "14px",
+                                paddingX: "28px",
+                                sm: { marginBottom: 3 },
+                                borderRadius: "50px",
                               }}
                             >
                               Save
@@ -1439,12 +1379,7 @@ function UserInfo() {
                         </CustomTabPanel>
                         <CustomTabPanel value={value} index={3}>
                           <Grid spacing={2} container sx={{ mt: 2 }}>
-                            <Grid
-                              size={{ xs: 12, lg: 4 }}
-                              marginBottom="28px"
-                              paddingLeft={3 / 2}
-                              paddingTop="0px !important"
-                            >
+                            <Grid size={{ xs: 12, lg: 4 }} marginBottom="28px">
                               <FormControl fullWidth>
                                 <Typography variant="subtitle2">
                                   Start Date
@@ -1456,12 +1391,34 @@ function UserInfo() {
                                   onChange={formik.handleChange}
                                   onBlur={formik.handleBlur}
                                   fullWidth
+                                  slotProps={{
+                                    htmlInput: {
+                                      sx: {
+                                        fontSize: "12px",
+                                      },
+                                    },
+                                    input: {
+                                      sx: {
+                                        borderRadius: "50px",
+                                        padding: 1 / 2,
+                                      },
+                                    },
+                                  }}
                                 />
                               </FormControl>
                               <Button
+                                disableFocusRipple
+                                sx={{
+                                  textTransform: "none",
+                                  fontSize: "16px",
+                                  paddingY: "14px",
+                                  paddingX: "28px",
+                                  marginBottom: 3,
+                                  borderRadius: "50px",
+                                  mt: 2,
+                                }}
                                 variant="contained"
                                 color="error"
-                                sx={{ mt: 2 }}
                               >
                                 Terminate
                               </Button>
@@ -1469,48 +1426,71 @@ function UserInfo() {
                                 <Typography variant="subtitle2">
                                   Expected Date of Return
                                 </Typography>
-                                <OutlinedInput
+                                <TextField
                                   type="date"
                                   name="returnDate"
                                   value={formik.values.returnDate}
                                   onChange={formik.handleChange}
                                   onBlur={formik.handleBlur}
                                   fullWidth
+                                  slotProps={{
+                                    htmlInput: {
+                                      sx: {
+                                        fontSize: "12px",
+                                      },
+                                    },
+                                    input: {
+                                      sx: {
+                                        borderRadius: "50px",
+                                        padding: 1 / 2,
+                                      },
+                                    },
+                                  }}
                                 />
                               </FormControl>
                               <Button
+                                disableFocusRipple
+                                sx={{
+                                  textTransform: "none",
+                                  fontSize: "16px",
+                                  paddingY: "14px",
+                                  paddingX: "28px",
+                                  marginBottom: 3,
+                                  borderRadius: "50px",
+                                  mt: 2,
+                                }}
                                 variant="contained"
                                 color="warning"
-                                sx={{ mt: 2 }}
                               >
                                 Place on Leave
                               </Button>
                               <FormControl fullWidth sx={{ mt: 5 }}>
-                                <InputLabel htmlFor="outlined-adornment-reasonForLeave">
-                                  Reason for Leave
-                                </InputLabel>
                                 <Select
                                   type="text"
                                   name="reasonForLeave"
                                   value={formik.values.reasonForLeave}
-                                  label="Reason for Leave"
+                                  displayEmpty
+                                  placeholder="Reason for Leave"
                                   onChange={formik.handleChange}
                                   onBlur={formik.handleBlur}
                                   fullWidth
-                                  sx={{ textAlign: "left" }}
+                                  sx={{
+                                    borderRadius: "50px",
+                                    fontSize: "12px",
+                                    padding: 1 / 2,
+                                    textAlign: "left",
+                                  }}
                                 >
+                                  <MenuItem value="" disabled>
+                                    Reason for Leave
+                                  </MenuItem>
                                   <MenuItem value="Select a reason">
                                     --Select a reason
                                   </MenuItem>
                                 </Select>
                               </FormControl>
                             </Grid>
-                            <Grid
-                              size={{ xs: 12, lg: 8 }}
-                              marginBottom="28px"
-                              paddingLeft={3 / 2}
-                              paddingTop="0px !important"
-                            >
+                            <Grid size={{ xs: 12, lg: 8 }} marginBottom="28px">
                               <Typography variant="h5" marginBottom={2}>
                                 Start/Terminate History
                               </Typography>
@@ -1522,26 +1502,35 @@ function UserInfo() {
                           <Box
                             component="div"
                             display="flex"
-                            sx={{ float: "inline-end" }}
+                            flexDirection={{ xs: "column", sm: "row" }}
+                            justifyContent={{ sm: "flex-end" }}
                             gap={2}
                           >
                             <Button
+                              disableFocusRipple
                               variant="outlined"
                               sx={{
                                 textTransform: "none",
                                 fontSize: "16px",
                                 paddingY: "14px",
+                                paddingX: "28px",
+                                sm: { marginBottom: 3 },
+                                borderRadius: "50px",
                               }}
                             >
                               Cancel
                             </Button>
                             <Button
                               type="submit"
+                              disableFocusRipple
                               variant="contained"
                               sx={{
                                 textTransform: "none",
                                 fontSize: "16px",
                                 paddingY: "14px",
+                                paddingX: "28px",
+                                sm: { marginBottom: 3 },
+                                borderRadius: "50px",
                               }}
                             >
                               Save
