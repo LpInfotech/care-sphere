@@ -917,8 +917,6 @@ function UserInfo() {
                                       sx: {
                                         borderRadius: "50px",
                                         padding: "28px",
-                                        // paddingX: 6,
-                                        // paddingY: 2,
                                       },
                                     },
                                   }}
@@ -992,43 +990,6 @@ function UserInfo() {
                               </FormControl>
                             </Grid>
                           </Grid>
-                          <Box
-                            component="div"
-                            display="flex"
-                            flexDirection={{ xs: "column", sm: "row" }}
-                            justifyContent={{ sm: "flex-end" }}
-                            gap={2}
-                          >
-                            <Button
-                              disableFocusRipple
-                              variant="outlined"
-                              sx={{
-                                textTransform: "none",
-                                fontSize: "16px",
-                                paddingY: "14px",
-                                paddingX: "28px",
-                                sm: { marginBottom: 3 },
-                                borderRadius: "50px",
-                              }}
-                            >
-                              Cancel
-                            </Button>
-                            <Button
-                              type="submit"
-                              disableFocusRipple
-                              variant="contained"
-                              sx={{
-                                textTransform: "none",
-                                fontSize: "16px",
-                                paddingY: "14px",
-                                paddingX: "28px",
-                                sm: { marginBottom: 3 },
-                                borderRadius: "50px",
-                              }}
-                            >
-                              Save
-                            </Button>
-                          </Box>
                         </CustomTabPanel>
                         <CustomTabPanel value={value} index={1}>
                           <Grid spacing={2} container sx={{ mt: 2 }}>
@@ -1160,43 +1121,6 @@ function UserInfo() {
                               </FormControl>
                             </Grid>
                           </Grid>
-                          <Box
-                            component="div"
-                            display="flex"
-                            flexDirection={{ xs: "column", sm: "row" }}
-                            justifyContent={{ sm: "flex-end" }}
-                            gap={2}
-                          >
-                            <Button
-                              disableFocusRipple
-                              variant="outlined"
-                              sx={{
-                                textTransform: "none",
-                                fontSize: "16px",
-                                paddingY: "14px",
-                                paddingX: "28px",
-                                sm: { marginBottom: 3 },
-                                borderRadius: "50px",
-                              }}
-                            >
-                              Cancel
-                            </Button>
-                            <Button
-                              type="submit"
-                              disableFocusRipple
-                              variant="contained"
-                              sx={{
-                                textTransform: "none",
-                                fontSize: "16px",
-                                paddingY: "14px",
-                                paddingX: "28px",
-                                sm: { marginBottom: 3 },
-                                borderRadius: "50px",
-                              }}
-                            >
-                              Save
-                            </Button>
-                          </Box>
                         </CustomTabPanel>
                         <CustomTabPanel value={value} index={2}>
                           <Grid spacing={2} container sx={{ mt: 2 }}>
@@ -1339,43 +1263,6 @@ function UserInfo() {
                               </Grid>
                             </Grid>
                           </Grid>
-                          <Box
-                            component="div"
-                            display="flex"
-                            flexDirection={{ xs: "column", sm: "row" }}
-                            justifyContent={{ sm: "flex-end" }}
-                            gap={2}
-                          >
-                            <Button
-                              disableFocusRipple
-                              variant="outlined"
-                              sx={{
-                                textTransform: "none",
-                                fontSize: "16px",
-                                paddingY: "14px",
-                                paddingX: "28px",
-                                sm: { marginBottom: 3 },
-                                borderRadius: "50px",
-                              }}
-                            >
-                              Cancel
-                            </Button>
-                            <Button
-                              type="submit"
-                              disableFocusRipple
-                              variant="contained"
-                              sx={{
-                                textTransform: "none",
-                                fontSize: "16px",
-                                paddingY: "14px",
-                                paddingX: "28px",
-                                sm: { marginBottom: 3 },
-                                borderRadius: "50px",
-                              }}
-                            >
-                              Save
-                            </Button>
-                          </Box>
                         </CustomTabPanel>
                         <CustomTabPanel value={value} index={3}>
                           <Grid spacing={2} container sx={{ mt: 2 }}>
@@ -1499,45 +1386,45 @@ function UserInfo() {
                               </Typography>
                             </Grid>
                           </Grid>
-                          <Box
-                            component="div"
-                            display="flex"
-                            flexDirection={{ xs: "column", sm: "row" }}
-                            justifyContent={{ sm: "flex-end" }}
-                            gap={2}
-                          >
-                            <Button
-                              disableFocusRipple
-                              variant="outlined"
-                              sx={{
-                                textTransform: "none",
-                                fontSize: "16px",
-                                paddingY: "14px",
-                                paddingX: "28px",
-                                sm: { marginBottom: 3 },
-                                borderRadius: "50px",
-                              }}
-                            >
-                              Cancel
-                            </Button>
-                            <Button
-                              type="submit"
-                              disableFocusRipple
-                              variant="contained"
-                              sx={{
-                                textTransform: "none",
-                                fontSize: "16px",
-                                paddingY: "14px",
-                                paddingX: "28px",
-                                sm: { marginBottom: 3 },
-                                borderRadius: "50px",
-                              }}
-                            >
-                              Save
-                            </Button>
-                          </Box>
                         </CustomTabPanel>
                       </Paper>
+                      <Box
+                        component="div"
+                        display="flex"
+                        flexDirection={{ xs: "column", sm: "row" }}
+                        justifyContent={{ sm: "flex-end" }}
+                        gap={2}
+                      >
+                        <Button
+                          disableFocusRipple
+                          variant="outlined"
+                          sx={{
+                            textTransform: "none",
+                            fontSize: "16px",
+                            paddingY: "14px",
+                            paddingX: "28px",
+                            sm: { marginBottom: 3 },
+                            borderRadius: "50px",
+                          }}
+                        >
+                          Cancel
+                        </Button>
+                        <Button
+                          type="submit"
+                          disableFocusRipple
+                          variant="contained"
+                          sx={{
+                            textTransform: "none",
+                            fontSize: "16px",
+                            paddingY: "14px",
+                            paddingX: "28px",
+                            sm: { marginBottom: 3 },
+                            borderRadius: "50px",
+                          }}
+                        >
+                          Save
+                        </Button>
+                      </Box>
                     </Box>
                   </Grid>
                 </Grid>
