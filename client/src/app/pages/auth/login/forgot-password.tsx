@@ -21,20 +21,17 @@ import { Visibility, VisibilityOff } from "@mui/icons-material";
 import theme from "../../../shared/theme/theme";
 import SnackBar from "../../../shared/components/snackbar/snackbar";
 import { useNavigate, useParams } from "react-router-dom";
+import axios from "axios";
 
 const ForgotPassword = () => {
   const navigate = useNavigate();
   const { token } = useParams();
-  const apiRoute = `http://localhost:3000/api/v1/`;
+  const apiRoute = `http://localhost:3000/api/v1/users/`;
 
   useEffect(() => {
-    fetch(apiRoute + "verification" + "/" + token).then((res) =>
-      res.json().then((result) => {
-        if (result.error) {
-          window.location.href = "http://localhost:5173";
-        }
-      })
-    );
+    axios.get(`${apiRoute}verification/${token}`).catch(() => {
+      window.location.href = "http://localhost:5173";
+    });
   }, []);
 
   const [showPassword, setShowPassword] = useState(false);
@@ -64,22 +61,12 @@ const ForgotPassword = () => {
   };
   // ======== Login user integrating with api ========
   const forgotPassword = () => {
-    fetch(apiRoute + "resetPassword" + "/" + token, {
-      method: "PUT",
-      body: JSON.stringify({
+    axios
+      .put(`${apiRoute}resetPassword/${token}`, {
         password: formik.values.password,
-      }),
-      headers: {
-        "Content-type": "application/json; charset=UTF-8",
-      },
-    })
-      .then((res) => res.json())
-      .then((result) => {
-        if (result.error) {
-          setSnackbarMessage(result.message);
-          setSnackbarType("error");
-          setOpenSnackbar(true);
-        } else {
+      })
+      .then((res) => {
+        if (!res.data.error) {
           setSnackbarType("success");
           setOpenSnackbar(true);
           setSnackbarMessage("Password reset successfully");
@@ -90,7 +77,9 @@ const ForgotPassword = () => {
         }
       })
       .catch((err) => {
-        console.log(err.message);
+        setSnackbarMessage(err.response.data.message);
+        setSnackbarType("error");
+        setOpenSnackbar(true);
       });
   };
 

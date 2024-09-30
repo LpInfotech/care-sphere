@@ -15,13 +15,14 @@ import {
   Divider,
 } from "@mui/material";
 import Grid from "@mui/material/Grid2";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import * as yup from "yup";
 import { useFormik } from "formik";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
 import theme from "../../../shared/theme/theme";
 import SnackBar from "../../../shared/components/snackbar/snackbar";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
 const login = () => {
   const navigate = useNavigate();
@@ -37,43 +38,25 @@ const login = () => {
     password: yup.string().required("This is required"),
   });
 
-  function test() {
-    fetch("http://localhost:3000/api/v1/forgotPassword", {
-      method: "POST",
-      body: JSON.stringify({
+  function forgotPasswordEmail() {
+    axios
+      .post("http://localhost:3000/api/v1/users/forgotPassword", {
         email: formik.values.emailAddress,
-      }),
-      headers: {
-        "Content-type": "application/json; charset=UTF-8",
-      },
-    })
-      .then((res) => res.json())
-      .then((result) => {
-        if (result.error) {
-          setSnackbarMessage("Email doesn't exist");
-          setSnackbarType("error");
-          setOpenSnackbar(true);
-        } else {
+      })
+      .then((res) => {
+        if (!res.data.error) {
           setSnackbarType("success");
           setOpenSnackbar(true);
-          setSnackbarMessage(result.message);
+          setSnackbarMessage(res.data.message);
           formik.resetForm();
         }
       })
       .catch((err) => {
-        console.log(err.message);
-        setSnackbarMessage("Request failed");
+        setSnackbarMessage(err.response.data.message);
         setSnackbarType("error");
         setOpenSnackbar(true);
       });
   }
-
-  useEffect(() => {
-    document.body.style.overflow = "hidden";
-    return () => {
-      document.body.style.overflow = "unset";
-    };
-  }, []);
 
   //======== password visibility ========
   const handleClickShowPassword = () => setShowPassword((show) => !show);
@@ -85,19 +68,13 @@ const login = () => {
 
   // ======== Login user integrating with api ========
   const LoginUser = () => {
-    fetch("http://localhost:3000/api/v1/login", {
-      method: "POST",
-      body: JSON.stringify({
+    axios
+      .post("http://localhost:3000/api/v1/users/login", {
         email: formik.values.emailAddress,
         password: formik.values.password,
-      }),
-      headers: {
-        "Content-type": "application/json; charset=UTF-8",
-      },
-    })
-      .then((res) => res.json())
-      .then((result) => {
-        if (result.error) {
+      })
+      .then((res) => {
+        if (res.data.error) {
           setSnackbarMessage("Email and Password combination doesn't match");
           setSnackbarType("error");
           setOpenSnackbar(true);
@@ -107,35 +84,16 @@ const login = () => {
           setSnackbarMessage("You have successfully logged in");
           formik.resetForm();
           setTimeout(() => {
-            navigate("/dashboard");
+            navigate("/user-info");
           }, 1000);
         }
       })
       .catch((err) => {
-        console.log(err.message);
-        setSnackbarMessage("Request failed");
+        setSnackbarMessage(err.response.data.message);
         setSnackbarType("error");
         setOpenSnackbar(true);
       });
   };
-
-  // console.log(formik.values);
-  // if (
-  //   formik.values.emailAddress === "admin@caresphere.com" &&
-  //   formik.values.password === "Admin@123"
-  // ) {
-  //   console.log("You have successfully logged in");
-  //   setSnackbarType("success");
-  //   setOpenSnackbar(true);
-  //   setSnackbarMessage("You have successfully logged in");
-  //   formik.resetForm();
-  // } else {
-  //   console.warn("Incorrect email and password combination");
-  //   setSnackbarMessage("Email and Password combination doesn't match");
-  //   setSnackbarType("error");
-  //   setOpenSnackbar(true);
-  // }
-  // };
 
   //======== formik validating onsubmit ========
   const formik = useFormik({
@@ -405,7 +363,7 @@ const login = () => {
                         if (isDisabled) {
                           e.preventDefault(); // Prevent the link from working if disabled
                         } else {
-                          test();
+                          forgotPasswordEmail();
                         }
                       }}
                     >
