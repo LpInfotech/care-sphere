@@ -174,16 +174,22 @@ function UserInfo() {
                 },
               }}
             >
-              <Box component="div" marginBottom={7}>
+              <Box component="div">
                 <Typography
-                  variant="h1"
+                  variant="h5"
+                  marginBottom={2}
                   sx={{
                     fontWeight: "700",
                   }}
                 >
                   Update Staff Member
                 </Typography>
-                <Tabs value={value} onChange={handleChange} aria-label="tabs">
+                <Tabs
+                  value={value}
+                  onChange={handleChange}
+                  aria-label="tabs"
+                  sx={{ backgroundColor: "#f8f9fa" }}
+                >
                   <Tab label="Profile" {...a11yProps(0)} />
                   <Tab label="Staff Wages & Benefits" {...a11yProps(1)} />
                   <Tab label="Emergency Contacts" {...a11yProps(2)} />
@@ -197,7 +203,7 @@ function UserInfo() {
                   <Grid
                     size={{ xs: 12 }}
                     marginBottom="28px"
-                    paddingLeft={3 / 2}
+                    paddingLeft={0}
                     paddingTop="0px !important"
                   >
                     <Box
@@ -267,6 +273,7 @@ function UserInfo() {
                                   }
                                   name="firstName"
                                   placeholder="First Name*"
+                                  // label="First Name *  "
                                   value={formik.values.firstName}
                                   onChange={formik.handleChange}
                                   onBlur={formik.handleBlur}
@@ -609,7 +616,7 @@ function UserInfo() {
                                   }
                                 >
                                   <MenuItem value="" disabled>
-                                    Role*
+                                    Role<span style={{ color: "red" }}>*</span>
                                   </MenuItem>
                                   <MenuItem value="role">role</MenuItem>
                                 </Select>
@@ -657,7 +664,8 @@ function UserInfo() {
                                   }
                                 >
                                   <MenuItem value="" disabled>
-                                    Position*
+                                    Position
+                                    <span style={{ color: "red" }}>*</span>
                                   </MenuItem>
                                   <MenuItem value="position">position</MenuItem>
                                 </Select>
@@ -736,7 +744,8 @@ function UserInfo() {
                                   }
                                 >
                                   <MenuItem value="" disabled>
-                                    Division*
+                                    Division
+                                    <span style={{ color: "red" }}>*</span>
                                   </MenuItem>
                                   <MenuItem value="division">division</MenuItem>
                                 </Select>
@@ -899,7 +908,6 @@ function UserInfo() {
                               <FormControl fullWidth>
                                 <TextField
                                   type="text"
-                                  rows={4}
                                   multiline
                                   name="allergies"
                                   value={formik.values.allergies}
@@ -916,7 +924,6 @@ function UserInfo() {
                                     input: {
                                       sx: {
                                         borderRadius: "50px",
-                                        padding: "28px",
                                       },
                                     },
                                   }}
@@ -995,7 +1002,7 @@ function UserInfo() {
                           <Grid spacing={2} container sx={{ mt: 2 }}>
                             <Grid size={{ xs: 12, lg: 6 }} marginBottom="28px">
                               <FormLabel id="demo-controlled-radio-buttons-group">
-                                Pay Type*
+                                Pay Type<span style={{ color: "red" }}>*</span>
                               </FormLabel>
                               <RadioGroup
                                 aria-labelledby="demo-controlled-radio-buttons-group"
@@ -1007,7 +1014,7 @@ function UserInfo() {
                                     event.target.value
                                   )
                                 }
-                                sx={{ marginBottom: 5 }}
+                                sx={{ marginBottom: 5, display: "block" }}
                               >
                                 <FormControlLabel
                                   value="Salary"
@@ -1039,7 +1046,7 @@ function UserInfo() {
                             </Grid>
                             <Grid size={{ xs: 12, lg: 6 }} marginBottom="28px">
                               <FormLabel id="demo-controlled-radio-buttons-group">
-                                Status*
+                                Status<span style={{ color: "red" }}>*</span>
                               </FormLabel>
                               <RadioGroup
                                 aria-labelledby="demo-controlled-radio-buttons-group"
@@ -1051,6 +1058,7 @@ function UserInfo() {
                                     event.target.value
                                   )
                                 }
+                                sx={{ display: "block" }}
                               >
                                 <FormControlLabel
                                   value="Casual"
