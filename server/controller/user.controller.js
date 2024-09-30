@@ -1,15 +1,15 @@
-const { success, error } = require("../utils/responseApi");
-const User = require("../models/user.model");
-const nodemailer = require("nodemailer");
-const { statusTypes } = require("../utils/constants");
-const dotenv = require("dotenv");
-const { v4: uuidv4 } = require("uuid");
+const { success, error } = require('../utils/responseApi');
+const User = require('../models/user.model');
+const nodemailer = require('nodemailer');
+const { statusTypes } = require('../utils/constants');
+const dotenv = require('dotenv');
+const { v4: uuidv4 } = require('uuid');
 dotenv.config();
-const Verification = require("../models/verification.model");
+const Verification = require('../models/verification.model');
 
 // email template
 function emailTemplate({ token }) {
-  return `
+	return `
 	  <table border="0" cellpadding="0" cellspacing="0" width="100%" style="background-color: #f4f4f4; padding: 48px;">
   <tr>
     <td align="center">
@@ -51,98 +51,93 @@ function emailTemplate({ token }) {
 }
 
 const createUser = async (req, res) => {
-  /*  #swagger.tags = ['Users']
+	/*  #swagger.tags = ['Users']
        #swagger.description = '' */
-  try {
-    /*  #swagger.parameters['body'] = {
+	try {
+		/*  #swagger.parameters['body'] = {
                 in: 'body',
                 description: '',
                 schema: { $ref: '#/definitions/User' }
         } */
-    const user = await User.findOne({ email: req.body.email });
+		const user = await User.findOne({ email: req.body.email });
 
-    if (user)
-      return res
-        .status(401)
-        .json(error("This email already exists", res.statusCode));
+		if (user) return res.status(401).json(error('This email already exists', res.statusCode));
 
-    const newUser = await User.create(req.body);
+		const newUser = await User.create(req.body);
 
-    await newUser.save();
+		await newUser.save();
 
-    // Save token for user to start verifying the account
-    let verification = new Verification({
-      token: uuidv4(),
-      userId: newUser._id,
-      type: "EMPTY PASSWORD",
-    });
+		// Save token for user to start verifying the account
+		let verification = new Verification({
+			token: uuidv4(),
+			userId: newUser._id,
+			type: 'EMPTY PASSWORD'
+		});
 
-    let token = verification.token;
+		let token = verification.token;
 
-    // Save the verification data
-    await verification.save();
+		// Save the verification data
+		await verification.save();
 
-    // create transporter
-    const transporter = nodemailer.createTransport({
-      service: "Gmail",
-      auth: {
-        user: process.env.ADMIN_EMAIL,
-        pass: process.env.ADMIN_PASSWORD,
-      },
-    });
+		// create transporter
+		const transporter = nodemailer.createTransport({
+			service: 'Gmail',
+			auth: {
+				user: process.env.ADMIN_EMAIL,
+				pass: process.env.ADMIN_PASSWORD
+			}
+		});
 
-    // create mail-options
-    const mailOptions = {
-      from: process.env.ADMIN_EMAIL,
-      to: req.body.email,
-      subject: "Create Password",
-      html: emailTemplate({ token }),
-    };
+		// create mail-options
+		const mailOptions = {
+			from: process.env.ADMIN_EMAIL,
+			to: req.body.email,
+			subject: 'Create Password',
+			html: emailTemplate({ token })
+		};
 
-    transporter.sendMail(mailOptions, async function (error, info) {
-      if (error) {
-        return res.status(400).send({
-          error: statusTypes.SOMETHING_WENT_WRONG,
-        });
-      } else {
-        // Send the response to server
-        res.status(201).json(
-          success(
-            "User created successfully",
-            {
-              newUser: {
-                id: newUser._id,
-                name: newUser.name,
-                email: newUser.email,
-                verified: newUser.verified,
-                verifiedAt: newUser.verifiedAt,
-              },
-              verification,
-            },
-            res.statusCode
-          )
-        );
-      }
-    });
-  } catch (err) {
-    return res.status(500).json(error(`${err.message}`, res.statusCode));
-  }
+		transporter.sendMail(mailOptions, async function (error, info) {
+			if (error) {
+				return res.status(400).send({
+					error: statusTypes.SOMETHING_WENT_WRONG
+				});
+			} else {
+				// Send the response to server
+				res.status(201).json(
+					success(
+						'User created successfully',
+						{
+							newUser: {
+								id: newUser._id,
+								name: newUser.name,
+								email: newUser.email,
+								verified: newUser.verified,
+								verifiedAt: newUser.verifiedAt
+							},
+							verification
+						},
+						res.statusCode
+					)
+				);
+			}
+		});
+	} catch (err) {
+		return res.status(500).json(error(`${err.message}`, res.statusCode));
+	}
 };
 
 const deleteAllUsers = async (req, res) => {
-  try {
-    const deleteResult = await User.deleteMany({});
-    return res
-      .status(200)
-      .json(
-        success(`All Users deleted successfully`, deleteResult, res.statusCode)
-      );
-  } catch (error) {
-    return res.status(500).json(error(`${err.message}`, res.statusCode));
-  }
+	/*  #swagger.tags = ['Users']
+       #swagger.description = '' */
+	try {
+		const deleteResult = await User.deleteMany({});
+		return res.status(200).json(success(`All Users deleted successfully`, deleteResult, res.statusCode));
+	} catch (error) {
+		return res.status(500).json(error(`${err.message}`, res.statusCode));
+	}
 };
 
 module.exports = {
-  createUser,
-  deleteAllUsers,
+	createUser,
+	deleteAllUsers
 };

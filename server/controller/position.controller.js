@@ -22,7 +22,7 @@ const createPosition = async (req, res) => {
       return res
         .status(201)
         .json(
-          success(`Position Created Succesfully`, newPosition, res.statusCode)
+          success(`Position Created Successfully`, newPosition, res.statusCode)
         );
     }
     return res
@@ -71,7 +71,7 @@ const getPositions = async (req, res) => {
       .status(200)
       .json(
         success(
-          `Positions fetched succesfully`,
+          `Positions fetched successfully`,
           { recordCount: responseList.length, records: responseList },
           res.statusCode
         )
@@ -95,7 +95,7 @@ const getPositionsByRoleId = async (req, res) => {
     }
     return res
       .status(200)
-      .json(success(`Position fetched succesfully`, position, res.statusCode));
+      .json(success(`Position fetched successfully`, position, res.statusCode));
   } catch (err) {
     return res.status(500).json(error(`${err.message}`, res.statusCode));
   }
@@ -145,7 +145,7 @@ const updatePosition = async (req, res) => {
         .status(200)
         .json(
           success(
-            `Position updated succesfully`,
+            `Position updated successfully`,
             updatedPosition,
             res.statusCode
           )
@@ -180,7 +180,7 @@ const archivePosition = async (req, res) => {
       .status(200)
       .json(
         success(
-          `Position archieved succesfully`,
+          `Position archived successfully`,
           updatedPosition,
           res.statusCode
         )
@@ -215,7 +215,7 @@ const unarchivePosition = async (req, res) => {
       .status(200)
       .json(
         success(
-          `Position unarchieved succesfully`,
+          `Position unarchived successfully`,
           updatedPosition,
           res.statusCode
         )
@@ -228,13 +228,15 @@ const unarchivePosition = async (req, res) => {
 };
 
 const deleteAllPositions = async (req, res) => {
+  /*  #swagger.tags = ['Positions']
+         #swagger.description = '' */
   try {
     const deleteResult = await positionModel.deleteMany({});
     return res
       .status(200)
       .json(
         success(
-          `All Positions deleted succesfully`,
+          `All Positions deleted successfully`,
           deleteResult,
           res.statusCode
         )

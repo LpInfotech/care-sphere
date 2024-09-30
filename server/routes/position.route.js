@@ -13,7 +13,7 @@ const {
 router.get("/positions", getPositions);
 router.post("/positions", createPosition);
 router.get("/positions/roles/:id", getPositionsByRoleId);
-router.delete("/deleteAllPositions", deleteAllPositions);
+router.delete("/positions/deleteAllPositions", deleteAllPositions);
 router.put("/positions/:id", updatePosition);
 router.put("/positions/:id/archive", archivePosition);
 router.put("/positions/:id/unarchive", unarchivePosition);

@@ -29,6 +29,8 @@ const getVerification = async (req, res) => {
 };
 
 const deleteAllVerifications = async (req, res) => {
+	/*  #swagger.tags = ['Users']
+       #swagger.description = '' */
 	try {
 		const deleteResult = await Verification.deleteMany({});
 		return res.status(200).json(success(`All Verifications deleted successfully`, deleteResult, res.statusCode));

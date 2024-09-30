@@ -3,6 +3,6 @@ const router = express.Router();
 const { createUser,deleteAllUsers } = require('../controller/user.controller');
 
 router.post('/users', createUser);
-router.delete("/deleteAllUsers", deleteAllUsers);
+router.delete("/users/deleteAllUsers", deleteAllUsers);
 
 module.exports = router;

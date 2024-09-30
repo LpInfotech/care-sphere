@@ -13,12 +13,12 @@ const {
 
 const router = express.Router();
 
-router.post("/login", login);
-router.put("/createPassword/:token", createPassword);
-router.post("/forgotPassword", forgotPassword);
-router.put("/resetPassword/:token", resetPassword);
+router.post("/users/login", login);
+router.put("/users/createPassword/:token", createPassword);
+router.post("/users/forgotPassword", forgotPassword);
+router.put("/users/resetPassword/:token", resetPassword);
 router.get("/users", getUsers);
-router.get("/verification/:token", getVerification);
-router.delete("/deleteAllVerifications", deleteAllVerifications);
+router.get("/users/verification/:token", getVerification);
+router.delete("/users/deleteAllVerifications", deleteAllVerifications);
 
 module.exports = router;

@@ -20,7 +20,7 @@ const createRole = async (req, res) => {
       });
       return res
         .status(201)
-        .json(success(`Role Created Succesfully`, newRole, res.statusCode));
+        .json(success(`Role Created Successfully`, newRole, res.statusCode));
     }
     return res
       .status(409)
@@ -58,7 +58,7 @@ const getRoles = async (req, res) => {
       .status(200)
       .json(
         success(
-          `Roles fetched succesfully`,
+          `Roles fetched successfully`,
           { recordCount: responseList.length, records: responseList },
           res.statusCode
         )
@@ -108,7 +108,7 @@ const updateRole = async (req, res) => {
       );
       return res
         .status(200)
-        .json(success(`Role updated succesfully`, updatedRole, res.statusCode));
+        .json(success(`Role updated successfully`, updatedRole, res.statusCode));
     }
   } catch (err) {
     return res
@@ -137,7 +137,7 @@ const archiveRole = async (req, res) => {
     );
     return res
       .status(200)
-      .json(success(`Role archieved succesfully`, updatedRole, res.statusCode));
+      .json(success(`Role archived successfully`, updatedRole, res.statusCode));
   } catch (err) {
     return res
       .status(409)
@@ -167,7 +167,7 @@ const unarchiveRole = async (req, res) => {
     return res
       .status(200)
       .json(
-        success(`Role unarchieved succesfully`, updatedRole, res.statusCode)
+        success(`Role unarchived successfully`, updatedRole, res.statusCode)
       );
   } catch (err) {
     return res
@@ -177,12 +177,14 @@ const unarchiveRole = async (req, res) => {
 };
 
 const deleteAllRoles = async (req, res) => {
+  /*  #swagger.tags = ['Roles']
+       #swagger.description = '' */
   try {
     const deleteResult = await roleModel.deleteMany({});
     return res
       .status(200)
       .json(
-        success(`All Roles deleted succesfully`, deleteResult, res.statusCode)
+        success(`All Roles deleted successfully`, deleteResult, res.statusCode)
       );
   } catch (error) {
     return res.status(500).json(error(`${err.message}`, res.statusCode));

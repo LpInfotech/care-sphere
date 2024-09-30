@@ -11,7 +11,7 @@ const {
 
 router.get("/roles", getRoles);
 router.post("/roles", createRole);
-router.delete("/deleteAllRoles", deleteAllRoles);
+router.delete("/roles/deleteAllRoles", deleteAllRoles);
 router.put("/roles/:id", updateRole);
 router.put("/roles/:id/archive", archiveRole);
 router.put("/roles/:id/unarchive", unarchiveRole);

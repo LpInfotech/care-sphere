@@ -95,8 +95,11 @@
         }
       }
     },
-    "/api/v1/deleteAllRoles": {
+    "/api/v1/roles/deleteAllRoles": {
       "delete": {
+        "tags": [
+          "Roles"
+        ],
         "description": "",
         "responses": {
           "200": {
@@ -271,8 +274,11 @@
         }
       }
     },
-    "/api/v1/deleteAllPositions": {
+    "/api/v1/positions/deleteAllPositions": {
       "delete": {
+        "tags": [
+          "Positions"
+        ],
         "description": "",
         "responses": {
           "200": {
@@ -423,8 +429,11 @@
         }
       }
     },
-    "/api/v1/deleteAllUsers": {
+    "/api/v1/users/deleteAllUsers": {
       "delete": {
+        "tags": [
+          "Users"
+        ],
         "description": "",
         "responses": {
           "200": {
@@ -436,7 +445,7 @@
         }
       }
     },
-    "/api/v1/login": {
+    "/api/v1/users/login": {
       "post": {
         "tags": [
           "Users"
@@ -472,7 +481,7 @@
         }
       }
     },
-    "/api/v1/createPassword/{token}": {
+    "/api/v1/users/createPassword/{token}": {
       "put": {
         "tags": [
           "Users"
@@ -520,7 +529,7 @@
         }
       }
     },
-    "/api/v1/forgotPassword": {
+    "/api/v1/users/forgotPassword": {
       "post": {
         "tags": [
           "Users"
@@ -558,7 +567,7 @@
         }
       }
     },
-    "/api/v1/resetPassword/{token}": {
+    "/api/v1/users/resetPassword/{token}": {
       "put": {
         "tags": [
           "Users"
@@ -606,7 +615,7 @@
         }
       }
     },
-    "/api/v1/verification/{token}": {
+    "/api/v1/users/verification/{token}": {
       "get": {
         "tags": [
           "Users"
@@ -636,8 +645,11 @@
         }
       }
     },
-    "/api/v1/deleteAllVerifications": {
+    "/api/v1/users/deleteAllVerifications": {
       "delete": {
+        "tags": [
+          "Users"
+        ],
         "description": "",
         "responses": {
           "200": {
