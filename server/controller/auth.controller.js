@@ -168,7 +168,7 @@ const getUsers = async (req, res) => {
       .status(200)
       .json(
         success(
-          `Users fetched succesfully`,
+          `Users fetched successfully`,
           { recordCount: responseList.length, records: responseList },
           res.statusCode
         )
@@ -356,7 +356,7 @@ const resetPassword = async (req, res) => {
     // Send the response
     return res
       .status(200)
-      .json(success("Password reset succesfully", null, res.statusCode));
+      .json(success("Password reset successfully", null, res.statusCode));
   } catch (err) {
     res.status(500).json(error(`${err.message}`, res.statusCode));
   }
