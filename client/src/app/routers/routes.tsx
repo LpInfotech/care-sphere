@@ -1,4 +1,4 @@
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import { Route, Routes } from "react-router-dom";
 import Login from "../pages/auth/login/login";
 import React from "react";
 import CreatePassword from "../pages/auth/login/create-password";
