@@ -1,11 +1,11 @@
-const { success, error } = require("../utils/responseApi");
-const { statusTypes } = require("../utils/constants");
-const User = require("../models/user.model");
-const bcrypt = require("bcryptjs");
-const Verification = require("../models/verification.model");
-const { generateToken } = require("../utils/jwt");
-const { v4: uuidv4 } = require("uuid");
-const nodemailer = require("nodemailer");
+const { success, error } = require('../utils/responseApi');
+const { statusTypes } = require('../utils/constants');
+const User = require('../models/user.model');
+const bcrypt = require('bcryptjs');
+const Verification = require('../models/verification.model');
+const { generateToken } = require('../utils/jwt');
+const { v4: uuidv4 } = require('uuid');
+const nodemailer = require('nodemailer');
 
 /**
  * @desc    Login a user
@@ -13,61 +13,51 @@ const nodemailer = require("nodemailer");
  * @access  public
  */
 const login = async (req, res) => {
-  /*  #swagger.tags = ['Users']
+	/*  #swagger.tags = ['Users']
        #swagger.description = '' */
-  const { email, password } = req.body;
+	const { email, password } = req.body;
 
-  try {
-    const user = await User.findOne({ email });
+	try {
+		const user = await User.findOne({ email });
 
-    // Check the email
-    // If email not exist
-    // Throw the error
-    if (!user)
-      return res
-        .status(401)
-        .json(error(statusTypes.INCORRECT_CREDENTIAL, res.statusCode));
+		// Check the email
+		// If email not exist
+		// Throw the error
+		if (!user) return res.status(401).json(error(statusTypes.INCORRECT_CREDENTIAL, res.statusCode));
 
-    if (!user.password) {
-      return res
-        .status(401)
-        .json(error(statusTypes.CREATE_PASSWORD, res.statusCode));
-    }
+		if (!user.password) {
+			return res.status(401).json(error(statusTypes.CREATE_PASSWORD, res.statusCode));
+		}
 
-    //check if password is matched
-    let checkPassword = await bcrypt.compareSync(password, user.password);
+		//check if password is matched
+		let checkPassword = await bcrypt.compareSync(password, user.password);
 
-    // Check the password
-    // If password is not matched
-    // Throw the error
-    if (!checkPassword)
-      return res
-        .status(401)
-        .json(error(statusTypes.INCORRECT_CREDENTIAL, res.statusCode));
+		// Check the password
+		// If password is not matched
+		// Throw the error
+		if (!checkPassword) return res.status(401).json(error(statusTypes.INCORRECT_CREDENTIAL, res.statusCode));
 
-    // If the requirement above pass
-    // Lets send the response with JWT token in it
-    const payload = {
-      user: {
-        id: user._id,
-      },
-    };
+		// If the requirement above pass
+		// Lets send the response with JWT token in it
+		const payload = {
+			user: {
+				id: user._id
+			}
+		};
 
-    //create token
-    const token = await generateToken(payload);
-    if (token) {
-      res.cookie("Authorization", token, {
-        httpOnly: true,
-        secure: true,
-      });
-    }
+		//create token
+		const token = await generateToken(payload);
+		if (token) {
+			res.cookie('Authorization', token, {
+				httpOnly: true,
+				secure: true
+			});
+		}
 
-    return res
-      .status(200)
-      .json(success(statusTypes.LOGIN_SUCCESS, { token }, res.statusCode));
-  } catch (err) {
-    res.status(500).json(error(err.message, res.statusCode));
-  }
+		return res.status(200).json(success(statusTypes.LOGIN_SUCCESS, { token }, res.statusCode));
+	} catch (err) {
+		res.status(500).json(error(err.message, res.statusCode));
+	}
 };
 
 /**
@@ -76,77 +66,61 @@ const login = async (req, res) => {
  * @access  public
  */
 const createPassword = async (req, res) => {
-  /*  #swagger.tags = ['Users']
+	/*  #swagger.tags = ['Users']
        #swagger.description = '' */
-  const token = req.params.token;
+	const token = req.params.token;
 
-  // Check the token first
-  if (!token)
-    return res
-      .status(401)
-      .json(error(statusTypes.TOKEN_REQUIRED, res.statusCode));
+	// Check the token first
+	if (!token) return res.status(401).json(error(statusTypes.TOKEN_REQUIRED, res.statusCode));
 
-  const { password } = req.body;
+	const { password } = req.body;
 
-  // Check the password
-  if (!password)
-    return res
-      .status(422)
-      .json(error(statusTypes.PASSWORD_REQUIRED, res.statusCode));
+	// Check the password
+	if (!password) return res.status(422).json(error(statusTypes.PASSWORD_REQUIRED, res.statusCode));
 
-  try {
-    let verification = await Verification.findOne({
-      token,
-      type: "EMPTY PASSWORD",
-    });
+	try {
+		let verification = await Verification.findOne({
+			token,
+			type: 'EMPTY PASSWORD'
+		});
 
-    // Check the verification data
-    if (!verification)
-      return res
-        .status(400)
-        .json(
-          error("Token / Data that you input is not valid", res.statusCode)
-        );
+		// Check the verification data
+		if (!verification) return res.status(400).json(error('Token / Data that you input is not valid', res.statusCode));
 
-    // If there's verification data
-    // Let's find the user first
-    const user = await User.findById(verification.userId);
+		// If there's verification data
+		// Let's find the user first
+		const user = await User.findById(verification.userId);
 
-    // Check the user, just in case
-    if (!user)
-      return res.status(404).json(error("User not found", res.statusCode));
+		// Check the user, just in case
+		if (!user) return res.status(404).json(error('User not found', res.statusCode));
 
-    // Check the user email
+		// Check the user email
 
-    const hashedPassword = bcrypt.hashSync(password, 10);
+		const hashedPassword = bcrypt.hashSync(password, 10);
 
-    const newUser = await User.findByIdAndUpdate(user._id, {
-      $set: {
-        password: hashedPassword,
-        verified: true,
-        verifiedAt: new Date(),
-      },
-    });
+		const newUser = await User.findByIdAndUpdate(user._id, {
+			$set: {
+				password: hashedPassword,
+				verified: true,
+				verifiedAt: new Date()
+			}
+		});
 
-    // Lets delete the verification data
-    verification = await Verification.findByIdAndDelete(verification._id);
+		// Lets delete the verification data
+		verification = await Verification.findByIdAndDelete(verification._id);
 
-    // Send the response
-    return res
-      .status(200)
-      .json(
-        success("Your account verified Successfully", null, res.statusCode)
-      );
-  } catch (err) {
-    res.status(500).json(error(`${err.message}`, res.statusCode));
-  }
+		// Send the response
+		return res.status(200).json(success('Your account verified Successfully', null, res.statusCode));
+	} catch (err) {
+		res.status(500).json(error(`${err.message}`, res.statusCode));
+	}
 };
 
 const getUsers = async (req, res) => {
-  /*  #swagger.tags = ['Users']
+	/*  #swagger.tags = ['Users']
 		 #swagger.description = '' */
-  try {
-    /*  #swagger.parameters['isActive'] = {
+	try {
+		/*  #swagger.parameters['isActive'] = {
 			  "name": "isActive",
 			  "in": "query",
 			  "description": "isActive values that need to be considered for filter",
@@ -156,31 +130,31 @@ const getUsers = async (req, res) => {
 			  "enum": [true, false],
 	  } */
 
-    let responseList;
+		let responseList;
 
-    if (req.query.isActive === undefined) {
-      responseList = await User.find().exec();
-    } else {
-      responseList = await User.find({ isActive: req.query.isActive }).exec();
-    }
+		if (req.query.isActive === undefined) {
+			responseList = await User.find().exec();
+		} else {
+			responseList = await User.find({ isActive: req.query.isActive }).exec();
+		}
 
-    return res
-      .status(200)
-      .json(
-        success(
-          `Users fetched successfully`,
-          { recordCount: responseList.length, records: responseList },
-          res.statusCode
-        )
-      );
-  } catch (err) {
-    return res.status(500).json(error(`${err.message}`, res.statusCode));
-  }
+		return res
+			.status(200)
+			.json(
+				success(
+					`Users fetched successfully`,
+					{ recordCount: responseList.length, records: responseList },
+					res.statusCode
+				)
+			);
+	} catch (err) {
+		return res.status(500).json(error(`${err.message}`, res.statusCode));
+	}
 };
 
 // email template
 function emailTemplate({ token }) {
-  return `
+	return `
 	  <table border="0" cellpadding="0" cellspacing="0" width="100%" style="background-color: #f4f4f4; padding: 48px;">
   <tr>
     <td align="center">
@@ -228,144 +202,121 @@ function emailTemplate({ token }) {
  */
 
 const forgotPassword = async (req, res) => {
-  /*  #swagger.tags = ['Users']
+	/*  #swagger.tags = ['Users']
        #swagger.description = '' */
-  try {
-    /*  #swagger.parameters['body'] = {
+	try {
+		/*  #swagger.parameters['body'] = {
                 in: 'body',
                 description: '',
                 schema: { email : "test@gmail.com"}
         } */
-    const user = await User.findOne({ email: req.body.email });
+		const user = await User.findOne({ email: req.body.email });
 
-    if (!user)
-      return res
-        .status(401)
-        .json(error("This email doesn't exist", res.statusCode));
+		if (!user) return res.status(401).json(error("This email doesn't exist", res.statusCode));
 
-    if (!user.password) {
-      return res
-        .status(401)
-        .json(error("You have not created any password yet.", res.statusCode));
-    }
+		if (!user.password) {
+			return res.status(401).json(error('You have not created any password yet.', res.statusCode));
+		}
 
-    // Save token for user to start verifying the account
-    let verification = new Verification({
-      token: uuidv4(),
-      userId: user._id,
-      type: "EMPTY PASSWORD",
-    });
+		// Save token for user to start verifying the account
+		let verification = new Verification({
+			token: uuidv4(),
+			userId: user._id,
+			type: 'EMPTY PASSWORD'
+		});
 
-    let token = verification.token;
+		let token = verification.token;
 
-    // Save the verification data
-    await verification.save();
+		// Save the verification data
+		await verification.save();
 
-    // create transporter
-    const transporter = nodemailer.createTransport({
-      service: "Gmail",
-      auth: {
-        user: process.env.ADMIN_EMAIL,
-        pass: process.env.ADMIN_PASSWORD,
-      },
-    });
+		// create transporter
+		const transporter = nodemailer.createTransport({
+			service: 'Gmail',
+			auth: {
+				user: process.env.ADMIN_EMAIL,
+				pass: process.env.ADMIN_PASSWORD
+			}
+		});
 
-    // create mail-options
-    const mailOptions = {
-      from: process.env.ADMIN_EMAIL,
-      to: req.body.email,
-      subject: "Update Password",
-      html: emailTemplate({ token }),
-    };
+		// create mail-options
+		const mailOptions = {
+			from: process.env.ADMIN_EMAIL,
+			to: req.body.email,
+			subject: 'Update Password',
+			html: emailTemplate({ token })
+		};
 
-    transporter.sendMail(mailOptions, async function (error, info) {
-      if (error) {
-        return res.status(400).send({
-          error: statusTypes.SOMETHING_WENT_WRONG,
-        });
-      } else {
-        // Send the response to server
-        res
-          .status(201)
-          .json(
-            success("Email to reset password sent successfully", res.statusCode)
-          );
-      }
-    });
-  } catch (err) {
-    return res.status(500).json(error(`${err.message}`, res.statusCode));
-  }
+		transporter.sendMail(mailOptions, async function (error, info) {
+			if (error) {
+				return res.status(400).send({
+					error: statusTypes.SOMETHING_WENT_WRONG
+				});
+			} else {
+				// Send the response to server
+				res.status(201).json(success('Email to reset password sent successfully', res.statusCode));
+			}
+		});
+	} catch (err) {
+		return res.status(500).json(error(`${err.message}`, res.statusCode));
+	}
 };
 
 const resetPassword = async (req, res) => {
-  /*  #swagger.tags = ['Users']
+	/*  #swagger.tags = ['Users']
       #swagger.description = '' */
-  const token = req.params.token;
+	const token = req.params.token;
 
-  // Check the token first
-  if (!token)
-    return res
-      .status(401)
-      .json(error(statusTypes.TOKEN_REQUIRED, res.statusCode));
+	// Check the token first
+	if (!token) return res.status(401).json(error(statusTypes.TOKEN_REQUIRED, res.statusCode));
 
-  const { password } = req.body;
+	const { password } = req.body;
 
-  // Check the password
-  if (!password)
-    return res
-      .status(422)
-      .json(error(statusTypes.PASSWORD_REQUIRED, res.statusCode));
+	// Check the password
+	if (!password) return res.status(422).json(error(statusTypes.PASSWORD_REQUIRED, res.statusCode));
 
-  try {
-    let verification = await Verification.findOne({
-      token,
-      type: "EMPTY PASSWORD",
-    });
+	try {
+		let verification = await Verification.findOne({
+			token,
+			type: 'EMPTY PASSWORD'
+		});
 
-    // Check the verification data
-    if (!verification)
-      return res
-        .status(400)
-        .json(
-          error("Token / Data that you input is not valid", res.statusCode)
-        );
+		// Check the verification data
+		if (!verification) return res.status(400).json(error('Token / Data that you input is not valid', res.statusCode));
 
-    // If there's verification data
-    // Let's find the user first
-    const user = await User.findById(verification.userId);
+		// If there's verification data
+		// Let's find the user first
+		const user = await User.findById(verification.userId);
 
-    // Check the user, just in case
-    if (!user)
-      return res.status(404).json(error("User not found", res.statusCode));
+		// Check the user, just in case
+		if (!user) return res.status(404).json(error('User not found', res.statusCode));
 
-    // Check the user email
+		// Check the user email
 
-    const hashedPassword = bcrypt.hashSync(password, 10);
+		const hashedPassword = bcrypt.hashSync(password, 10);
 
-    const newUser = await User.findByIdAndUpdate(user._id, {
-      $set: {
-        password: hashedPassword,
-        verified: true,
-        verifiedAt: new Date(),
-      },
-    });
+		const newUser = await User.findByIdAndUpdate(user._id, {
+			$set: {
+				password: hashedPassword,
+				verified: true,
+				verifiedAt: new Date()
+			}
+		});
 
-    // Let's delete the verification data
-    verification = await Verification.findByIdAndDelete(verification._id);
+		// Let's delete the verification data
+		verification = await Verification.findByIdAndDelete(verification._id);
 
-    // Send the response
-    return res
-      .status(200)
-      .json(success("Password reset successfully", null, res.statusCode));
-  } catch (err) {
-    res.status(500).json(error(`${err.message}`, res.statusCode));
-  }
+		// Send the response
+		return res.status(200).json(success('Password reset successfully', null, res.statusCode));
+	} catch (err) {
+		res.status(500).json(error(`${err.message}`, res.statusCode));
+	}
 };
 
 module.exports = {
-  login,
-  createPassword,
-  getUsers,
-  resetPassword,
-  forgotPassword,
+	login,
+	createPassword,
+	getUsers,
+	resetPassword,
+	forgotPassword
 };
