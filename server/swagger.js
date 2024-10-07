@@ -76,7 +76,7 @@ const config = {
 			isTerminate: false,
 			terminateDate: '',
 			terminateNote: '',
-			reasonForeLeave: '',
+			reasonForLeave: '',
 			returnDate: '',
 			password: '',
 			verified: false,

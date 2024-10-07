@@ -1,5 +1,6 @@
 const { success, error } = require('../utils/responseApi');
 const positionModel = require('../models/position.model');
+const roleModel = require('../models/role.model');
 
 const createPosition = async (req, res) => {
 	/*  #swagger.tags = ['Positions']
@@ -41,35 +42,135 @@ const getPositions = async (req, res) => {
             "enum": [true, false],
     } */
 
-		let responseList;
+		/*  #swagger.parameters['page'] = {
+                "name": "page",
+                "in": "query",
+                "description": "Page number for pagination",
+                "required": false,
+                "type": "integer",
+                "default": 1
+        } */
 
-		if (req.query.isActive === undefined) {
-			responseList = await positionModel
-				.find()
-				.populate({
-					path: 'roleId',
-					select: '_id name'
-				})
-				.exec();
-		} else {
-			responseList = await positionModel
-				.find({ isActive: req.query.isActive })
-				.populate({
-					path: 'roleId',
-					select: '_id name'
-				})
-				.exec();
+		/*  #swagger.parameters['limit'] = {
+                "name": "limit",
+                "in": "query",
+                "description": "Number of records per page",
+                "required": false,
+                "type": "integer",
+                "default": 10
+        } */
+
+		/*  #swagger.parameters['search'] = {
+                "name": "search",
+                "in": "query",
+                "description": "Global search term to filter positions by name or code",
+                "required": false,
+                "type": "string",
+        } */
+
+		/*  #swagger.parameters['sortOrder'] = {
+                "name": "sortOrder",
+                "in": "query",
+                "description": "sortOrder by desc or asc",
+                "required": false,
+                "type": "string",
+        } */
+
+		/*  #swagger.parameters['sortBy'] = {
+                "name": "sortBy",
+                "in": "query",
+                "description": "sortBy by field name ,code etc",
+                "required": false,
+                "type": "string",
+        } */
+
+		const { isActive, search, limit = 10, page = 1, sortBy = 'name', sortOrder = 'asc' } = req.query;
+
+		// Define the query object
+		let query = {};
+		if (isActive !== undefined) {
+			query.isActive = isActive === 'true';
 		}
 
-		return res
-			.status(200)
-			.json(
-				success(
-					`Positions fetched successfully`,
-					{ recordCount: responseList.length, records: responseList },
-					res.statusCode
-				)
-			);
+		// Prepare roleId search
+		let roleIds = [];
+		if (search) {
+			const regex = new RegExp(search, 'i'); // 'i' for case-insensitive search
+
+			// First, search for matching roles
+			const roles = await roleModel.find({ name: regex }).select('_id').exec();
+			roleIds = roles.map((role) => role._id);
+
+			// Check if search is numeric for code field
+			const isNumericSearch = !isNaN(search) && !isNaN(parseFloat(search));
+			query = {
+				...query,
+				$or: [
+					{ name: regex },
+					...(isNumericSearch ? [{ code: parseFloat(search) }] : []),
+					...(roleIds.length > 0 ? [{ roleId: { $in: roleIds } }] : [])
+				]
+			};
+		}
+
+		// Pagination
+		const pagination = {
+			limit: parseInt(limit),
+			skip: (page - 1) * limit
+		};
+
+		// Sort by roleId.name or other fields
+		const sortOptions = {};
+		if (sortBy === 'roleId.name') {
+			sortOptions['roleId.name'] = sortOrder === 'asc' ? 1 : -1;
+		} else {
+			sortOptions[sortBy] = sortOrder === 'asc' ? 1 : -1;
+		}
+
+		// Aggregation to allow sorting by populated field `roleId.name`
+		const responseList = await positionModel.aggregate([
+			{ $match: query },
+			{
+				$lookup: {
+					from: 'roles', // The collection name of the Role model
+					localField: 'roleId',
+					foreignField: '_id',
+					as: 'roleId'
+				}
+			},
+			{ $unwind: '$roleId' }, // Unwind the array to a single object
+			{
+				$sort: sortOptions // Sorting based on fields, including roleId.name
+			},
+			{
+				$project: {
+					_id: 1,
+					name: 1,
+					code: 1,
+					isActive: 1,
+					roleId: { _id: 1, name: 1 } // Project only _id and name of roleId
+				}
+			},
+			{ $skip: pagination.skip },
+			{ $limit: pagination.limit }
+		]);
+
+		// Get the total number of records matching the query
+		const totalRecords = await positionModel.countDocuments(query);
+
+		return res.status(200).json(
+			success(
+				`Positions fetched successfully`,
+				{
+					recordCount: responseList.length,
+					totalRecords,
+					currentPage: page,
+					totalPages: Math.ceil(totalRecords / limit),
+					records: responseList
+				},
+				res.statusCode
+			)
+		);
 	} catch (err) {
 		return res.status(500).json(error(`${err.message}`, res.statusCode));
 	}

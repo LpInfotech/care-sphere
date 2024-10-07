@@ -131,7 +131,7 @@ const userSchema = new mongoose.Schema({
 	terminateNote: {
 		type: String
 	},
-	reasonForeLeave: {
+	reasonForLeave: {
 		type: String
 	},
 	returnDate: {
