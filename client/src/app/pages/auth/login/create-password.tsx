@@ -44,7 +44,10 @@ const createPassword = () => {
   const basicSchema = yup.object().shape({
     password: yup
       .string()
-      .matches(passwordRegex, " ")
+      .matches(
+        passwordRegex,
+        "Password must contain at least one uppercase letter, one lowercase letter, one digit, one special character, and be at least 6 characters long"
+      )
       .required("This is required"),
     confirmPassword: yup
       .string()
@@ -266,10 +269,17 @@ const createPassword = () => {
                           fontSize: "11px",
                           color: theme.palette.error.main,
                           paddingX: "12px",
+                          marginBottom:
+                            formik.errors.password && formik.touched.password
+                              ? "20px"
+                              : "0px",
                         }}
                       >
                         {formik.errors.password && formik.touched.password && (
-                          <Box component="span" sx={{ position: "absolute" }}>
+                          <Box
+                            component="span"
+                            sx={{ position: "absolute", marginBottom: "20px" }}
+                          >
                             {formik.errors.password}
                           </Box>
                         )}
