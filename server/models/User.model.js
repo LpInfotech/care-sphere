@@ -95,6 +95,9 @@ const userSchema = new mongoose.Schema({
 		type: String,
 		required: true
 	},
+	benefitsStartDate: {
+		type: Date
+	},
 	wellnessDays: {
 		type: String,
 		required: true

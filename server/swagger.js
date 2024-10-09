@@ -63,6 +63,7 @@ const config = {
 			employeeNumber: '123',
 			payType: 'Hourly',
 			statusType: 'Casual',
+			benefitsStartDate:'',
 			wellnessDays: '3',
 			vacationDays: '12',
 			emergencyContacts: [

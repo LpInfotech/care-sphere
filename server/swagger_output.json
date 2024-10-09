@@ -697,6 +697,118 @@
           }
         }
       }
+    },
+    "/api/v1/region/countries": {
+      "get": {
+        "tags": [
+          "Regions"
+        ],
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/api/v1/region/states/{countryCode}": {
+      "get": {
+        "tags": [
+          "Regions"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "countryCode",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/api/v1/region/cities/{stateCode}": {
+      "get": {
+        "tags": [
+          "Regions"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "stateCode",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/api/v1/region/deleteAllCountries": {
+      "delete": {
+        "tags": [
+          "Regions"
+        ],
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/api/v1/region/deleteAllStates": {
+      "delete": {
+        "tags": [
+          "Regions"
+        ],
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/api/v1/region/deleteAllCities": {
+      "delete": {
+        "tags": [
+          "Regions"
+        ],
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
     }
   },
   "definitions": {
@@ -843,6 +955,10 @@
         "statusType": {
           "type": "string",
           "example": "Casual"
+        },
+        "benefitsStartDate": {
+          "type": "string",
+          "example": ""
         },
         "wellnessDays": {
           "type": "string",

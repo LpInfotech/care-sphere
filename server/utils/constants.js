@@ -17,7 +17,10 @@ const schemaTitle = {
 	POSITION: 'Position',
 	ROLE: 'Role',
 	USER: 'User',
-	VERIFICATION: 'Verification'
+	VERIFICATION: 'Verification',
+	COUNTRY: 'Country',
+	STATE: 'State',
+	CITY: 'City'
 };
 
 module.exports = { statusTypes, schemaTitle };
