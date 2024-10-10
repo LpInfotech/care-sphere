@@ -19,34 +19,27 @@ const userSchema = new mongoose.Schema({
 	},
 	secondaryEmailAddress: {
 		type: String,
-		required: true
 	},
 	address: {
 		streetAddress: {
 			type: String,
-			required: true
 		},
 		province: {
 			type: String,
-			required: true
 		},
 		city: {
 			type: String,
-			required: true
 		},
 		postCode: {
 			type: String,
-			required: true
 		},
 		country: {
 			type: String,
-			required: true
 		}
 	},
 	mobileNumber: [
 		{
 			type: String,
-			required: true
 		}
 	],
 	isActive: {
@@ -55,12 +48,14 @@ const userSchema = new mongoose.Schema({
 	},
 	roleId: {
 		type: mongoose.Schema.Types.ObjectId,
-		ref: schemaTitle.ROLE
+		ref: schemaTitle.ROLE,
+		required: true
 	},
 	positionId: [
 		{
 			type: mongoose.Schema.Types.ObjectId,
-			ref: schemaTitle.POSITION
+			ref: schemaTitle.POSITION,
+			required: true
 		}
 	],
 	division: {
@@ -69,11 +64,9 @@ const userSchema = new mongoose.Schema({
 	},
 	divisionSupervisor: {
 		type: String,
-		required: true
 	},
 	allergies: {
 		type: String,
-		required: true
 	},
 	doYouDrive: {
 		type: Boolean
@@ -100,25 +93,20 @@ const userSchema = new mongoose.Schema({
 	},
 	wellnessDays: {
 		type: String,
-		required: true
 	},
 	vacationDays: {
 		type: String,
-		required: true
 	},
 	emergencyContacts: [
 		{
 			name: {
 				type: String,
-				required: true
 			},
 			phone: {
 				type: String,
-				required: true
 			},
 			relationship: {
 				type: String,
-				required: true
 			}
 		}
 	],
