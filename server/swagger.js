@@ -24,6 +24,10 @@ const config = {
 		{
 			name: 'Users',
 			description: 'Users List'
+		},
+		{
+			name: 'Regions',
+			description: 'Regions List'
 		}
 	],
 	definitions: {
