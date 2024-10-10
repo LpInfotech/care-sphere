@@ -1,6 +1,6 @@
 const { success, error } = require('../utils/responseApi');
 const { statusTypes } = require('../utils/constants');
-const User = require('../models/user.model');
+const User = require('../models/user.model.js');
 const bcrypt = require('bcryptjs');
 const Verification = require('../models/verification.model');
 const { generateToken } = require('../utils/jwt');
@@ -313,10 +313,51 @@ const resetPassword = async (req, res) => {
 	}
 };
 
+const getUserProfile = async (req, res) => {
+	/*  #swagger.tags = ['Users']
+      #swagger.description = '
+	  ' */
+	try {
+		const user = await User.findById(req.user.id).select('-password');
+		// Check the user just in case
+		if (!user) {
+			return res.status(404).json(error('User not found', res.statusCode));
+		} else {
+			return res.status(200).json(success(`Fetched user profile Successfully`, { user: user }, res.statusCode));
+		}
+	} catch (err) {
+		console.log(err.message);
+		return res.status(500).json(error(err.message, res.statusCode));
+	}
+};
+
+const updateUserById = async (req, res) => {
+	/*  #swagger.tags = ['Users']
+      #swagger.description = '' 
+	 */
+	try {
+		/*  #swagger.parameters['body'] = {
+                in: 'body',
+                description: '',
+                schema: { $ref: '#/definitions/User' }
+        } */
+		const userId = req.params.id;
+		const updateData = { ...req.body }; // Spread all fields from the request body
+
+
+		const updateUser = await User.findByIdAndUpdate(userId, updateData, { new: true }).select('-password -email');
+		return res.status(200).json(success(`Updated user Successfully`, { user: updateUser }, res.statusCode));
+	} catch (err) {
+		return res.status(500).json(error(err.message, res.statusCode));
+	}
+};
+
 module.exports = {
 	login,
 	createPassword,
 	getUsers,
 	resetPassword,
-	forgotPassword
+	forgotPassword,
+	getUserProfile,
+	updateUserById
 };
