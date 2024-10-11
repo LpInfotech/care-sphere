@@ -1085,7 +1085,7 @@ function UserInfo() {
                                       components={["DatePicker"]}
                                       sx={{
                                         height: "100%",
-                                        marginTop: "-8px",
+                                        marginTop: { xs: 0, lg: "-8px" },
                                         overflow: "hidden",
                                       }}
                                     >
@@ -1164,7 +1164,7 @@ function UserInfo() {
                                         event.target.value
                                       )
                                     }
-                                    sx={{ marginBottom: 5, display: "block" }}
+                                    sx={{ display: "block" }}
                                   >
                                     <FormControlLabel
                                       value="Salary"
@@ -1485,7 +1485,7 @@ function UserInfo() {
                                       components={["DatePicker"]}
                                       sx={{
                                         height: "100%",
-                                        marginTop: "-8px",
+                                        marginTop: { xs: 0, lg: "-8px" },
                                         overflow: "hidden",
                                       }}
                                     >
