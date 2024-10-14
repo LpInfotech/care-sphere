@@ -14,6 +14,7 @@ const cors = require('cors');
 const countryModel = require('./models/Country.model');
 const stateModel = require('./models/State.model');
 const cityModel = require('./models/City.model');
+const divisionRouter = require('./routes/division.route');
 const { Country, State, City } = require('country-state-city');
 
 // parse json request body
@@ -22,7 +23,7 @@ app.use(express.json());
 // parse urlencoded request body
 app.use(express.urlencoded({ extended: true }));
 app.use(cors());
-app.use('/api/v1', roleRouter, positionRouter, userRouter, authRouter, regionRouter);
+app.use('/api/v1', roleRouter, positionRouter, userRouter, authRouter, regionRouter, divisionRouter);
 app.use('/api/v1/doc', swaggerUi.serve, swaggerUi.setup(swaggerFile));
 
 connectToDb();

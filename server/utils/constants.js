@@ -20,7 +20,8 @@ const schemaTitle = {
 	VERIFICATION: 'Verification',
 	COUNTRY: 'Country',
 	STATE: 'State',
-	CITY: 'City'
+	CITY: 'City',
+	DIVISION: 'Division'
 };
 
 module.exports = { statusTypes, schemaTitle };

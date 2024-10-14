@@ -23,6 +23,10 @@
     {
       "name": "Regions",
       "description": "Regions List"
+    },
+    {
+      "name": "Divisions",
+      "description": "Divisions List"
     }
   ],
   "schemes": [
@@ -886,6 +890,201 @@
           }
         }
       }
+    },
+    "/api/v1/divisions": {
+      "post": {
+        "tags": [
+          "Divisions"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/Division"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Created"
+          },
+          "409": {
+            "description": "Conflict"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "Divisions"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "isActive",
+            "in": "query",
+            "description": "isActive values that need to be considered for filter",
+            "required": false,
+            "type": "boolean",
+            "enum": [
+              true,
+              false
+            ]
+          },
+          {
+            "name": "search",
+            "in": "query",
+            "description": "Search term to filter divisions",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "description": "Page number for pagination",
+            "required": false,
+            "type": "integer",
+            "default": 1
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "description": "Number of records per page",
+            "required": false,
+            "type": "integer",
+            "default": 10
+          },
+          {
+            "name": "sortBy",
+            "in": "query",
+            "description": "Field to sort by",
+            "required": false,
+            "type": "string",
+            "default": ""
+          },
+          {
+            "name": "sortOrder",
+            "in": "query",
+            "description": "Sort order (asc or desc)",
+            "required": false,
+            "type": "string",
+            "enum": [
+              "asc",
+              "desc"
+            ],
+            "default": "asc"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/api/v1/divisions/{id}": {
+      "put": {
+        "tags": [
+          "Divisions"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/Division"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "409": {
+            "description": "Conflict"
+          }
+        }
+      }
+    },
+    "/api/v1/divisions/{id}/archive": {
+      "put": {
+        "tags": [
+          "Divisions"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "409": {
+            "description": "Conflict"
+          }
+        }
+      }
+    },
+    "/api/v1/divisions/{id}/unarchive": {
+      "put": {
+        "tags": [
+          "Divisions"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "409": {
+            "description": "Conflict"
+          }
+        }
+      }
+    },
+    "/api/v1/divisions/deleteAllDivisions": {
+      "delete": {
+        "tags": [
+          "Divisions"
+        ],
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
     }
   },
   "definitions": {
@@ -1100,6 +1299,23 @@
         "verifiedAt": {
           "type": "string",
           "example": ""
+        }
+      }
+    },
+    "Division": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "example": "division-name"
+        },
+        "coordinatorId": {
+          "type": "string",
+          "example": "66dafcc7985b4581b2716913"
+        },
+        "code": {
+          "type": "number",
+          "example": 123
         }
       }
     }

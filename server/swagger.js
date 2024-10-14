@@ -28,6 +28,10 @@ const config = {
 		{
 			name: 'Regions',
 			description: 'Regions List'
+		},
+		{
+			name: 'Divisions',
+			description: 'Divisions List'
 		}
 	],
 	definitions: {
@@ -86,7 +90,12 @@ const config = {
 			password: '',
 			verified: false,
 			verifiedAt: ''
-		}
+		},
+		Division: {
+			name: 'division-name',
+			coordinatorId: '66dafcc7985b4581b2716913',
+			code: 123,
+		},
 	},
 	securityDefinitions: {
 		Bearer: {

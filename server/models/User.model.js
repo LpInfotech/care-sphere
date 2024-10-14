@@ -13,6 +13,9 @@ const userSchema = new mongoose.Schema({
 		type: String,
 		required: true
 	},
+	fullName:{
+		type: String,
+	},
 	email: {
 		type: String,
 		required: true
@@ -140,6 +143,16 @@ const userSchema = new mongoose.Schema({
 	verifiedAt: {
 		type: Date
 	},
+});
+
+// Pre-save hook to set fullName
+userSchema.pre('save', function(next) {
+	if (this.firstName && this.lastName) {
+		this.fullName = `${this.firstName} ${this.lastName}`;
+	} else {
+		this.fullName = ''; // Or set to null/undefined if preferred
+	}
+	next();
 });
 
 const User = mongoose.models.User || mongoose.model(schemaTitle.USER, userSchema);
