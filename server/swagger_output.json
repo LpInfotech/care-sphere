@@ -702,7 +702,7 @@
         }
       }
     },
-    "/api/v1/users/profile/{id}": {
+    "/api/v1/users/{id}/profile": {
       "get": {
         "tags": [
           "Users"
@@ -737,7 +737,7 @@
         }
       }
     },
-    "/api/v1/users/User/{id}": {
+    "/api/v1/users/{id}/User": {
       "put": {
         "tags": [
           "Users"
@@ -769,7 +769,7 @@
         }
       }
     },
-    "/api/v1/region/countries": {
+    "/api/v1/regions/countries": {
       "get": {
         "tags": [
           "Regions"
@@ -785,7 +785,7 @@
         }
       }
     },
-    "/api/v1/region/{countryCode}/states": {
+    "/api/v1/regions/{countryCode}/states": {
       "get": {
         "tags": [
           "Regions"
@@ -809,7 +809,7 @@
         }
       }
     },
-    "/api/v1/region/{countryCode}/{stateCode}/cities": {
+    "/api/v1/regions/{countryCode}/{stateCode}/cities": {
       "get": {
         "tags": [
           "Regions"
@@ -839,7 +839,7 @@
         }
       }
     },
-    "/api/v1/region/deleteAllCountries": {
+    "/api/v1/regions/deleteAllCountries": {
       "delete": {
         "tags": [
           "Regions"
@@ -855,7 +855,7 @@
         }
       }
     },
-    "/api/v1/region/deleteAllStates": {
+    "/api/v1/regions/deleteAllStates": {
       "delete": {
         "tags": [
           "Regions"
@@ -871,7 +871,7 @@
         }
       }
     },
-    "/api/v1/region/deleteAllCities": {
+    "/api/v1/regions/deleteAllCities": {
       "delete": {
         "tags": [
           "Regions"

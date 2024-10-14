@@ -19,7 +19,7 @@ router.put('/users/resetPassword/:token', resetPassword);
 router.get('/users', getUsers);
 router.get('/users/verification/:token', getVerification);
 router.delete('/users/deleteAllVerifications', deleteAllVerifications);
-router.get('/users/profile/:id', getDataFromToken, getUserProfile);
-router.put('/users/User/:id', updateUserById);
+router.get('/users/:id/profile', getDataFromToken, getUserProfile);
+router.put('/users/:id/User', updateUserById);
 
 module.exports = router;

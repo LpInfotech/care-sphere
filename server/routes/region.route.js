@@ -10,11 +10,11 @@ const {
 
 const router = express.Router();
 
-router.get('/region/countries', getCountries);
-router.get('/region/:countryCode/states', getStates);
-router.get('/region/:countryCode/:stateCode/cities', getCities);
-router.delete('/region/deleteAllCountries', deleteAllCountries);
-router.delete('/region/deleteAllStates', deleteAllStates);
-router.delete('/region/deleteAllCities', deleteAllCities);
+router.get('/regions/countries', getCountries);
+router.get('/regions/:countryCode/states', getStates);
+router.get('/regions/:countryCode/:stateCode/cities', getCities);
+router.delete('/regions/deleteAllCountries', deleteAllCountries);
+router.delete('/regions/deleteAllStates', deleteAllStates);
+router.delete('/regions/deleteAllCities', deleteAllCities);
 
 module.exports = router;
