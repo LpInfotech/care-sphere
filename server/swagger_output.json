@@ -785,7 +785,7 @@
         }
       }
     },
-    "/api/v1/region/states/{countryCode}": {
+    "/api/v1/region/{countryCode}/states": {
       "get": {
         "tags": [
           "Regions"
@@ -809,7 +809,7 @@
         }
       }
     },
-    "/api/v1/region/{countryCode}/cities/{stateCode}": {
+    "/api/v1/region/{countryCode}/{stateCode}/cities": {
       "get": {
         "tags": [
           "Regions"

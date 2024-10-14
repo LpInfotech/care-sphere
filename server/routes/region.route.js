@@ -11,8 +11,8 @@ const {
 const router = express.Router();
 
 router.get('/region/countries', getCountries);
-router.get('/region/states/:countryCode', getStates);
-router.get('/region/:countryCode/cities/:stateCode', getCities);
+router.get('/region/:countryCode/states', getStates);
+router.get('/region/:countryCode/:stateCode/cities', getCities);
 router.delete('/region/deleteAllCountries', deleteAllCountries);
 router.delete('/region/deleteAllStates', deleteAllStates);
 router.delete('/region/deleteAllCities', deleteAllCities);
