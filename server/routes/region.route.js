@@ -12,7 +12,7 @@ const router = express.Router();
 
 router.get('/region/countries', getCountries);
 router.get('/region/states/:countryCode', getStates);
-router.get('/region/cities/:stateCode', getCities);
+router.get('/region/:countryCode/cities/:stateCode', getCities);
 router.delete('/region/deleteAllCountries', deleteAllCountries);
 router.delete('/region/deleteAllStates', deleteAllStates);
 router.delete('/region/deleteAllCities', deleteAllCities);

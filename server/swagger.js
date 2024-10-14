@@ -6,7 +6,7 @@ const config = {
 	info: {
 		version: '1.0.0',
 		title: 'Care Sphere API Documentation',
-		description: 'Description'
+		description: 'Care Sphere API Documentation'
 	},
 	host: 'localhost:3000',
 	schemes: ['http', 'https'],

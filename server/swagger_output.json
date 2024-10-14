@@ -3,7 +3,7 @@
   "info": {
     "version": "1.0.0",
     "title": "Care Sphere API Documentation",
-    "description": "Description"
+    "description": "Care Sphere API Documentation"
   },
   "host": "localhost:3000",
   "basePath": "/",
@@ -809,13 +809,19 @@
         }
       }
     },
-    "/api/v1/region/cities/{stateCode}": {
+    "/api/v1/region/{countryCode}/cities/{stateCode}": {
       "get": {
         "tags": [
           "Regions"
         ],
         "description": "",
         "parameters": [
+          {
+            "name": "countryCode",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
           {
             "name": "stateCode",
             "in": "path",

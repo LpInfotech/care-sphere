@@ -39,7 +39,7 @@ const getCities = async (req, res) => {
        #swagger.description = '' */
 
 	try {
-		const cities = await cityModel.find({ stateCode: req.params.stateCode.toUpperCase() });
+		const cities = await cityModel.find({ countryCode: req.params.countryCode.toUpperCase(),stateCode: req.params.stateCode.toUpperCase() });
 		return res
 			.status(200)
 			.json(success(`Cities fetched successfully`, { recordCount: cities.length, records: cities }, res.statusCode));
