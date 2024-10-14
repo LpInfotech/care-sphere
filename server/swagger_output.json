@@ -1038,12 +1038,12 @@
           "example": ""
         },
         "wellnessDays": {
-          "type": "string",
-          "example": "3"
+          "type": "number",
+          "example": 1
         },
         "vacationDays": {
-          "type": "string",
-          "example": "12"
+          "type": "number",
+          "example": 2
         },
         "emergencyContacts": {
           "type": "array",

@@ -67,9 +67,9 @@ const config = {
 			employeeNumber: '123',
 			payType: 'Hourly',
 			statusType: 'Casual',
-			benefitsStartDate:'',
-			wellnessDays: '3',
-			vacationDays: '12',
+			benefitsStartDate: '',
+			wellnessDays: 1,
+			vacationDays: 2,
 			emergencyContacts: [
 				{
 					name: 'David',
@@ -85,7 +85,7 @@ const config = {
 			returnDate: '',
 			password: '',
 			verified: false,
-			verifiedAt: '',
+			verifiedAt: ''
 		}
 	},
 	securityDefinitions: {

@@ -92,10 +92,12 @@ const userSchema = new mongoose.Schema({
 		type: Date
 	},
 	wellnessDays: {
-		type: String,
+		type: Number,
+		required: true
 	},
 	vacationDays: {
-		type: String,
+		type: Number,
+		required: true
 	},
 	emergencyContacts: [
 		{
