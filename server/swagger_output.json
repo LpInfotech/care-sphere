@@ -288,7 +288,7 @@
         }
       }
     },
-    "/api/v1/positions/roles/{id}": {
+    "/api/v1/positions/roles/{roleId}": {
       "get": {
         "tags": [
           "Positions"
@@ -296,7 +296,7 @@
         "description": "",
         "parameters": [
           {
-            "name": "id",
+            "name": "roleId",
             "in": "path",
             "required": true,
             "type": "string"

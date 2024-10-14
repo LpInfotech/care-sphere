@@ -12,7 +12,7 @@ const {
 
 router.get('/positions', getPositions);
 router.post('/positions', createPosition);
-router.get('/positions/roles/:id', getPositionsByRoleId);
+router.get('/positions/roles/:roleId', getPositionsByRoleId);
 router.delete('/positions/deleteAllPositions', deleteAllPositions);
 router.put('/positions/:id', updatePosition);
 router.put('/positions/:id/archive', archivePosition);

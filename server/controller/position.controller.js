@@ -180,7 +180,7 @@ const getPositionsByRoleId = async (req, res) => {
 	/*  #swagger.tags = ['Positions']
        #swagger.description = '' */
 	try {
-		const position = await positionModel.find({ roleId: req.params.id }).select('-roleId -code');
+		const position = await positionModel.find({ roleId: req.params.roleId }).select('-roleId -code');
 		if (!position) {
 			return res.status(409).json(error("This position doesn't exist", res.statusCode));
 		}
