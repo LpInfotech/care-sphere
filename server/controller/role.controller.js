@@ -40,23 +40,91 @@ const getRoles = async (req, res) => {
             "enum": [true, false],
     } */
 
-		let responseList;
+		/*  
+        #swagger.parameters['page'] = {
+            "name": "page",
+            "in": "query",
+            "description": "Page number for pagination",
+            "default": 1,
+            "required": false,
+            "type": "integer"
+        }
+        #swagger.parameters['limit'] = {
+            "name": "limit",
+            "in": "query",
+            "description": "Number of records per page",
+            "default": 10,
+            "required": false,
+            "type": "integer"
+        }
+        #swagger.parameters['search'] = {
+            "name": "search",
+            "in": "query",
+            "description": "Search for roles by name",
+            "default": "",
+            "required": false,
+            "type": "string"
+        }
+        #swagger.parameters['sortBy'] = {
+            "name": "sortBy",
+            "in": "query",
+            "description": "Field to sort by",
+            "default": "",
+            "required": false,
+            "type": "string"
+        }
+        #swagger.parameters['sortOrder'] = {
+            "name": "sortOrder",
+            "in": "query",
+            "description": "Sort order (asc or desc)",
+            "default": "asc",
+            "required": false,
+            "type": "string",
+            "enum": ["asc", "desc"]
+        }
+        */
 
-		if (req.query.isActive === undefined) {
-			responseList = await roleModel.find().exec();
-		} else {
-			responseList = await roleModel.find({ isActive: req.query.isActive }).exec();
+		let { isActive, page = 1, limit = 10, search = '', sortBy = 'name', sortOrder = 'asc' } = req.query;
+		page = parseInt(page);
+		limit = parseInt(limit);
+
+		// Build query conditions
+		const queryConditions = {};
+		if (isActive !== undefined) {
+			queryConditions.isActive = isActive;
+		}
+		if (search) {
+			queryConditions.name = { $regex: search, $options: 'i' }; // case-insensitive search
 		}
 
-		return res
-			.status(200)
-			.json(
-				success(
-					`Roles fetched successfully`,
-					{ recordCount: responseList.length, records: responseList },
-					res.statusCode
-				)
-			);
+		// Sorting
+		const sortCondition = {};
+		sortCondition[sortBy] = sortOrder === 'asc' ? 1 : -1;
+
+		// Get roles with pagination, search, and sorting
+		const responseList = await roleModel
+			.find(queryConditions)
+			.sort(sortCondition)
+			.skip((page - 1) * limit)
+			.limit(limit)
+			.exec();
+
+		// Get total record count for pagination
+		const totalRecords = await roleModel.countDocuments(queryConditions);
+
+		return res.status(200).json(
+			success(
+				`Roles fetched successfully`,
+				{
+					recordCount: responseList.length,
+					totalRecords,
+					currentPage: page,
+					totalPages: Math.ceil(totalRecords / limit),
+					records: responseList
+				},
+				res.statusCode
+			)
+		);
 	} catch (err) {
 		return res.status(500).json(error(`${err.message}`, res.statusCode));
 	}
